@@ -6,11 +6,11 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const servicesToChoose = [
-  {
-    serviceId: 
-  }
-]
+// const servicesToChoose = [
+//   {
+//     serviceId:
+//   }
+// ]
 
 var serviceRequests = [
   {
@@ -41,7 +41,7 @@ app.post("/service-requests", function (req, res) {
     newService.subject === "" ||
     newService.description === ""
   ) {
-    res.status(500).send({
+    res.status(404).send({
       error: "Your service request must have a subject and description",
     });
   } else {
@@ -62,7 +62,7 @@ app.put("/service-requests/:id", function (req, res) {
     serviceRequests[index].description = editService.description;
     res.status(200).send(serviceRequests);
   } else {
-    res.status(500).send({
+    res.status(404).send({
       error: "Your service request is not in our database",
     });
   }
@@ -77,7 +77,7 @@ app.delete("/service-requests/:id", function (req, res) {
     serviceRequests.splice(index, 1);
     res.status(200).send(serviceRequests);
   } else {
-    res.status(500).send({
+    res.status(404).send({
       error: "Your service request is not in our database",
     });
   }
