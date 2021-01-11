@@ -6,12 +6,15 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+<<<<<<< HEAD
 // const servicesToChoose = [
 //   {
 //     serviceId:
 //   }
 // ]
 
+=======
+>>>>>>> d5a734dfba5a87a30fb720ab2c2def621b9132b8
 var serviceRequests = [
   {
     id: "1",
