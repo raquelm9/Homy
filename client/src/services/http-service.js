@@ -11,6 +11,21 @@ class HttpService {
     });
     return promise;
   };
+
+  addServiceRequest = (data) => {
+    var promise = new Promise((resolve, reject) => {
+      fetch(endPoints, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((res) => {
+        resolve(res.json());
+      });
+    });
+    return promise;
+  };
 }
 
 export default HttpService;
