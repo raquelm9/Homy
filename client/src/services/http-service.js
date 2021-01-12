@@ -13,6 +13,7 @@ class HttpService {
   };
 
   addServiceRequest = (data) => {
+    console.log(data);
     var promise = new Promise((resolve, reject) => {
       fetch(endPoints, {
         method: "post",

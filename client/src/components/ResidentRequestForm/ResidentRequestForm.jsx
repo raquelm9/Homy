@@ -67,8 +67,6 @@ function ResidentRequestForm() {
                 </button>
               </div>
             </div>
-
-            <pre>{JSON.stringify(values, null, 2)}</pre>
           </Form>
         )}
       </Formik>
