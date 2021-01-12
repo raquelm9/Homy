@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //Pages
-import MainPage from "../pages/MainPage/MainPage";
-import ResidentRequest from "../pages/ResidentRequest/ResidentRequest";
+import MainPage from "../pages/Residents/MainPage/MainPage";
+import ResidentRequest from "../pages/Residents/ResidentRequest/ResidentRequest";
 
 function App() {
   return (
