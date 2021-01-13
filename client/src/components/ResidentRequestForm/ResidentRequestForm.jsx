@@ -2,8 +2,17 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { residentRequestValidationSchema } from "./validations/resident_request_validations";
 import HttpService from "../../services/http-service";
+import { useHistory } from "react-router-dom";
+
+import "./ResidentRequestForm.css";
 
 function ResidentRequestForm() {
+  const history = useHistory();
+
+  const goBackToRequest = () => {
+    history.push("/resident-request");
+  };
+
   const submitServiceRequest = (data) => {
     const newHttpRequest = new HttpService();
     return newHttpRequest.addServiceRequest(data);
@@ -57,15 +66,29 @@ function ResidentRequestForm() {
             </div>
 
             <div className="form-group row">
-              <div className="col-sm-10">
+              <div className="col-2"></div>
+              <div className="col-8">
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-dark btn-lg btn-block button-center"
                   disabled={isSubmitting}
                 >
                   Submit
                 </button>
               </div>
+              <div className="col-2"></div>
+
+              <div className="col-2"></div>
+              <div className="col-8">
+                <button
+                  onClick={goBackToRequest}
+                  type="button"
+                  className="btn btn-light btn-lg btn-block button-center"
+                >
+                  Cancel
+                </button>
+              </div>
+              <div className="col-2"></div>
             </div>
           </Form>
         )}
