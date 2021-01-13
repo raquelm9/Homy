@@ -3,11 +3,14 @@ import { useHistory } from "react-router-dom";
 
 import "./ServiceType.css";
 
-function ServiceType(props) {
+function ServiceType({ type, icon }) {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push("/resident-service-request");
+    history.push({
+      pathname: "/resident-service-request/",
+      search: "type=" + type,
+    });
   };
 
   return (
@@ -15,10 +18,10 @@ function ServiceType(props) {
       <a onClick={handleClick} className="list-group-item size-type">
         <div className="row">
           <div className="col-4">
-            <i className={`${props.icon} icon-adjust-size`}></i>
+            <i className={`${icon} icon-adjust-size`}></i>
           </div>
           <div className="col-8">
-            <p>{props.type}</p>
+            <p>{type}</p>
           </div>
         </div>
       </a>

@@ -35,11 +35,13 @@ app.post("/service-requests", function (req, res) {
   const newService = req.body;
   if (
     !newService ||
+    newService.date === "" ||
+    newService.type === "" ||
     newService.subject === "" ||
     newService.description === ""
   ) {
     res.status(404).send({
-      error: "Your service request must have a subject and description",
+      error: "Please enter all required information",
     });
   } else {
     serviceRequests.push(newService);
