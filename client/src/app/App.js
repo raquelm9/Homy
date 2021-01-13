@@ -7,6 +7,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import MainPage from "../pages/Residents/MainPage/MainPage";
 import ResidentServiceRequest from "../pages/Residents/ResidentServiceRequest/ResidentServiceRequest";
 import ResidentRequest from "../pages/Residents/ResidentRequest/ResidentRequest";
+import ResidentListRequest from "../pages/Residents/ResidentListRequest/ResidentListRequest";
 
 function App() {
   return (
@@ -18,6 +19,11 @@ function App() {
           exact
           path="/resident-service-request"
           component={ResidentServiceRequest}
+        />
+        <Route
+          exact
+          path="/resident-list-request"
+          component={ResidentListRequest}
         />
       </Switch>
     </Router>

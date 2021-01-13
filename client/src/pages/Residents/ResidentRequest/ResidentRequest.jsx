@@ -1,10 +1,17 @@
 import React from "react";
 import ServiceType from "../../../components/ServiceType/ServiceType";
 import { TypesOfServices } from "../../../components/TypesOfServices/TypesOfServices";
+import { useHistory } from "react-router-dom";
 import "./ResidentRequest.css";
 
 function ResidentRequestType() {
+  const history = useHistory();
+
   const typesOfServices = TypesOfServices;
+
+  const goToRequestList = () => {
+    history.push("/resident-list-request");
+  };
 
   function showTypeOptions(type) {
     return (
@@ -27,7 +34,7 @@ function ResidentRequestType() {
         <div className="row">{typesOfServices.map(showTypeOptions)}</div>
         <div className="row">
           <div className="col-12">
-            <a href="#" className="list-group-item size-type">
+            <a onClick={goToRequestList} className="list-group-item size-type">
               REQUESTED SERVICES
             </a>
           </div>
