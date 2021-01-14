@@ -22,8 +22,8 @@ function ResidentRequestList() {
     console.log(service);
     return (
       <ResidentEachService
-        id={service.id}
-        key={service.id}
+        id={service._id}
+        key={service._id}
         type={service.type}
         subject={service.subject}
         description={service.description}

@@ -1,31 +1,32 @@
 const Request = require('../models/request.model');
-var serviceRequests = [
-    {
-        id: "1",
-        date: "Sep 12 2020",
-        type: "ELECTRICITY",
-        subject: "Complaints/Noise",
-        description: "My neighbor makes a lot of noise at night and I can't sleep",
-    },
-    {
-        id: "2",
-        date: "Sep 12 2020",
-        type: "ELECTRICITY",
-        subject: "Plumbing/ Bath Tub Drains",
-        description: "My bathtub is not draining properly",
-    },
-    {
-        id: "3",
-        date: "Sep 12 2020",
-        type: "ELECTRICITY",
-        subject: "Doors & Locks",
-        description: "I lost my key and I can't get into my apartment",
-    },
-];
+// var serviceRequests = [
+//     {
+//         id: "1",
+//         date: "Sep 12 2020",
+//         type: "ELECTRICITY",
+//         subject: "Complaints/Noise",
+//         description: "My neighbor makes a lot of noise at night and I can't sleep",
+//     },
+//     {
+//         id: "2",
+//         date: "Sep 12 2020",
+//         type: "ELECTRICITY",
+//         subject: "Plumbing/ Bath Tub Drains",
+//         description: "My bathtub is not draining properly",
+//     },
+//     {
+//         id: "3",
+//         date: "Sep 12 2020",
+//         type: "ELECTRICITY",
+//         subject: "Doors & Locks",
+//         description: "I lost my key and I can't get into my apartment",
+//     },
+// ];
 
 exports.getRequest = (req, res ) => {
     
-    res.status(200).send(serviceRequests);
+    Request.find()
+    .then(data => res.send(data))
      
 };
 
