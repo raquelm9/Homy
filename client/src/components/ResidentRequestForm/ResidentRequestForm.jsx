@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage,  } from "formik";
 import { residentRequestValidationSchema } from "./validations/resident_request_validations";
 import HttpService from "../../services/http-service";
 import { useHistory, useLocation } from "react-router-dom";
@@ -31,6 +31,7 @@ function ResidentRequestForm() {
           type: typeRequest,
           subject: "",
           description: "",
+          image: "",
         }}
         validationSchema={residentRequestValidationSchema}
         onSubmit={(data, { setSubmitting, resetForm }) => {
@@ -112,6 +113,23 @@ function ResidentRequestForm() {
               </div>
             </div>
 
+            {/* Image */}
+            <div className="form-group">
+              <label htmlFor="image">Image</label>
+              <br/>
+              <input
+               type="file"
+               name="image"
+               onChange={(values) => { 
+                 console.log(values)
+                
+                 
+               }}
+               
+              />
+
+            </div>
+
             {/* Submit */}
             <div className="form-group row">
               <div className="col-2"></div>
@@ -139,6 +157,7 @@ function ResidentRequestForm() {
               </div>
               <div className="col-2"></div>
             </div>
+            
           </Form>
         )}
       </Formik>
