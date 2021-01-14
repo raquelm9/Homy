@@ -19,7 +19,6 @@ function ResidentRequestForm() {
   };
 
   const submitServiceRequest = (data) => {
-    console.log(data);
     const newHttpRequest = new HttpService();
     return newHttpRequest.addServiceRequest(data);
   };
