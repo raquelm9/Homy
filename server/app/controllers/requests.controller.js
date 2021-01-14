@@ -23,6 +23,12 @@ var serviceRequests = [
     },
 ];
 
+exports.getRequest = (req, res ) => {
+    
+    res.status(200).send(serviceRequests);
+     
+};
+
 exports.createRequest = (req, res) => {
 
     const request = new Request({

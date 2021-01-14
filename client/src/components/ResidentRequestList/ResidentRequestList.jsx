@@ -23,6 +23,7 @@ function ResidentRequestList() {
     return (
       <ResidentEachService
         id={service.id}
+        key={service.id}
         type={service.type}
         subject={service.subject}
         description={service.description}

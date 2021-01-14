@@ -22,9 +22,7 @@ mongoose.connect('mongodb://localhost/homy', {
 
 require('./routes/requests.routes')(app);
 
-app.get("/service-requests", function (req, res) {
-  res.status(200).send(serviceRequests);
-});
+
 
 
 
