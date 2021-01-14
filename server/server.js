@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require('mongoose')
 const cors = require("cors");
 const app = express();
 
@@ -9,51 +10,23 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var serviceRequests = [
-  {
-    id: "1",
-    date: "Sep 12 2020",
-    type: "ELECTRICITY",
-    subject: "Complaints/Noise",
-    description: "My neighbor makes a lot of noise at night and I can't sleep",
-  },
-  {
-    id: "2",
-    date: "Sep 12 2020",
-    type: "ELECTRICITY",
-    subject: "Plumbing/ Bath Tub Drains",
-    description: "My bathtub is not draining properly",
-  },
-  {
-    id: "3",
-    date: "Sep 12 2020",
-    type: "ELECTRICITY",
-    subject: "Doors & Locks",
-    description: "I lost my key and I can't get into my apartment",
-  },
-];
+
+mongoose.connect('mongodb://localhost/homy', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+})
+  .then(() => console.log('Connected to MongoDB...'))
+  .catch(err => console.error('Could not connect to MongoDb...', err))
+
+
+require('./routes/requests.routes')(app);
 
 app.get("/service-requests", function (req, res) {
   res.status(200).send(serviceRequests);
 });
 
-app.post("/service-requests", function (req, res) {
-  const newService = req.body;
-  if (
-    !newService ||
-    newService.date === "" ||
-    newService.type === "" ||
-    newService.subject === "" ||
-    newService.description === ""
-  ) {
-    res.status(404).send({
-      error: "Please enter all required information",
-    });
-  } else {
-    serviceRequests.push(newService);
-    res.status(200).send(serviceRequests);
-  }
-});
+
 
 app.put("/service-requests/:id", function (req, res) {
   const serviceRequestId = req.params.id;

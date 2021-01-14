@@ -1,6 +1,6 @@
 import "whatwg-fetch";
 
-var endPoints = "http://localhost:3008/service-requests";
+var endPoints = "http://localhost:3008/api/service-requests";
 
 class HttpService {
   getRequests = () => {
