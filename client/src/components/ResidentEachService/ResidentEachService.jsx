@@ -9,6 +9,7 @@ function ResidentEachService(props) {
         <td>{props.type}</td>
         <td>{props.subject}</td>
         <td>{props.description}</td>
+        <td>{props.image}</td>
       </tr>
     </>
   );

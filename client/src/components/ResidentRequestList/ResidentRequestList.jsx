@@ -40,6 +40,8 @@ function ResidentRequestList() {
           <th scope="col">Type</th>
           <th scope="col">Subject</th>
           <th scope="col">Description</th>
+          <th scope="col">Image</th>
+          
         </tr>
       </thead>
       <tbody>{request.map(listOfServices)}</tbody>
