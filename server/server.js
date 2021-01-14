@@ -12,16 +12,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var serviceRequests = [
   {
     id: "1",
+    date: "Sep 12 2020",
+    type: "ELECTRICITY",
     subject: "Complaints/Noise",
     description: "My neighbor makes a lot of noise at night and I can't sleep",
   },
   {
     id: "2",
+    date: "Sep 12 2020",
+    type: "ELECTRICITY",
     subject: "Plumbing/ Bath Tub Drains",
     description: "My bathtub is not draining properly",
   },
   {
     id: "3",
+    date: "Sep 12 2020",
+    type: "ELECTRICITY",
     subject: "Doors & Locks",
     description: "I lost my key and I can't get into my apartment",
   },
@@ -35,11 +41,13 @@ app.post("/service-requests", function (req, res) {
   const newService = req.body;
   if (
     !newService ||
+    newService.date === "" ||
+    newService.type === "" ||
     newService.subject === "" ||
     newService.description === ""
   ) {
     res.status(404).send({
-      error: "Your service request must have a subject and description",
+      error: "Please enter all required information",
     });
   } else {
     serviceRequests.push(newService);
