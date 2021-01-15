@@ -20,9 +20,9 @@ mongoose.connect('mongodb://localhost/homy', {
   .catch(err => console.error('Could not connect to MongoDb...', err))
 
 
-require('./routes/requests.routes')(app);
-
-
+require('./routes/requests.route')(app);
+require('./routes/auth.route')(app);
+require('./routes/users.route')(app);
 
 
 
