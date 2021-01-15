@@ -1,0 +1,87 @@
+
+/* * {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(181, 181, 181);
+} */
+
+@font-face {
+    font-family: comfortaa;
+    src: url(../../../assets/fonts/ComfortaaBold.ttf);
+}
+
+@font-face {
+    font-family: roboto;
+    src: url(../../../assets/fonts/RobotoBlack.ttf);
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+  /* justify-items: center; */
+}
+
+.jumbotron {
+    background: url('../../../assets/main1.jpg') no-repeat fixed top;
+    background-size: cover;
+    height: 85vh;
+    position: relative;
+    z-index: -2;
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.overlay {
+    background-color: white;
+    opacity: 0.1;
+    position:absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right:0;
+    z-index: -1;
+}
+
+.mainPageLogo {
+    padding-top: 20vh;
+}
+
+.homyText {
+    font-family: comfortaa;
+    font-size: 60px;
+    line-height: 110%;
+}
+.homyTextIntro {
+    font-family: comfortaa;
+    font-size: 25px;
+    line-height: 60%;
+}
+
+
+
+.imageRow {
+    /* height: 90vh; */
+  /* justify-content: center; */
+  /* padding-bottom: 2vh; */
+}
+
+.imageMain {
+  /* height: 100%; */
+}
+
+.buttonRow {
+    /* height: 10vh; */
+}
+
+.buttonGetStarted {
+    /* font-family: roboto; */
+    font-family: Arial, roboto;
+    font-size: 20px;
+    padding-top:15px;
+    padding-bottom:15px;
+
+    /* height: 5vh; */
+    width: 60%;
+    /* padding: 3vh; */
+}
