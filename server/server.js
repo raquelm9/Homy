@@ -5,7 +5,7 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
-app.use(cors());
+app.use(cors({ exposedHeaders: ['x-auth-token'] }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
