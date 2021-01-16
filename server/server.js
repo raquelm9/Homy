@@ -5,7 +5,7 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
-app.use(cors());
+app.use(cors({ exposedHeaders: ['x-auth-token'] }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,9 +20,9 @@ mongoose.connect('mongodb://localhost/homy', {
   .catch(err => console.error('Could not connect to MongoDb...', err))
 
 
-require('./routes/requests.routes')(app);
-
-
+require('./routes/requests.route')(app);
+require('./routes/auth.route')(app);
+require('./routes/users.route')(app);
 
 
 

@@ -23,11 +23,11 @@ const Request = require('../models/request.model');
 //     },
 // ];
 
-exports.getRequest = (req, res ) => {
-    
-    Request.find()
-    .then(data => res.send(data))
-     
+exports.getRequest = (req, res) => {
+
+    Request
+        .find()
+        .then(data => res.send(data))
 };
 
 exports.createRequest = (req, res) => {
@@ -42,20 +42,6 @@ exports.createRequest = (req, res) => {
 
     request
         .save(request).then(data => res.send(data))
-    // const newService = req.body;
-    // if (
-    //     !newService ||
-    //     newService.date === "" ||
-    //     newService.type === "" ||
-    //     newService.subject === "" ||
-    //     newService.description === ""
-    // ) {
-    //     res.status(404).send({
-    //         error: "Please enter all required information",
-    //     });
-    // } else {
-    //     serviceRequests.push(newService);
-    //     res.status(200).send(serviceRequests);
-    // }
+
 
 };
