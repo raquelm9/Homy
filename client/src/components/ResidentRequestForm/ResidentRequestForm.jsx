@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage,  } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { residentRequestValidationSchema } from "./validations/resident_request_validations";
 import HttpService from "../../services/http-service";
 import { useHistory, useLocation } from "react-router-dom";
@@ -7,6 +7,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import "./ResidentRequestForm.css";
 
 function ResidentRequestForm() {
+  // const [selectedFile, setSelectedFile] = useState(null);
+
   const history = useHistory();
   const location = useLocation();
 
@@ -19,9 +21,14 @@ function ResidentRequestForm() {
   };
 
   const submitServiceRequest = (data) => {
+    console.log(data);
     const newHttpRequest = new HttpService();
     return newHttpRequest.addServiceRequest(data);
   };
+
+  // const fileSelectorHandler = (event) => {
+  //   setSelectedFile(event.target.files[0]);
+  // };
 
   return (
     <div>
@@ -37,13 +44,14 @@ function ResidentRequestForm() {
         onSubmit={(data, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           // make async call
+          console.log(data);
           submitServiceRequest(data).then(() => {
             setSubmitting(false);
             resetForm();
           });
         }}
       >
-        {({ values, isSubmitting }) => (
+        {({ values, isSubmitting, setFieldValue }) => (
           <Form>
             {/* Type */}
             <div className="form-group row">
@@ -116,18 +124,15 @@ function ResidentRequestForm() {
             {/* Image */}
             <div className="form-group">
               <label htmlFor="image">Image</label>
-              <br/>
+              <br />
               <input
-               type="file"
-               name="image"
-               onChange={(values) => { 
-                 console.log(values)
-                
-                 
-               }}
-               
+                id="file"
+                type="file"
+                name="file"
+                onChange={(event) => {
+                  setFieldValue("image", event.currentTarget.files[0]);
+                }}
               />
-
             </div>
 
             {/* Submit */}
@@ -157,7 +162,6 @@ function ResidentRequestForm() {
               </div>
               <div className="col-2"></div>
             </div>
-            
           </Form>
         )}
       </Formik>

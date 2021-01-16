@@ -3,13 +3,15 @@ import ResidentRequestList from "../../../components/ResidentRequestList/Residen
 
 function ResidentListRequest() {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12">
-          <h1 className="resident-request-title">SERVICE REQUESTED</h1>
+    <div className="container-fluid">
+      <>
+        <div className="row">
+          <div className="col-12">
+            <h1 className="resident-request-title">SERVICE REQUESTED</h1>
+          </div>
         </div>
-      </div>
-      <ResidentRequestList></ResidentRequestList>
+        <ResidentRequestList></ResidentRequestList>
+      </>
     </div>
   );
 }
