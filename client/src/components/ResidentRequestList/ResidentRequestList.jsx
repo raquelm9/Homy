@@ -27,6 +27,7 @@ function ResidentRequestList() {
         subject={service.subject}
         description={service.description}
         date={service.date}
+        image={service.image}
       ></ResidentEachService>
     );
   }
