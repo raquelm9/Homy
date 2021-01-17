@@ -42,3 +42,18 @@ exports.createRequest = (req, res) => {
 
   request.save(request).then((data) => res.send(data));
 };
+
+
+
+
+
+exports.deleteRequest = (req, res) => {
+
+  const serviceRequestId = req.params.id;
+
+  Request
+    .deleteOne({ _id: serviceRequestId })
+    .then(data => res.send(data))
+    .catch(err => console.log(err))
+
+};

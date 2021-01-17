@@ -4,11 +4,29 @@ import ImageModal from "../ImageModal/ImageModal";
 function ResidentEachService(props) {
   const modalId = `request-${props.id}`;
 
+  const handleOnClick = () => {
+    fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
+      method: "DELETE",
+    });
+
+    window.location.reload();
+  };
+
+  const handleDate = () => {
+    let dateObject = new Date(props.date);
+    const canFormat = new Intl.DateTimeFormat("en-CA", {
+      dateStyle: "short",
+      timeStyle: "short",
+    }).format(dateObject);
+
+    return canFormat;
+  };
+
   return (
     <>
       <tr>
-        <th scope="row">{props.id}</th>
-        <td>{props.date}</td>
+        <th scope="col">{props.id}</th>
+        <td>{handleDate()}</td>
         <td>{props.type}</td>
         <td>{props.subject}</td>
         <td>{props.description}</td>
@@ -21,6 +39,11 @@ function ResidentEachService(props) {
             data-bs-target={`#${modalId}`}
           >
             Image
+          </button>
+        </td>
+        <td>
+          <button className="btn btn-secondary" onClick={handleOnClick}>
+            Delete
           </button>
         </td>
       </tr>

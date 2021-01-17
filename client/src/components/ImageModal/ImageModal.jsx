@@ -2,8 +2,6 @@ import React from "react";
 import { config } from "../../config/config";
 
 function ImageModal(props) {
-  console.warn(props);
-
   return (
     <div
       className="modal fade"
