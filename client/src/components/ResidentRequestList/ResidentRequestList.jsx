@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ResidentEachService from "../ResidentEachService/ResidentEachService";
 import HttpService from "../../services/http-service";
 
+
 function ResidentRequestList() {
   const [request, setRequest] = useState([]);
 
@@ -14,7 +15,7 @@ function ResidentRequestList() {
       (data) => {
         setRequest(data);
       },
-      (err) => {}
+      (err) => { }
     );
   };
 
