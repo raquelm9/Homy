@@ -1,4 +1,4 @@
-const Request = require('../models/request.model');
+const Request = require("../models/request.model");
 // var serviceRequests = [
 //     {
 //         id: "1",
@@ -24,24 +24,21 @@ const Request = require('../models/request.model');
 // ];
 
 exports.getRequest = (req, res) => {
-
-    Request
-        .find()
-        .then(data => res.send(data))
+  Request.find().then((data) => res.send(data));
 };
 
 exports.createRequest = (req, res) => {
+  const file = req.file;
+  const path = file ? file.path : undefined;
 
-    const request = new Request({
-        date: req.body.date,
-        type: req.body.type,
-        subject: req.body.subject,
-        description: req.body.description,
-        status: req.body.status
-    })
+  const request = new Request({
+    date: req.body.date,
+    type: req.body.type,
+    subject: req.body.subject,
+    description: req.body.description,
+    status: req.body.status,
+    image: path,
+  });
 
-    request
-        .save(request).then(data => res.send(data))
-
-
+  request.save(request).then((data) => res.send(data));
 };

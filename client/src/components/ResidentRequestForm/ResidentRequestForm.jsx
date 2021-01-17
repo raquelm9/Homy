@@ -21,14 +21,9 @@ function ResidentRequestForm() {
   };
 
   const submitServiceRequest = (data) => {
-    console.log(data);
     const newHttpRequest = new HttpService();
     return newHttpRequest.addServiceRequest(data);
   };
-
-  // const fileSelectorHandler = (event) => {
-  //   setSelectedFile(event.target.files[0]);
-  // };
 
   return (
     <div>
@@ -44,7 +39,6 @@ function ResidentRequestForm() {
         onSubmit={(data, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           // make async call
-          console.log(data);
           submitServiceRequest(data).then(() => {
             setSubmitting(false);
             resetForm();

@@ -1,12 +1,24 @@
-module.exports = app => {
-    const request = require('../app/controllers/requests.controller')
+const multer = require("multer");
 
-    const router = require('express').Router();
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
 
-    router.post('/', request.createRequest);
+const upload = multer({ storage: storage });
 
-    router.get('/', request.getRequest);
+module.exports = (app) => {
+  const request = require("../app/controllers/requests.controller");
 
+  const router = require("express").Router();
 
-    app.use('/api/service-requests', router);
-} 
+  router.post("/", upload.single("image"), request.createRequest);
+
+  router.get("/", request.getRequest);
+
+  app.use("/api/service-requests", router);
+};

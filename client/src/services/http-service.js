@@ -12,14 +12,20 @@ class HttpService {
     return promise;
   };
 
-  addServiceRequest = (data) => {
+  addServiceRequest = (value) => {
+    console.log(value);
+
     var promise = new Promise((resolve, reject) => {
+      const data = new FormData();
+      data.append("type", value.type);
+      data.append("date", value.date);
+      data.append("subject", value.subject);
+      data.append("description", value.description);
+      data.append("image", value.image);
+
       fetch(endPoints, {
         method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: data,
       }).then((res) => {
         resolve(res.json());
       });
