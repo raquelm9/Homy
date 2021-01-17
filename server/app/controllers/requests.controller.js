@@ -23,7 +23,7 @@ const Request = require('../models/request.model');
 //     },
 // ];
 
-exports.getRequest = (req, res) => {
+exports.getRequests = (req, res) => {
 
     Request
         .find()
@@ -41,7 +41,22 @@ exports.createRequest = (req, res) => {
     })
 
     request
-        .save(request).then(data => res.send(data))
+        .save(request)
+        .then(data => res.send(data))
+        .catch(err => console.log(err))
 
+
+};
+
+
+exports.deleteRequest = (req, res) => {
+    
+    const serviceRequestId = req.params.id;
+
+
+    Request
+        .deleteOne({ _id: serviceRequestId })
+        .then(data => res.send(data))
+        .catch(err => console.log(err))
 
 };

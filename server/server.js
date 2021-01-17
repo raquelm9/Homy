@@ -44,20 +44,7 @@ app.put("/service-requests/:id", function (req, res) {
   }
 });
 
-app.delete("/service-requests/:id", function (req, res) {
-  const serviceRequestId = req.params.id;
 
-  const index = serviceRequests.findIndex((x) => x.id === serviceRequestId);
-
-  if (index > -1) {
-    serviceRequests.splice(index, 1);
-    res.status(200).send(serviceRequests);
-  } else {
-    res.status(404).send({
-      error: "Your service request is not in our database",
-    });
-  }
-});
 
 app.listen(3008, function () {
   console.log("API running on port 3008");

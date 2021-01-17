@@ -5,8 +5,9 @@ module.exports = app => {
 
     router.post('/', request.createRequest);
 
-    router.get('/', request.getRequest);
+    router.get('/', request.getRequests);
 
+    router.delete("/:id", request.deleteRequest)
 
     app.use('/api/service-requests', router);
 } 
