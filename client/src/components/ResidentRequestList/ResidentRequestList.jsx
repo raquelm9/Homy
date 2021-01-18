@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ResidentEachService from "../ResidentEachService/ResidentEachService";
 import HttpService from "../../services/http-service";
 
-
 function ResidentRequestList() {
   const [request, setRequest] = useState([]);
 
@@ -15,7 +14,7 @@ function ResidentRequestList() {
       (data) => {
         setRequest(data);
       },
-      (err) => { }
+      (err) => {}
     );
   };
 
@@ -28,7 +27,8 @@ function ResidentRequestList() {
         subject={service.subject}
         description={service.description}
         date={service.date}
-      ></ResidentEachService>
+        image={service.image}
+      />
     );
   }
 
@@ -42,6 +42,7 @@ function ResidentRequestList() {
           <th scope="col">Subject</th>
           <th scope="col">Description</th>
           <th scope="col">Image</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody>{request.map(listOfServices)}</tbody>
