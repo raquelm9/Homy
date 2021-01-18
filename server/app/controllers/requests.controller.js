@@ -1,4 +1,5 @@
 const Request = require("../models/request.model");
+const fs = require('fs');
 // var serviceRequests = [
 //     {
 //         id: "1",
@@ -47,13 +48,20 @@ exports.createRequest = (req, res) => {
 
 
 
-exports.deleteRequest = (req, res) => {
+exports.deleteRequest = async (req, res) => {
 
   const serviceRequestId = req.params.id;
+  let request = await Request.findById(serviceRequestId)
+  if (!request) return resstatus(404).send('The request was not find');
 
-  Request
-    .deleteOne({ _id: serviceRequestId })
-    .then(data => res.send(data))
-    .catch(err => console.log(err))
+  //erase image on the server if one
+  if (request.image) {
+    fs.unlink(`./${request.image}`, (err) => {
+      if (err) console.log(err);
+    });
+  }
+  request = await Request.deleteOne({ _id: serviceRequestId })
+  if (!request) return resstatus(404).send('The request was not find');
 
+  res.send(request)
 };
