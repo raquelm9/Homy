@@ -8,10 +8,10 @@ const schema = mongoose.Schema({
   type: String,
   subject: String,
   description: String,
-  image_path: String,
   status: Boolean,
   image: String,
-  request_number: Number
+  request_number: Number,
+  unit_num: String
 });
 
 const Request = mongoose.model("request", schema);

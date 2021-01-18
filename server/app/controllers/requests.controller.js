@@ -33,17 +33,17 @@ exports.createRequest = async (req, res) => {
   const file = req.file;
   const path = file ? file.path : undefined;
 
-  let counter = await Counter.findOne({ name: 'request_number' }).exec();
+  let counter = await Counter.findOneAndUpdate({ name: 'request_number' }, { $inc: { count: 1 } }).exec();
 
   if (!counter) {//create first counter if none
     counter = new Counter({
       name: 'request_number',
       count: 0
     })
-
   }
-  counter.count += 1
-  await counter.save()
+
+
+  console.log(counter)
   const request = new Request({
     date: req.body.date,
     type: req.body.type,
@@ -51,10 +51,11 @@ exports.createRequest = async (req, res) => {
     description: req.body.description,
     status: req.body.status,
     image: path,
-    request_number: counter.count
+    request_number: counter.count,
+    unit_num: req.body.unit_num
   });
 
-  request.save(request).then((data) => res.send(data));
+  request.save().then((data) => res.send(data));
 };
 
 
@@ -65,7 +66,7 @@ exports.deleteRequest = async (req, res) => {
 
   const serviceRequestId = req.params.id;
   let request = await Request.findById(serviceRequestId)
-  if (!request) return resstatus(404).send('The request was not find');
+  if (!request) return res.status(404).send('The request was not find');
 
   //erase image on the server if one
   if (request.image) {
