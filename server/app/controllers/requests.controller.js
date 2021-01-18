@@ -1,4 +1,5 @@
 const Request = require("../models/request.model");
+const Counter = require("../models/counter.model");
 const fs = require('fs');
 // var serviceRequests = [
 //     {
@@ -28,10 +29,21 @@ exports.getRequest = (req, res) => {
   Request.find().then((data) => res.send(data));
 };
 
-exports.createRequest = (req, res) => {
+exports.createRequest = async (req, res) => {
   const file = req.file;
   const path = file ? file.path : undefined;
 
+  let counter = await Counter.findOne({ name: 'request_number' }).exec();
+
+  if (!counter) {//create first counter if none
+    counter = new Counter({
+      name: 'request_number',
+      count: 0
+    })
+
+  }
+  counter.count += 1
+  await counter.save()
   const request = new Request({
     date: req.body.date,
     type: req.body.type,
@@ -39,6 +51,7 @@ exports.createRequest = (req, res) => {
     description: req.body.description,
     status: req.body.status,
     image: path,
+    request_number: counter.count
   });
 
   request.save(request).then((data) => res.send(data));
