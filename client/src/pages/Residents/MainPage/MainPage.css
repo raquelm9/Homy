@@ -1,10 +1,3 @@
-
-/* * {
-  margin: 0;
-  padding: 0;
-  background-color: rgb(181, 181, 181);
-} */
-
 @font-face {
     font-family: comfortaa;
     src: url(../../../assets/fonts/ComfortaaBold.ttf);
@@ -15,16 +8,10 @@
     src: url(../../../assets/fonts/RobotoBlack.ttf);
 }
 
-.container {
-  padding: 0;
-  margin: 0;
-  /* justify-items: center; */
-}
-
 .jumbotron {
     background: url('../../../assets/main1.jpg') no-repeat fixed top;
     background-size: cover;
-    height: 85vh;
+    height: 80vh;
     position: relative;
     z-index: -2;
     color: white;
@@ -44,7 +31,7 @@
 }
 
 .mainPageLogo {
-    padding-top: 20vh;
+    padding-top: 30vh;
 }
 
 .homyText {
@@ -58,30 +45,21 @@
     line-height: 60%;
 }
 
-
-
-.imageRow {
-    /* height: 90vh; */
-  /* justify-content: center; */
-  /* padding-bottom: 2vh; */
-}
-
-.imageMain {
-  /* height: 100%; */
-}
-
-.buttonRow {
-    /* height: 10vh; */
+.LoginPageBottom {
+    height: 20vh;
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: center;
+    border: 3px solid green;
 }
 
 .buttonGetStarted {
-    /* font-family: roboto; */
-    font-family: Arial, roboto;
-    font-size: 20px;
-    padding-top:15px;
-    padding-bottom:15px;
-
-    /* height: 5vh; */
-    width: 60%;
-    /* padding: 3vh; */
+    height: 60px;
+    width: 300px;
+    font-family: Arial, "roboto";
+    font-size: 25px;
+    position: relative;
+    top:25%;
 }
+
