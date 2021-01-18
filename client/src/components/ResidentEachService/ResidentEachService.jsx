@@ -22,6 +22,21 @@ function ResidentEachService(props) {
     return canFormat;
   };
 
+  const showButtonImage = () => {
+    if (props.image) {
+      return (
+        <button
+          type="button"
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target={`#${modalId}`}
+        >
+          Image
+        </button>
+      );
+    }
+  };
+
   return (
     <>
       <tr>
@@ -31,16 +46,7 @@ function ResidentEachService(props) {
         <td>{props.subject}</td>
         <td>{props.description}</td>
 
-        <td>
-          <button
-            type="button"
-            className="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target={`#${modalId}`}
-          >
-            Image
-          </button>
-        </td>
+        <td>{showButtonImage()}</td>
         <td>
           <button className="btn btn-secondary" onClick={handleOnClick}>
             Delete
