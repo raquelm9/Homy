@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage,  } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { residentRequestValidationSchema } from "./validations/resident_request_validations";
 import HttpService from "../../services/http-service";
 import { useHistory, useLocation } from "react-router-dom";
@@ -7,6 +7,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import "./ResidentRequestForm.css";
 
 function ResidentRequestForm() {
+  // const [selectedFile, setSelectedFile] = useState(null);
+
   const history = useHistory();
   const location = useLocation();
 
@@ -43,7 +45,7 @@ function ResidentRequestForm() {
           });
         }}
       >
-        {({ values, isSubmitting }) => (
+        {({ values, isSubmitting, setFieldValue }) => (
           <Form>
             {/* Type */}
             <div className="form-group row">
@@ -116,18 +118,15 @@ function ResidentRequestForm() {
             {/* Image */}
             <div className="form-group">
               <label htmlFor="image">Image</label>
-              <br/>
+              <br />
               <input
-               type="file"
-               name="image"
-               onChange={(values) => { 
-                 console.log(values)
-                
-                 
-               }}
-               
+                id="file"
+                type="file"
+                name="file"
+                onChange={(event) => {
+                  setFieldValue("image", event.currentTarget.files[0]);
+                }}
               />
-
             </div>
 
             {/* Submit */}
@@ -157,7 +156,6 @@ function ResidentRequestForm() {
               </div>
               <div className="col-2"></div>
             </div>
-            
           </Form>
         )}
       </Formik>

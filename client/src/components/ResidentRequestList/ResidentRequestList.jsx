@@ -19,7 +19,6 @@ function ResidentRequestList() {
   };
 
   function listOfServices(service) {
-    console.log(service);
     return (
       <ResidentEachService
         id={service._id}
@@ -28,7 +27,8 @@ function ResidentRequestList() {
         subject={service.subject}
         description={service.description}
         date={service.date}
-      ></ResidentEachService>
+        image={service.image}
+      />
     );
   }
 
@@ -42,7 +42,7 @@ function ResidentRequestList() {
           <th scope="col">Subject</th>
           <th scope="col">Description</th>
           <th scope="col">Image</th>
-          
+          <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody>{request.map(listOfServices)}</tbody>

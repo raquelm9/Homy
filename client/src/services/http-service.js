@@ -1,6 +1,7 @@
 import "whatwg-fetch";
+import { config } from "../config/config";
 
-var endPoints = "http://localhost:3008/api/service-requests";
+var endPoints = `${config.SERVER_URL}/api/service-requests`;
 
 class HttpService {
   getRequests = () => {
@@ -12,14 +13,18 @@ class HttpService {
     return promise;
   };
 
-  addServiceRequest = (data) => {
+  addServiceRequest = (value) => {
     var promise = new Promise((resolve, reject) => {
+      const data = new FormData();
+      data.append("type", value.type);
+      data.append("date", value.date);
+      data.append("subject", value.subject);
+      data.append("description", value.description);
+      data.append("image", value.image);
+
       fetch(endPoints, {
         method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: data,
       }).then((res) => {
         resolve(res.json());
       });

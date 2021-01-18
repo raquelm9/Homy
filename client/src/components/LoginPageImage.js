@@ -1,11 +1,7 @@
 import React from 'react'
 import {Jumbotron as Jumbo, Container} from 'react-bootstrap'
-import mainImage from '../assets/main1.jpg';
-// import styled from 'styled-components';
 
-// const Styles = styled.div``;
-
-export const Jumbotron = () => (
+export const LoginPageImage = () => (
     <Jumbo fluid>
         <div className="overlay">
         </div>
@@ -19,5 +15,4 @@ export const Jumbotron = () => (
     </Jumbo>
     )
 
-
-export default Jumbotron
+export default LoginPageImage

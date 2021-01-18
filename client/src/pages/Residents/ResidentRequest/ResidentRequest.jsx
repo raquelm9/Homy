@@ -24,7 +24,7 @@ function ResidentRequestType() {
   }
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-12">
           <h1 className="resident-request-title">REQUEST A SERVICE</h1>
