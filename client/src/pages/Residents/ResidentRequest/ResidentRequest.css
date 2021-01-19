@@ -8,3 +8,7 @@
   font-size: 50px;
   color: red;
 }
+
+.content-center {
+  justify-content: center;
+}

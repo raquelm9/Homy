@@ -31,13 +31,17 @@ function ResidentRequestType() {
         </div>
       </div>
       <div className="list-group">
-        <div className="row">{typesOfServices.map(showTypeOptions)}</div>
-        <div className="row">
-          <div className="col-12">
+        <div className="row content-center">
+          {typesOfServices.map(showTypeOptions)}
+        </div>
+        <div className="row align-items-center">
+          <div className="col" />
+          <div className="col-md-6 col-sm-12">
             <a onClick={goToRequestList} className="list-group-item size-type">
               REQUESTED SERVICES
             </a>
           </div>
+          <div className="col" />
         </div>
       </div>
     </div>
