@@ -27,7 +27,6 @@ function ResidentEachService(props) {
       <tr>
         <td>{handleDate()}</td>
         <td>{props.type}</td>
-
         <td>
           <button
             type="button"
