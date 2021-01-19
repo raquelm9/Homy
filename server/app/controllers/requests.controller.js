@@ -2,6 +2,7 @@ const { Request, validate } = require("../models/request.model");
 const Counter = require("../models/counter.model");
 
 const fs = require('fs');
+const { result } = require("lodash");
 // var serviceRequests = [
 //     {
 //         id: "1",
@@ -34,6 +35,11 @@ exports.createRequest = async (req, res) => {
   const file = req.file;
   const path = file ? file.path : undefined;
 
+  const result = validate(req.body);
+  if (result.error) {
+    return res.status(400).send(result.error.details[0].message)
+  }
+
   let counter = await Counter.findOneAndUpdate({ name: 'request_number' }, { $inc: { count: 1 } }).exec();
 
   if (!counter) {//create first counter if none
@@ -42,6 +48,7 @@ exports.createRequest = async (req, res) => {
       count: 0
     })
   }
+
 
 
   const request = new Request({
@@ -55,6 +62,7 @@ exports.createRequest = async (req, res) => {
     unit_num: req.body.unit_num,
     resident_name: req.body.resident_name
   });
+
 
   request.save().then((data) => res.send(data));
 };

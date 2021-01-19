@@ -19,7 +19,6 @@ const schema = mongoose.Schema({
 const Request = mongoose.model("request", schema);
 
 
-
 function validateRequest(request) {
 
   const schema = Joi.object({
@@ -34,7 +33,7 @@ function validateRequest(request) {
     resident_name: Joi.string()
   });
 
-  return Joi.validate(request, schema);
+  return schema.validate(request);
 
 }
 exports.Request = Request;
