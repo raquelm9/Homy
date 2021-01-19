@@ -33,19 +33,23 @@ function ResidentRequestList() {
   }
 
   return (
-    <table className="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Type</th>
-          <th scope="col">Subject</th>
-          <th scope="col">Description</th>
-          <th scope="col">Image</th>
-          <th scope="col">Delete</th>
-        </tr>
-      </thead>
-      <tbody>{request.map(listOfServices)}</tbody>
-    </table>
+    <div className="row">
+      <div className="col"></div>
+      <div className="col-md-7">
+        <table className="table table-hover margin-table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Type</th>
+              <th scope="col">Details</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>{request.map(listOfServices)}</tbody>
+        </table>
+      </div>
+      <div className="col"></div>
+    </div>
   );
 }
 
