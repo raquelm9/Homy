@@ -1,15 +1,12 @@
 const _ = require('lodash')
-const User = require('../models/user.model');
+const { User, validate } = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
 
 exports.register = async (req, res) => {
 
-    const schema = Joi.object({
-        email: Joi.string().email().required(),
-        password: Joi.string().min(5)
-    })
-    const result = schema.validate(req.body)
+
+    const result = validate(req.body)
 
     if (result.error) {
         return res.status(400).send(result.error.details[0].message)

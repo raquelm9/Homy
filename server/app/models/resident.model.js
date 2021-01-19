@@ -1,14 +1,26 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 const schema = mongoose.Schema(
     {
-        login_id: String,
         unit_num: String,
         email: String,
-        name: String,
+        name: String
     }
 )
 
-const Resident = mongoose.model('resident', schema);
+exports.Resident = mongoose.model('resident', schema);
 
-module.exports = Resident;
+
+
+
+
+exports.validate = function validateResident(resident) {
+
+    const schema = Joi.object({
+        unit_num: Joi.string().required(),
+        email: Joi.string().required(),
+        name: Joi.string().required()
+    })
+    return schema.validate(resident);
+}
