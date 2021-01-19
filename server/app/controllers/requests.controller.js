@@ -1,5 +1,6 @@
-const Request = require("../models/request.model");
+const { Request, validate } = require("../models/request.model");
 const Counter = require("../models/counter.model");
+
 const fs = require('fs');
 // var serviceRequests = [
 //     {
@@ -43,7 +44,6 @@ exports.createRequest = async (req, res) => {
   }
 
 
-  console.log(counter)
   const request = new Request({
     date: req.body.date,
     type: req.body.type,
