@@ -2,11 +2,21 @@ import "whatwg-fetch";
 import { config } from "../config/config";
 
 var endPoints = `${config.SERVER_URL}/api/service-requests`;
+const endPointsResidents = `${config.SERVER_URL}/api/residents`;
 
 class HttpService {
   getRequests = () => {
     var promise = new Promise((resolve, reject) => {
       fetch(endPoints).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
+
+  getResidents = () => {
+    const promise = new Promise((resolve, reject) => {
+      fetch(endPointsResidents).then((response) => {
         resolve(response.json());
       });
     });

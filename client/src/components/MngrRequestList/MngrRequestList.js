@@ -34,6 +34,9 @@ function MngrRequestList() {
   }
 
   return (
+      <div>
+
+    <h2>Service Requests</h2> 
     <div className="table-responsive">
     <table className="table table-bordered table-hover table-condensed ">
       <thead>
@@ -48,6 +51,7 @@ function MngrRequestList() {
       </thead>
       <tbody>{requests.map(listOfServices)}</tbody>
     </table>
+    </div>
     </div>
   );
 }

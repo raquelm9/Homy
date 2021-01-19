@@ -37,6 +37,7 @@ function App() {
         <Route exact path="/login" component={Login} />
 
         <Route exact path="/manager" component={MngrMainPage} />
+        
       </Switch>
     </Router>
   );
