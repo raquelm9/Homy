@@ -10,19 +10,28 @@ function ResidentRequestForm() {
   // const [selectedFile, setSelectedFile] = useState(null);
 
   const history = useHistory();
+  console.log(history);
   const location = useLocation();
 
   const queryString = location.search;
   const urlParams = new URLSearchParams(queryString);
   const typeRequest = urlParams.get("type");
 
-  const goBackToRequest = () => {
-    history.push("/resident-request");
-  };
-
   const submitServiceRequest = (data) => {
     const newHttpRequest = new HttpService();
-    return newHttpRequest.addServiceRequest(data);
+    return newHttpRequest.addServiceRequest(data).finally(() => {
+      history.push("/resident-list-request");
+    });
+  };
+
+  const handleDate = () => {
+    let dateObject = new Date();
+    const canFormat = new Intl.DateTimeFormat("en-CA", {
+      dateStyle: "short",
+      timeStyle: "short",
+    }).format(dateObject);
+
+    return canFormat;
   };
 
   return (
@@ -47,114 +56,110 @@ function ResidentRequestForm() {
       >
         {({ values, isSubmitting, setFieldValue }) => (
           <Form>
-            {/* Type */}
-            <div className="form-group row">
-              <label htmlFor="type" className="col-sm-2 col-form-label">
-                Type
-              </label>
-              <div className="col-md-8 col-sm-10">
-                <Field
-                  name="type"
-                  type="text"
-                  className="form-control"
-                  id="inputType"
-                  value={typeRequest}
-                />
-                <ErrorMessage name="type" />
-              </div>
-            </div>
+            <div className="row">
+              <div className="col"></div>
+              <div className="col-md-7 col-sm-12 center-content">
+                {/* Type */}
+                <div className="form-group row input-margin">
+                  <label htmlFor="type" className="col-sm-2 col-form-label">
+                    Type
+                  </label>
+                  <div className="col-md-8 col-sm-10">
+                    <Field
+                      name="type"
+                      type="text"
+                      className="form-control"
+                      id="inputType"
+                      value={typeRequest}
+                    />
+                    <ErrorMessage name="type" />
+                  </div>
+                </div>
 
-            {/* Date */}
-            <div className="form-group row">
-              <label htmlFor="date" className="col-sm-2 col-form-label">
-                Date
-              </label>
-              <div className="col-md-8 col-sm-10">
-                <Field
-                  name="date"
-                  type="text"
-                  className="form-control"
-                  id="inputDate"
-                  value={new Date()}
-                />
-                <ErrorMessage name="date" />
-              </div>
-            </div>
+                {/* Date */}
+                <div className="form-group row input-margin">
+                  <label htmlFor="date" className="col-sm-2 col-form-label">
+                    Date
+                  </label>
+                  <div className="col-md-8 col-sm-10">
+                    <Field
+                      name="date"
+                      type="text"
+                      className="form-control"
+                      id="inputDate"
+                      value={handleDate()}
+                    />
+                    <ErrorMessage name="date" />
+                  </div>
+                </div>
 
-            {/* Subject */}
-            <div className="form-group row">
-              <label htmlFor="subject" className="col-sm-2 col-form-label">
-                Subject
-              </label>
-              <div className="col-md-8 col-sm-10">
-                <Field
-                  placeholder="Subject"
-                  name="subject"
-                  type="text"
-                  className="form-control"
-                  id="inputSubject"
-                />
-                <ErrorMessage name="subject" />
-              </div>
-            </div>
+                {/* Subject */}
+                <div className="form-group row input-margin">
+                  <label htmlFor="subject" className="col-sm-2 col-form-label">
+                    Subject
+                  </label>
+                  <div className="col-md-8 col-sm-10">
+                    <Field
+                      placeholder="Subject"
+                      name="subject"
+                      type="text"
+                      className="form-control"
+                      id="inputSubject"
+                    />
+                    <ErrorMessage name="subject" />
+                  </div>
+                </div>
 
-            {/* Description */}
-            <div className="form-group row">
-              <label htmlFor="description" className="col-sm-2 col-form-label">
-                Description
-              </label>
-              <div className="col-md-8 col-sm-10">
-                <Field
-                  placeholder="Description"
-                  name="description"
-                  type="text"
-                  className="form-control"
-                  id="inputDescription"
-                />
-                <ErrorMessage name="description" />
-              </div>
-            </div>
+                {/* Description */}
+                <div className="form-group row input-margin">
+                  <label
+                    htmlFor="description"
+                    className="col-sm-2 col-form-label"
+                  >
+                    Description
+                  </label>
+                  <div className="col-md-8 col-sm-10">
+                    <Field
+                      placeholder="Description"
+                      name="description"
+                      type="text"
+                      className="form-control"
+                      id="inputDescription"
+                    />
+                    <ErrorMessage name="description" />
+                  </div>
+                </div>
 
-            {/* Image */}
-            <div className="form-group">
-              <label htmlFor="image">Image</label>
-              <br />
-              <input
-                id="file"
-                type="file"
-                name="file"
-                onChange={(event) => {
-                  setFieldValue("image", event.currentTarget.files[0]);
-                }}
-              />
-            </div>
+                {/* Image */}
+                <div className="form-group row input-margin">
+                  <label htmlFor="image" className="col-sm-2 col-form-label">
+                    Image
+                  </label>
+                  <input
+                    className="col-md-8 col-sm-10"
+                    id="file"
+                    type="file"
+                    name="file"
+                    onChange={(event) => {
+                      setFieldValue("image", event.currentTarget.files[0]);
+                    }}
+                  />
+                </div>
 
-            {/* Submit */}
-            <div className="form-group row">
-              <div className="col-2"></div>
-              <div className="col-8">
-                <button
-                  type="submit"
-                  className="btn btn-dark btn-lg btn-block button-center"
-                  disabled={isSubmitting}
-                >
-                  Submit
-                </button>
+                {/* Submit */}
+                <div className="row">
+                  <div className="col-12 text-center space-button-form">
+                    <button
+                      type="submit"
+                      className="btn btn-dark btn-lg btn-block button-center"
+                      disabled={isSubmitting}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="col-2"></div>
-
-              {/* Previous */}
-              <div className="col-2"></div>
-              <div className="col-8">
-                <button
-                  onClick={goBackToRequest}
-                  type="button"
-                  className="btn btn-light btn-lg btn-block button-center"
-                >
-                  Previous
-                </button>
-              </div>
-              <div className="col-2"></div>
+              <div className="col"></div>
             </div>
           </Form>
         )}

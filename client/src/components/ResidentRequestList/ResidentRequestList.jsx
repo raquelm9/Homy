@@ -36,7 +36,6 @@ function ResidentRequestList() {
     <table className="table table-hover">
       <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Date</th>
           <th scope="col">Type</th>
           <th scope="col">Subject</th>

@@ -5,6 +5,9 @@ import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
+// Import font awesone
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 //import for redux store
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";

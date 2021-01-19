@@ -40,7 +40,6 @@ function ResidentEachService(props) {
   return (
     <>
       <tr>
-        <th scope="col">{props.id}</th>
         <td>{handleDate()}</td>
         <td>{props.type}</td>
         <td>{props.subject}</td>
