@@ -1,18 +1,11 @@
-import React from 'react'
-import {Jumbotron as Jumbo, Container} from 'react-bootstrap'
+import React from "react";
 
 export const LoginPageImage = () => (
-    <Jumbo fluid>
-        <div className="overlay">
-        </div>
-        <Container>
-            <div className="mainPageLogo">
-                <p className="homyText">homy</p>
-                <p className="homyTextIntro">your very personal</p>  
-                <p className="homyTextIntro">concierge</p> 
-            </div>
-        </Container>
-    </Jumbo>
-    )
+  <div className="mainPageLogo">
+    <p className="homyText">homy</p>
+    <p className="homyTextIntro">Your very personal</p>
+    <p className="homyTextIntro">concierge</p>
+  </div>
+);
 
-export default LoginPageImage
+export default LoginPageImage;

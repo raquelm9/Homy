@@ -14,18 +14,20 @@ function ServiceType({ type, icon }) {
   };
 
   return (
-    <div className="col-md-6 col-sm-12">
-      <a onClick={handleClick} className="list-group-item size-type">
-        <div className="row">
-          <div className="col-4">
-            <i className={`${icon} icon-adjust-size`}></i>
+    <>
+      <div className="col-md-5 col-sm-12">
+        <a onClick={handleClick} className="list-group-item size-type">
+          <div className="row">
+            <div className="col-4">
+              <i className={`${icon} icon-adjust-size`}></i>
+            </div>
+            <div className="col-8">
+              <p>{type}</p>
+            </div>
           </div>
-          <div className="col-8">
-            <p>{type}</p>
-          </div>
-        </div>
-      </a>
-    </div>
+        </a>
+      </div>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Button} from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import { LoginPageImage } from "../../../components/LoginPageImage.js";
 import { useHistory } from "react-router-dom";
 import "./MainPage.css";
@@ -7,19 +7,25 @@ import "./MainPage.css";
 function MainPage() {
   const history = useHistory();
 
-  const goToServiceRequest = () => history.push("/resident-request");
+  const goToServiceRequest = () => {
+    history.push("/resident-request");
+  };
 
   return (
     <>
-      <Container fluid>
-        <LoginPageImage/>
-        <div className="LoginPageBottom">
-          <Button
-                className="buttonGetStarted"
-                variant="dark"
-                onClick={goToServiceRequest}>
-                Get Started
-          </Button>
+      <Container fluid className="p-0 mainPage">
+        <div className="overlay" />
+        <LoginPageImage />
+        <div className="button-adjustment">
+          <div className="col-sm-12">
+            <Button
+              className="buttonGetStarted"
+              variant="dark"
+              onClick={goToServiceRequest}
+            >
+              Get Started
+            </Button>
+          </div>
         </div>
       </Container>
     </>
