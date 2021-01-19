@@ -26,3 +26,14 @@ exports.getResidents = (req, res) => {
         .find()
         .then(data => res.send(data))
 }
+exports.deleteOne = async (req, res) => {
+    const residentId = req.params.id;
+
+    let resident = await Resident.findById(residentId)
+    if (!resident) return res.status(404).send('The resident was not find');
+
+    resident = await Resident.deleteOne({ _id: residentId })
+    if (!resident) return resstatus(404).send('The resident was not find');
+
+    res.send(resident)
+}

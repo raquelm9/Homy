@@ -8,5 +8,7 @@ module.exports = app => {
 
     router.get('/', residents.getResidents);
 
+    router.delete('/:id', residents.deleteOne);
+
     app.use('/api/residents', router);
 }
