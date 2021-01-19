@@ -1,13 +1,12 @@
-.button-center {
-  margin: 20px 0px;
-}
-
 .input-margin {
   margin: 20px;
 }
 
+.space-button-form {
+  margin: 20px 0;
+}
+
 @media screen and (max-width: 767px) {
   .center-content {
-    margin: 40px;
   }
 }
