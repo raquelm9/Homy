@@ -5,7 +5,8 @@ exports.requests = [
         subject: "Change Bulb",
         description: "I'm baby disrupt prism asymmetrical roof party truffaut 3 wolf moon fanny pack cred kombucha hammock tacos synth. Kombucha whatever celiac tumblr. Polaroid mixtape literally dreamcatcher.",
         image: "",
-        unit_num: '101'
+        unit_num: '101',
+        resident_name: 'John Smith'
     },
     {
         date: new Date(),
@@ -13,7 +14,8 @@ exports.requests = [
         subject: "Sink Leaking",
         description: "I'm baby disrupt prism asymmetrical roof party truffaut 3 wolf moon fanny pack cred kombucha hammock tacos synth. Kombucha whatever celiac tumblr. Polaroid mixtape literally dreamcatcher.",
         image: "",
-        unit_num: '201'
+        unit_num: '201',
+        resident_name: 'Jane Smith'
     },
     {
         date: new Date(),
@@ -21,7 +23,8 @@ exports.requests = [
         subject: "Yellow Water",
         description: "I'm baby disrupt prism asymmetrical roof party truffaut 3 wolf moon fanny pack cred kombucha hammock tacos synth. Kombucha whatever celiac tumblr. Polaroid mixtape literally dreamcatcher.",
         image: "",
-        unit_num: '301'
+        unit_num: '301',
+        resident_name: 'Dwayne Johnson'
     },
     {
         date: new Date(),
@@ -29,7 +32,8 @@ exports.requests = [
         subject: "Dishwaher",
         description: "I'm baby disrupt prism asymmetrical roof party truffaut 3 wolf moon fanny pack cred kombucha hammock tacos synth. Kombucha whatever celiac tumblr. Polaroid mixtape literally dreamcatcher.",
         image: "",
-        unit_num: '401'
+        unit_num: '401',
+        resident_name: 'Jason Statham'
     },
     {
         date: new Date(),
@@ -37,7 +41,8 @@ exports.requests = [
         subject: "Late Night Noises",
         description: "I'm baby disrupt prism asymmetrical roof party truffaut 3 wolf moon fanny pack cred kombucha hammock tacos synth. Kombucha whatever celiac tumblr. Polaroid mixtape literally dreamcatcher.",
         image: "",
-        unit_num: '101'
+        unit_num: '101',
+        resident_name: 'John Smith'
     },
     {
         date: new Date(),
@@ -45,7 +50,8 @@ exports.requests = [
         subject: "Garbages Not Pickup",
         description: "I'm baby disrupt prism asymmetrical roof party truffaut 3 wolf moon fanny pack cred kombucha hammock tacos synth. Kombucha whatever celiac tumblr. Polaroid mixtape literally dreamcatcher.",
         image: "",
-        unit_num: '201'
+        unit_num: '201',
+        resident_name: 'Jane Smith'
     }
 ]
 
@@ -62,7 +68,7 @@ exports.accounts = [
     },
     {
         email: "dwaynejohson@email.com",
-        name: "Jason Johnson",
+        name: "Dwayne Johnson",
         unit_num: "301",
     },
     {

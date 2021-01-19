@@ -11,7 +11,8 @@ const schema = mongoose.Schema({
   status: Boolean,
   image: String,
   request_number: Number,
-  unit_num: String
+  unit_num: String,
+  resident_name: String
 });
 
 const Request = mongoose.model("request", schema);

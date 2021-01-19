@@ -52,7 +52,8 @@ exports.createRequest = async (req, res) => {
     status: req.body.status,
     image: path,
     request_number: counter.count,
-    unit_num: req.body.unit_num
+    unit_num: req.body.unit_num,
+    resident_name: req.body.resident_name
   });
 
   request.save().then((data) => res.send(data));
