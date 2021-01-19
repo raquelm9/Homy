@@ -10,6 +10,7 @@ import ResidentListRequest from "../pages/Residents/ResidentListRequest/Resident
 import Register from "../pages/Auth/Register";
 import Login from "../pages/Auth/Login";
 import { autoLogin } from "../actions/userActions";
+import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,9 @@ function App() {
         />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
+
+        <Route exact path="/manager" component={MngrMainPage} />
+        
       </Switch>
     </Router>
   );

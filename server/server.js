@@ -16,6 +16,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: false
   })
   .then(() => console.log("Connected to MongoDB..."))
   .catch((err) => console.error("Could not connect to MongoDb...", err));
@@ -23,6 +24,7 @@ mongoose
 require("./routes/requests.route")(app);
 require("./routes/auth.route")(app);
 require("./routes/users.route")(app);
+require("./routes/residents.route")(app);
 
 app.put("/service-requests/:id", function (req, res) {
   const serviceRequestId = req.params.id;
