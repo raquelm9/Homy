@@ -42,9 +42,9 @@ function MngrEachResident(props) {
       <tr>
         <th scope="row">{props.residentNumber+1}</th>
         {/* <td>{handleDate()}</td> */}
-        <td>{props.name}</td>
-        <td>{props.unit_num}</td>
-        <td>{props.email}</td>
+        <td>{props.residentName}</td>
+        <td>{props.residentUnit}</td>
+        <td>{props.residentEmail}</td>
         {/* <td>{showButtonImage()}</td> */}
         {/* <td>
           <button className="btn btn-secondary" onClick={handleOnClick}>
