@@ -14,6 +14,8 @@ const MngrMainPage = () => {
 
     return (  
         <Router>
+            <Switch>
+   
         <div>
             <Container fluid>
                 <Row>
@@ -34,16 +36,18 @@ const MngrMainPage = () => {
                         <h2 style={{color:'lightgrey'}}>Announcements</h2>
                     </Col>
                     <Col sm={9} md={9} className="service-window">
-                            <Switch>
+                            {/* <Switch> */}
                                 <Route exact path="/manager/request-list-of-services" component=        {MngrRequestList}/>
                                 <Route exact path="/manager/request-list-of-residents" component=        {MngrRequestListOfResidents}/>
-                            </Switch>
+                            {/* </Switch> */}
                     </Col>
                 </Row>
                 
             </Container>
         </div>
+        </Switch>
         </Router>
+
     );
 }
  

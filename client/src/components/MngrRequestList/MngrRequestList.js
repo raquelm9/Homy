@@ -13,6 +13,7 @@ function MngrRequestList() {
   const loadData = () => {
     new HttpService().getRequests().then(
       (data) => {
+          
         setRequests(data);
       },
       (err) => {}

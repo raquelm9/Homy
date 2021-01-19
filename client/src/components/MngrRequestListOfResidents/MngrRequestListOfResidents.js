@@ -14,6 +14,7 @@ function MngrRequestListOfResidents() {
   const loadData = () => {
     new HttpService().getResidents().then(
       (data) => {
+        console.log(data);
         setResidents(data);
       },
       (err) => {}
