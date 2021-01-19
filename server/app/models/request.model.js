@@ -8,9 +8,11 @@ const schema = mongoose.Schema({
   type: String,
   subject: String,
   description: String,
-  image_path: String,
   status: Boolean,
   image: String,
+  request_number: Number,
+  unit_num: String,
+  resident_name: String
 });
 
 const Request = mongoose.model("request", schema);
