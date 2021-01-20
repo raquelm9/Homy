@@ -22,11 +22,13 @@ module.exports = (app) => {
 
   const router = require("express").Router();
 
-  router.delete("/:id", auth, request.deleteRequest)
+  router.delete("/:id", request.deleteRequest)
 
-  router.post("/", [auth, upload.single("image")], request.createRequest);
+  router.post("/", [upload.single("image")], request.createRequest);
 
-  router.get("/", auth, request.getRequest);
+  router.get("/", request.getRequest);
 
   app.use("/api/service-requests", router);
 };
+
+//post get delete auth

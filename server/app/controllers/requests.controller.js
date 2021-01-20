@@ -29,7 +29,8 @@ const { result } = require("lodash");
 
 exports.getRequest = (req, res) => {
 
-  Request.find({ user_id: req.user._id }).then((data) => res.send(data));
+  // Request.find({ user_id: req.user._id }).then((data) => res.send(data));
+  Request.find().then((data) => res.send(data));
 };
 
 exports.createRequest = async (req, res) => {
@@ -39,7 +40,6 @@ exports.createRequest = async (req, res) => {
 
   const result = validate(req.body);
   if (result.error) {
-    console.log(result.error.details[0].message)
     return res.status(400).send(result.error.details[0].message)
   }
 
@@ -61,11 +61,11 @@ exports.createRequest = async (req, res) => {
     image: path,
     request_number: counter.count,
     unit_num: req.body.unit_num,
-    resident_name: req.body.resident_name,
-    user_id: req.user._id
+    resident_name: req.body.resident_name
+
   });
 
-
+  // user_id: req.user._id
   request.save().then((data) => res.send(data));
 };
 
@@ -78,7 +78,7 @@ exports.deleteRequest = async (req, res) => {
 
   if (!request) return res.status(404).send('The request was not find');
 
-  if (request.user_id !== req.user._id) return res.status(401).send('Unauthorized');
+  // if (request.user_id !== req.user._id) return res.status(401).send('Unauthorized');
 
   //erase image on the server if one
   if (request.image) {
