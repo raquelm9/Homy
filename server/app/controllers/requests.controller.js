@@ -33,8 +33,7 @@ exports.getRequest = (req, res) => {
 };
 
 exports.createRequest = async (req, res) => {
-  console.log('createRequest', req.body);
-  console.log('user._id', req.user._id);
+
   const file = req.file;
   const path = file ? file.path : undefined;
 
@@ -43,7 +42,7 @@ exports.createRequest = async (req, res) => {
     console.log(result.error.details[0].message)
     return res.status(400).send(result.error.details[0].message)
   }
-  console.log('after result')
+
   let counter = await Counter.findOneAndUpdate({ name: 'request_number' }, { $inc: { count: 1 } }).exec();
 
   if (!counter) {//create first counter if none
@@ -76,9 +75,10 @@ exports.deleteRequest = async (req, res) => {
 
   const serviceRequestId = req.params.id;
   let request = await Request.findById(serviceRequestId)
+
   if (!request) return res.status(404).send('The request was not find');
 
-  if (request.resident_id !== req.user._id) return res.status(401).send('Unauthorized');
+  if (request.user_id !== req.user._id) return res.status(401).send('Unauthorized');
 
   //erase image on the server if one
   if (request.image) {

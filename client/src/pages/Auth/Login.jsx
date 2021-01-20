@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage, } from "formik";
-import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import './auth.css';
 
 import { fetchUser } from '../../actions/userActions';
 
 function Login() {
+
     const dispatch = useDispatch();
+    const history = useHistory();
+    const loggedIn = useSelector(state => state.userReducer.loggedIn)
+
+    useEffect(() => {
+        if (loggedIn) history.push('/resident-request');
+    }, [loggedIn, history])
 
     return (
         <div className="container register__centered">

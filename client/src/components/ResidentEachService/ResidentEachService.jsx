@@ -1,15 +1,19 @@
 import React from "react";
 import ImageModal from "../ImageModal/ImageModal";
+import { useHistory } from 'react-router-dom';
 
 function ResidentEachService(props) {
   const modalId = `request-${props.id}`;
-
+  const history = useHistory();
   const handleOnClick = () => {
     fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
       method: "DELETE",
+      headers: {
+        "x-auth-token": `${localStorage.getItem("token")}`
+      }
     });
-
-    window.location.reload();
+    history.go(0);
+    // window.location.reload();
   };
 
   const handleDate = () => {

@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { residentRequestValidationSchema } from "./validations/resident_request_validations";
 import HttpService from "../../services/http-service";
 import { useHistory, useLocation } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import "./ResidentRequestForm.css";
 
@@ -12,13 +13,20 @@ function ResidentRequestForm() {
   const history = useHistory();
   console.log(history);
   const location = useLocation();
+  const unit_num = useSelector(state => state.userReducer.user.unit_num);
+  const name = useSelector(state => state.userReducer.user.name);
 
   const queryString = location.search;
   const urlParams = new URLSearchParams(queryString);
   const typeRequest = urlParams.get("type");
 
+
+
   const submitServiceRequest = (data) => {
     const newHttpRequest = new HttpService();
+    data.unit_num = unit_num;
+    data.resident_name = name;
+
     return newHttpRequest.addServiceRequest(data).finally(() => {
       history.push("/resident-list-request");
     });

@@ -34,13 +34,12 @@ export const register = userInfo => dispatch => {
 
 export const autoLogin = () => dispatch => {
     if (localStorage.getItem('token')) {
-        console.log(localStorage.getItem("token"))
         fetch(`http://localhost:3008/api/login`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
+                "x-auth-token": `${localStorage.getItem("token")}`
             }
         })
             .then(res => {

@@ -1,13 +1,23 @@
 import "whatwg-fetch";
 import { config } from "../config/config";
 
+
 var endPoints = `${config.SERVER_URL}/api/service-requests`;
 const endPointsResidents = `${config.SERVER_URL}/api/residents`;
 
+
+
 class HttpService {
+
+
+
   getRequests = () => {
     var promise = new Promise((resolve, reject) => {
-      fetch(endPoints).then((response) => {
+      fetch(endPoints, {
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`
+        }
+      }).then((response) => {
         resolve(response.json());
       });
     });
@@ -16,7 +26,11 @@ class HttpService {
 
   getResidents = () => {
     const promise = new Promise((resolve, reject) => {
-      fetch(endPointsResidents).then((response) => {
+      fetch(endPointsResidents, {
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`
+        }
+      }).then((response) => {
         resolve(response.json());
       });
     });
@@ -31,9 +45,16 @@ class HttpService {
       data.append("subject", value.subject);
       data.append("description", value.description);
       data.append("image", value.image);
+      data.append("unit_num", value.unit_num);
+      data.append("resident_name", value.resident_name);
+
+
 
       fetch(endPoints, {
         method: "post",
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`
+        },
         body: data,
       }).then((res) => {
         resolve(res.json());
