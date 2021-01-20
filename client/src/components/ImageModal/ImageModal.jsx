@@ -1,5 +1,6 @@
 import React from "react";
 import { config } from "../../config/config";
+import MessageSection from "../MessageSection/MessageSection";
 import "./ImageModal.css";
 
 function ImageModal(props) {
@@ -25,13 +26,13 @@ function ImageModal(props) {
             ></button>
           </div>
           <div className="modal-body">
-            {props.image ?
+            {props.image ? (
               <img
                 src={`${config.SERVER_URL}/${props.image}`}
                 className="img-fluid"
                 alt="images"
-              /> : null
-            }
+              />
+            ) : null}
             <p className="titles-modal">Subject:</p>
             <p> {props.subject}</p>
 
@@ -39,6 +40,8 @@ function ImageModal(props) {
             <p>{props.description}</p>
             <p className="titles-modal">Reference Number:</p>
             <p>{props.id}</p>
+            <hr></hr>
+            <MessageSection></MessageSection>
           </div>
           <div className="modal-footer">
             <button
