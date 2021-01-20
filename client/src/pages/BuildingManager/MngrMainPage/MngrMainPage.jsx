@@ -11,39 +11,39 @@ import MngrRequestListOfResidents from '../../../components/MngrRequestListOfRes
 
 
 const MngrMainPage = () => {
-
     return (  
         <Router>
-        <div>
-            <Container fluid>
-                <Row>
-                    <MngrNavbar />
-                    <div>
-                    </div>
-                </Row>
-                <Row>
-                    <Col sm={3} md={3} className="menu-window">
-                        <Link to='/manager/request-list-of-services'>
-                            <h2 style={{color:'black'}}>Requests</h2>
-                        </Link>
-                        <Link to='/manager/request-list-of-residents'>
-                            <h2 style={{color:'black'}}>Residents</h2>
-                        </Link>
-                        <h2 style={{color:'lightgrey'}}>Units</h2>
-                        <h2 style={{color:'lightgrey'}}>Reports</h2>
-                        <h2 style={{color:'lightgrey'}}>Announcements</h2>
-                    </Col>
-                    <Col sm={9} md={9} className="service-window">
-                            <Switch>
-                                <Route exact path="/manager/request-list-of-services" component=        {MngrRequestList}/>
-                                <Route exact path="/manager/request-list-of-residents" component=        {MngrRequestListOfResidents}/>
-                            </Switch>
-                    </Col>
-                </Row>
-                
-            </Container>
-        </div>
+            <Switch>
+                <div>
+                    <Container fluid>
+                        <Row>
+                            <MngrNavbar />
+                            <div>
+                            </div>
+                        </Row>
+                        <Row>
+                            <Col sm={3} md={3} className="menu-window">
+                                <Link className="menu-link" to='/manager/request-list-of-services' >
+                                    <h2>Requests</h2>
+                                </Link>
+                                {/* <Link to='/manager/request-list-of-residents'>
+                                    <h2 style={{color:'black'}}>Residents</h2>
+                                </Link> */}
+                                <h2 style={{color:'lightgrey'}}>Residents</h2>
+                                <h2 style={{color:'lightgrey'}}>Units</h2>
+                                <h2 style={{color:'lightgrey'}}>Reports</h2>
+                                <h2 style={{color:'lightgrey'}}>Announcements</h2>
+                            </Col>
+                            <Col sm={9} md={9} className="service-window">
+                                        <Route exact path="/manager/request-list-of-services" component=        {MngrRequestList}/>
+                                        <Route exact path="/manager/request-list-of-residents" component=        {MngrRequestListOfResidents}/>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+            </Switch>
         </Router>
+
     );
 }
  

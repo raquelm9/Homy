@@ -37,8 +37,8 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
 
-        <Route exact path="/manager" component={MngrMainPage} />
-
+        <Route path="/manager" component={MngrMainPage} />
+        
       </Switch>
     </Router>
   );

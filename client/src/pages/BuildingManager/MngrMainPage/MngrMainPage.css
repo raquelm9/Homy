@@ -35,10 +35,14 @@
   margin-left: 160px;
 }
 .mngr-navbar .links {
-  margin-left: auto;
+  /* align-items: flex-start; */
+  /* margin-right: 0px; */
+  align-items: center;
+  border: 1px solid #bf2626;
 }
 .mngr-navbar a {
-  margin-left: 16px;
+  width: fit-content;
+  margin-right: 0px;
   color: white;
   background-color: #f1356d;
   border-radius: 8px;
@@ -66,4 +70,13 @@
   padding-left: 20px;
   padding-top: 20px;
   border: 1px solid #67f40f;
+}
+
+.menu-link {
+  text-decoration: none;
+  color:black
+}
+.menu-link h2:hover {
+  color:#f1356d;
+  font-size: 40px;
 }
