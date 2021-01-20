@@ -5,7 +5,7 @@ const fs = require('fs');
 const { result } = require("lodash");
 
 exports.getRequest = (req, res) => {
-  //req.superman
+
   Request.find({ user_id: req.user._id }).then((data) => res.send(data));
 
 };
@@ -64,7 +64,7 @@ exports.deleteRequest = async (req, res) => {
     });
   }
   request = await Request.deleteOne({ _id: serviceRequestId })
-  if (!request) return resstatus(404).send('The request was not find');
+  if (!request) return res.status(404).send('The request was not find');
 
   res.send(request)
 };
