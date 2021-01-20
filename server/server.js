@@ -27,10 +27,7 @@ require("./routes/auth.route")(app);
 require("./routes/users.route")(app);
 require("./routes/residents.route")(app);
 
-// app.use('/', (req, res) => {
-//   console.log(req.body)
-//   res.send({})
-// })
+
 app.listen(3008, function () {
   console.log("API running on port 3008");
 });

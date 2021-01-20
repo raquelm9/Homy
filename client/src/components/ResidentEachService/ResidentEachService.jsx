@@ -43,14 +43,18 @@ function ResidentEachService(props) {
         <td>
           <i className="fas fa-trash-alt" onClick={handleOnClick}></i>
         </td>
+        <td>
+          <ImageModal
+            id={modalId}
+            image={props.image}
+            subject={props.subject}
+            description={props.description}
+          />
+        </td>
       </tr>
 
-      <ImageModal
-        id={modalId}
-        image={props.image}
-        subject={props.subject}
-        description={props.description}
-      />
+
+
     </>
   );
 }

@@ -25,12 +25,13 @@ function ImageModal(props) {
             ></button>
           </div>
           <div className="modal-body">
-            <img
-              src={`${config.SERVER_URL}/${props.image}`}
-              className="img-fluid"
-              alt="images"
-            />
-
+            {props.image ?
+              <img
+                src={`${config.SERVER_URL}/${props.image}`}
+                className="img-fluid"
+                alt="images"
+              /> : null
+            }
             <p className="titles-modal">Subject:</p>
             <p> {props.subject}</p>
 
