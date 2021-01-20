@@ -1,3 +1,7 @@
 p.titles-modal {
   font-weight: 900;
 }
+
+input.comment-input-section {
+  width: 100%;
+}
