@@ -8,10 +8,10 @@ function ResidentRequestList() {
   const loggedIn = useSelector(state => state.userReducer.loggedIn)
   useEffect(() => {
 
-    // if (loggedIn) {
-    loadData();
-    // }
-  }, []);
+    if (loggedIn) {
+      loadData();
+    }
+  }, [loggedIn]);
 
   const loadData = () => {
     new HttpService().getRequests().then(
