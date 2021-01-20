@@ -28,7 +28,7 @@ const { result } = require("lodash");
 // ];
 
 exports.getRequest = (req, res) => {
-  console.log(req.user._id)
+
   Request.find({ user_id: req.user._id }).then((data) => res.send(data));
 };
 

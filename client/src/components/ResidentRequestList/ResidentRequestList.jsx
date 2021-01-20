@@ -7,7 +7,7 @@ function ResidentRequestList() {
   const [request, setRequest] = useState([]);
   const loggedIn = useSelector(state => state.userReducer.loggedIn)
   useEffect(() => {
-    console.log('loggedIn', loggedIn)
+
     if (loggedIn) {
       loadData();
     }

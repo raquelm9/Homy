@@ -24,7 +24,7 @@ class HttpService {
   };
 
   getResidents = () => {
-    console.log('getResidents')
+
     const promise = new Promise((resolve, reject) => {
       fetch(endPointsResidents, {
         headers: {

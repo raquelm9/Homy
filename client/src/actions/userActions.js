@@ -33,7 +33,7 @@ export const register = userInfo => dispatch => {
 }
 
 export const autoLogin = () => dispatch => {
-    console.log('autologin')
+
     if (localStorage.getItem('token')) {
         fetch(`http://localhost:3008/api/login`, {
             method: "GET",
