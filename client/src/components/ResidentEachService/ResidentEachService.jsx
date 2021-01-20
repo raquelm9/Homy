@@ -22,38 +22,32 @@ function ResidentEachService(props) {
     return canFormat;
   };
 
-  const showButtonImage = () => {
-    if (props.image) {
-      return (
-        <button
-          type="button"
-          className="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target={`#${modalId}`}
-        >
-          Image
-        </button>
-      );
-    }
-  };
-
   return (
     <>
       <tr>
         <td>{handleDate()}</td>
         <td>{props.type}</td>
-        <td>{props.subject}</td>
-        <td>{props.description}</td>
-
-        <td>{showButtonImage()}</td>
         <td>
-          <button className="btn btn-secondary" onClick={handleOnClick}>
-            Delete
+          <button
+            type="button"
+            className="btn btn-dark"
+            data-bs-toggle="modal"
+            data-bs-target={`#${modalId}`}
+          >
+            Details
           </button>
+        </td>
+        <td>
+          <i className="fas fa-trash-alt" onClick={handleOnClick}></i>
         </td>
       </tr>
 
-      <ImageModal id={modalId} image={props.image} />
+      <ImageModal
+        id={modalId}
+        image={props.image}
+        subject={props.subject}
+        description={props.description}
+      />
     </>
   );
 }

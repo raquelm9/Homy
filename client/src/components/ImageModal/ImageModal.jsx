@@ -1,5 +1,6 @@
 import React from "react";
 import { config } from "../../config/config";
+import "./ImageModal.css";
 
 function ImageModal(props) {
   return (
@@ -14,7 +15,7 @@ function ImageModal(props) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              Image
+              Service Requested Details
             </h5>
             <button
               type="button"
@@ -29,6 +30,14 @@ function ImageModal(props) {
               className="img-fluid"
               alt="images"
             />
+
+            <p className="titles-modal">Subject:</p>
+            <p> {props.subject}</p>
+
+            <p className="titles-modal">Description:</p>
+            <p>{props.description}</p>
+            <p className="titles-modal">Reference Number:</p>
+            <p>{props.id}</p>
           </div>
           <div className="modal-footer">
             <button
