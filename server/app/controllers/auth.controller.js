@@ -1,4 +1,4 @@
-const User = require('../models/user.model');
+const { User } = require('../models/user.model');
 const { Resident } = require('../models/resident.model');
 
 const _ = require('lodash');
@@ -45,7 +45,7 @@ exports.verifyUser = async (req, res) => {
 
     let user = await User.findById(decoded._id)
 
-    let resident = await Resident.findOne({ user_id: user._id })//
+    let resident = await Resident.findOne({ user_id: user._id })
     if (!resident) return res.status(400).send("This user don't have an account yet.")
 
     user.unit_num = resident.unit_num;

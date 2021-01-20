@@ -29,7 +29,7 @@ const { result } = require("lodash");
 
 exports.getRequest = (req, res) => {
   console.log(req.user._id)
-  Request.find({ resident_id: req.user._id }).then((data) => res.send(data));
+  Request.find({ user_id: req.user._id }).then((data) => res.send(data));
 };
 
 exports.createRequest = async (req, res) => {
@@ -61,7 +61,7 @@ exports.createRequest = async (req, res) => {
     request_number: counter.count,
     unit_num: req.body.unit_num,
     resident_name: req.body.resident_name,
-    resident_id: req.user._id
+    user_id: req.user._id
   });
 
 
