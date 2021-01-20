@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Resident, validate } = require('../models/resident.model');
+const { startSession } = require('../models/user.model');
 
 exports.createAccount = (req, res) => {
 
@@ -11,8 +12,9 @@ exports.createAccount = (req, res) => {
 
     const resident = new Resident({
         unit_num: req.body.unit_num,
-        email: req.body.email,
-        name: req.body.name
+        email: req.boby.email,
+        name: req.body.name,
+        userId: req.user._id
     });
 
     resident.save().then((data) => res.send(data));
@@ -21,11 +23,11 @@ exports.createAccount = (req, res) => {
 
 exports.getResidents = (req, res) => {
 
-
     Resident
         .find()
         .then(data => res.send(data))
 }
+
 exports.deleteOne = async (req, res) => {
     const residentId = req.params.id;
 

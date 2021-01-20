@@ -15,15 +15,18 @@ const upload = multer({ storage: storage });
 
 
 module.exports = (app) => {
+
+  const auth = require('../app/middleware/auth');
+
   const request = require("../app/controllers/requests.controller");
 
   const router = require("express").Router();
 
-  router.delete("/:id", request.deleteRequest)
-  
-  router.post("/", upload.single("image"), request.createRequest);
+  router.delete("/:id", auth, request.deleteRequest)
 
-  router.get("/", request.getRequest);
+  router.post("/", [auth, upload.single("image")], request.createRequest);
+
+  router.get("/", auth, request.getRequest);
 
   app.use("/api/service-requests", router);
 };

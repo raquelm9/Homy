@@ -28,10 +28,12 @@ const { result } = require("lodash");
 // ];
 
 exports.getRequest = (req, res) => {
-  Request.find().then((data) => res.send(data));
+  console.log(req.user._id)
+  Request.find({ resident_id: req.user._id }).then((data) => res.send(data));
 };
 
 exports.createRequest = async (req, res) => {
+
   const file = req.file;
   const path = file ? file.path : undefined;
 
@@ -49,8 +51,6 @@ exports.createRequest = async (req, res) => {
     })
   }
 
-
-
   const request = new Request({
     date: req.body.date,
     type: req.body.type,
@@ -60,7 +60,8 @@ exports.createRequest = async (req, res) => {
     image: path,
     request_number: counter.count,
     unit_num: req.body.unit_num,
-    resident_name: req.body.resident_name
+    resident_name: req.body.resident_name,
+    resident_id: req.user._id
   });
 
 
@@ -68,14 +69,14 @@ exports.createRequest = async (req, res) => {
 };
 
 
-
-
-
 exports.deleteRequest = async (req, res) => {
+
 
   const serviceRequestId = req.params.id;
   let request = await Request.findById(serviceRequestId)
   if (!request) return res.status(404).send('The request was not find');
+
+  if (request.resident_id !== req.user._id) return res.status(401).send('Unauthorized');
 
   //erase image on the server if one
   if (request.image) {

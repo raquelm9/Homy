@@ -1,4 +1,6 @@
 const User = require('../models/user.model');
+const { Resident } = require('../models/resident.model');
+
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
@@ -23,20 +25,31 @@ exports.login = async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send('Invalid email or password.')
 
+    let resident = await Resident.findOne({ user_id: user._id })//
+    if (!resident) return res.status(400).send("This user don't have an account yet.")
+
+    user.unit_num = resident.unit_num;
+    user.name = resident.name;
+
+
     const token = user.generateAuthToken();
 
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'email']))
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'email', 'name', 'unit_num']))
 }
 
 exports.verifyUser = async (req, res) => {
 
-    const token = req.headers.authorization.slice(7)
-
+    const token = req.header('x-auth-token')
 
     const decoded = jwt.verify(token, "jwtPrivateKey")
 
     let user = await User.findById(decoded._id)
 
+    let resident = await Resident.findOne({ user_id: user._id })//
+    if (!resident) return res.status(400).send("This user don't have an account yet.")
 
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'email']))
+    user.unit_num = resident.unit_num;
+    user.name = resident.name;
+
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'email', 'unit_num', 'name']))
 }

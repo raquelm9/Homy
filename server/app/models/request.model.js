@@ -13,7 +13,8 @@ const schema = mongoose.Schema({
   image: String,
   request_number: Number,
   unit_num: String,
-  resident_name: String
+  resident_name: String,
+  resident_id: String
 });
 
 const Request = mongoose.model("request", schema);
@@ -30,7 +31,8 @@ function validateRequest(request) {
     image: Joi.string(),
     request_number: Joi.number(),
     unit_num: Joi.string(),
-    resident_name: Joi.string()
+    resident_name: Joi.string(),
+    resident_id: Joi.string()
   });
 
   return schema.validate(request);
