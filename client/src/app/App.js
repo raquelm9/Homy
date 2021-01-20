@@ -15,7 +15,7 @@ import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(logUserOut())
+    dispatch(logUserOut())
     dispatch(autoLogin());
   }, [dispatch]);
 
