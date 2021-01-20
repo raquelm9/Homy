@@ -9,9 +9,8 @@ const endPointsResidents = `${config.SERVER_URL}/api/residents`;
 
 class HttpService {
 
-
-
   getRequests = () => {
+    console.log('get request')
     var promise = new Promise((resolve, reject) => {
       fetch(endPoints, {
         headers: {
@@ -25,6 +24,7 @@ class HttpService {
   };
 
   getResidents = () => {
+    console.log('getResidents')
     const promise = new Promise((resolve, reject) => {
       fetch(endPointsResidents, {
         headers: {

@@ -13,7 +13,6 @@ function ResidentEachService(props) {
       }
     });
     history.go(0);
-    // window.location.reload();
   };
 
   const handleDate = () => {

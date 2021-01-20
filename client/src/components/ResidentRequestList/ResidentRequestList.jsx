@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
 import ResidentEachService from "../ResidentEachService/ResidentEachService";
 import HttpService from "../../services/http-service";
 
 function ResidentRequestList() {
   const [request, setRequest] = useState([]);
-
+  const loggedIn = useSelector(state => state.userReducer.loggedIn)
   useEffect(() => {
-    loadData();
-  }, []);
+    console.log('loggedIn', loggedIn)
+    if (loggedIn) {
+      loadData();
+    }
+  }, [loggedIn]);
 
   const loadData = () => {
     new HttpService().getRequests().then(
       (data) => {
         setRequest(data);
       },
-      (err) => {}
+      (err) => { }
     );
   };
 
