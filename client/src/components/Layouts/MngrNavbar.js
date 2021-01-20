@@ -8,10 +8,10 @@ const MngrNavbar = () => {
             <Col xs={3} md={3} className='mngr-navbar-logo'>
                 <h1 className='navbar-logo'>homy</h1>
             </Col>
-            <Col xs={3} md={6}>
+            <Col xs={9} md={6}>
                 <h4>{ buildingName }</h4>
             </Col>
-            <Col xs={3} md={3}>
+            <Col xs={0} md={3}>
                 <div className="links">
                     <Link href="/manager">Home</Link>
                     <Link href="/manager">Help</Link>
