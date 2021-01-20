@@ -28,7 +28,7 @@ function validateRequest(request) {
     subject: Joi.string().required(),
     description: Joi.string().required(),
     status: Joi.boolean(),
-    image: Joi.string(),
+    image: Joi.binary(),
     request_number: Joi.number(),
     unit_num: Joi.string(),
     resident_name: Joi.string(),

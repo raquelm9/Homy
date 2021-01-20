@@ -28,20 +28,22 @@ const { result } = require("lodash");
 // ];
 
 exports.getRequest = (req, res) => {
-  console.log(req.user._id)
+  // console.log(req.user._id)
   Request.find({ user_id: req.user._id }).then((data) => res.send(data));
 };
 
 exports.createRequest = async (req, res) => {
-
+  console.log('createRequest', req.body);
+  console.log('user._id', req.user._id);
   const file = req.file;
   const path = file ? file.path : undefined;
 
   const result = validate(req.body);
   if (result.error) {
+    console.log(result.error.details[0].message)
     return res.status(400).send(result.error.details[0].message)
   }
-
+  console.log('after result')
   let counter = await Counter.findOneAndUpdate({ name: 'request_number' }, { $inc: { count: 1 } }).exec();
 
   if (!counter) {//create first counter if none
