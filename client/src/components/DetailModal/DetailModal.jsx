@@ -41,7 +41,7 @@ function DetailModal(props) {
             <p className="titles-modal">Reference Number:</p>
             <p>{props.id}</p>
             <hr></hr>
-            <MessageSection></MessageSection>
+            <MessageSection requestId={props.id}></MessageSection>
           </div>
           <div className="modal-footer">
             <button

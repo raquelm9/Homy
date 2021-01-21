@@ -11,7 +11,6 @@ function ResidentRequestForm() {
   // const [selectedFile, setSelectedFile] = useState(null);
 
   const history = useHistory();
-  console.log(history);
   const location = useLocation();
   const unit_num = useSelector((state) => state.userReducer.user.unit_num);
   const name = useSelector((state) => state.userReducer.user.name);
