@@ -5,6 +5,7 @@ import MessageCard from "../MessageCard/MessageCard";
 
 function MessageSection(props) {
   const [message, setMessage] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
 
   const name = useSelector((state) => state.userReducer.user.name);
 
@@ -12,26 +13,38 @@ function MessageSection(props) {
     setMessage(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    <div className="alert alert-primary" role="alert">
-      {message}
-    </div>;
+  const showMessageCard = () => {
+    return (
+      <div className="row">
+        <span
+          className="test"
+          style={{
+            width: "auto",
+            backgroundColor: "beige",
+          }}
+        >
+          {message}
+        </span>
+      </div>
+    );
+  };
 
-    // <MessageCard message={message}></MessageCard>;
+  const handleSubmit = (event) => {
+    setShowMessage(true);
+
+    event.preventDefault();
 
     // console.log("User Name", name);
     // console.log("Message", message);
     // console.log("Request Id", props.requestId);
-
-    event.preventDefault();
   };
 
   return (
     <>
       <p className="titles-modal">Comments:</p>
-      <div className="alert alert-primary" role="alert">
-        Hello
-      </div>
+
+      {showMessage ? showMessageCard() : null}
+
       <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-9">
@@ -52,6 +65,7 @@ function MessageSection(props) {
           </div>
         </div>
       </form>
+      <handleSubmit />
     </>
   );
 }
