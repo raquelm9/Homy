@@ -9,18 +9,22 @@ import ResidentRequest from "../pages/Residents/ResidentRequest/ResidentRequest"
 import ResidentListRequest from "../pages/Residents/ResidentListRequest/ResidentListRequest";
 import Register from "../pages/Auth/Register";
 import Login from "../pages/Auth/Login";
-import { autoLogin, logUserOut } from "../actions/userActions";
+import { autoLogin } from "../actions/userActions";
 import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
+
+import ResidentNavbar from '../components/Layouts/ResidentNavbar';
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(logUserOut())
     dispatch(autoLogin());
   }, [dispatch]);
 
   return (
+
     <Router>
+      <ResidentNavbar />
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/resident-request" component={ResidentRequest} />
@@ -41,6 +45,7 @@ function App() {
 
       </Switch>
     </Router>
+
   );
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
-import ImageModal from "../ImageModal/ImageModal";
-import { useHistory } from 'react-router-dom';
+import DetailModal from "../DetailModal/DetailModal";
+import { useHistory } from "react-router-dom";
 
 function ResidentEachService(props) {
   const modalId = `request-${props.id}`;
@@ -9,8 +9,8 @@ function ResidentEachService(props) {
     fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
       method: "DELETE",
       headers: {
-        "x-auth-token": `${localStorage.getItem("token")}`
-      }
+        "x-auth-token": `${localStorage.getItem("token")}`,
+      },
     });
     history.go(0);
   };
@@ -44,7 +44,7 @@ function ResidentEachService(props) {
           <i className="fas fa-trash-alt" onClick={handleOnClick}></i>
         </td>
         <td>
-          <ImageModal
+          <DetailModal
             id={modalId}
             image={props.image}
             subject={props.subject}
@@ -52,9 +52,6 @@ function ResidentEachService(props) {
           />
         </td>
       </tr>
-
-
-
     </>
   );
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import { config } from "../../config/config";
 import MessageSection from "../MessageSection/MessageSection";
-import "./ImageModal.css";
+import "./DetailModal.css";
 
-function ImageModal(props) {
+function DetailModal(props) {
   return (
     <div
       className="modal fade"
@@ -58,4 +58,4 @@ function ImageModal(props) {
   );
 }
 
-export default ImageModal;
+export default DetailModal;
