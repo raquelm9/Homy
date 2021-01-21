@@ -16,17 +16,15 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   })
   .then(() => console.log("Connected to MongoDB..."))
   .catch((err) => console.error("Could not connect to MongoDb...", err));
 
-
-require("./routes/requests.route")(app);
 require("./routes/auth.route")(app);
+require("./routes/requests.route")(app);
 require("./routes/users.route")(app);
 require("./routes/residents.route")(app);
-
 
 app.listen(3008, function () {
   console.log("API running on port 3008");

@@ -1,31 +1,27 @@
-const _ = require('lodash')
-const { User, validate } = require('../models/user.model');
-const bcrypt = require('bcrypt');
-const Joi = require('joi');
+const _ = require("lodash");
+const { User, validate } = require("../models/user.model");
+const bcrypt = require("bcrypt");
 
 exports.register = async (req, res) => {
+  const result = validate(req.body);
 
+  if (result.error) {
+    return res.status(400).send(result.error.details[0].message);
+  }
 
-    const result = validate(req.body)
+  let user = await User.findOne({ email: req.body.email });
+  if (user) return res.status(400).send("User already registered.");
 
-    if (result.error) {
-        return res.status(400).send(result.error.details[0].message)
-    }
+  user = new User({
+    email: req.body.email,
+    password: req.body.password,
+  });
 
-    let user = await User.findOne({ email: req.body.email })
-    if (user) return res.status(400).send('User already registered.')
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
 
-    user = new User({
-        email: req.body.email,
-        password: req.body.password
-    })
+  await user.save();
 
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-
-    await user.save();
-
-    const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'email']));
-}
-
+  const token = user.generateAuthToken();
+  res.header("x-auth-token", token).send(_.pick(user, ["_id", "email"]));
+};
