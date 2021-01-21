@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import "./MessageSection.css";
+import { useSelector } from "react-redux";
 
-function MessageSection() {
+function MessageSection(props) {
   const [message, setMessage] = useState("");
+
+  const name = useSelector((state) => state.userReducer.user.name);
 
   const myChangeHandler = (event) => {
     setMessage(event.target.value);
   };
 
   const handleSubmit = (event) => {
-    console.log(message);
+    console.log("User Name", name);
+    console.log("Message", message);
+    console.log("Request Id", props.requestId);
     event.preventDefault();
   };
 
@@ -19,7 +25,7 @@ function MessageSection() {
         <div className="row">
           <div className="col-9">
             <input
-              className="comment-input-section"
+              className="comment-input-section input-custom-details"
               type="text"
               onChange={myChangeHandler}
             />
