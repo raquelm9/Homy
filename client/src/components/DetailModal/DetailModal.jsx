@@ -11,7 +11,7 @@ function DetailModal(props) {
         <>
           <p className="titles-modal">Unit:</p>
           <p> {props.unit_num}</p>
-
+          
           <p className="titles-modal">Requested by:</p>
           <p> {props.resident_name}</p>
         </>
