@@ -4,6 +4,21 @@ import MessageSection from "../MessageSection/MessageSection";
 import "./DetailModal.css";
 
 function DetailModal(props) {
+
+  const CheckUnitAndName = () => {
+    if (props.unit_num) {
+      return (
+        <>
+          <p className="titles-modal">Unit:</p>
+          <p> {props.unit_num}</p>
+
+          <p className="titles-modal">Requested by:</p>
+          <p> {props.resident_name}</p>
+        </>
+      )
+    }
+  }
+  
   return (
     <div
       className="modal fade"
@@ -26,15 +41,11 @@ function DetailModal(props) {
             ></button>
           </div>
           <div className="modal-body">
-            {props.image ? (
-              <img
-                src={`${config.SERVER_URL}/${props.image}`}
-                className="img-fluid"
-                alt="images"
-              />
-            ) : null}
+           
             <p className="titles-modal">Subject:</p>
             <p> {props.subject}</p>
+
+            <CheckUnitAndName/> {/* Checks if there are unit number and name in props passed */}
 
             <p className="titles-modal">Description:</p>
             <p>{props.description}</p>
@@ -42,6 +53,13 @@ function DetailModal(props) {
             <p>{props.id}</p>
             <hr></hr>
             <MessageSection requestId={props.id}></MessageSection>
+            {props.image ? (
+              <img
+                src={`${config.SERVER_URL}/${props.image}`}
+                className="img-fluid"
+                alt="images"
+              />
+            ) : null}
           </div>
           <div className="modal-footer">
             <button

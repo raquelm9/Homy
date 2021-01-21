@@ -63,6 +63,8 @@ function MngrEachService(props) {
             image={props.image}
             subject={props.subject}
             description={props.description}
+            unit_num={props.unit_num}
+            resident_name={props.resident_name}
           />
           </td>
         <td>

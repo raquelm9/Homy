@@ -30,6 +30,9 @@ function MngrRequestList() {
         subject={service.subject}
         date={service.date}
         image={service.image}
+        unit_num={service.unit_num}
+        resident_name={service.resident_name}
+        description={service.description}
       />
     );
   }
