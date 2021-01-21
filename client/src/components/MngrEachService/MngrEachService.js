@@ -1,5 +1,5 @@
 import React from "react";
-import ImageModal from "../ImageModal/ImageModal";
+import DetailModal from "../DetailModal/DetailModal";
 
 function MngrEachService(props) {
   const modalId = `request-${props.id}`;
@@ -40,7 +40,7 @@ function MngrEachService(props) {
   return (
     <>
       <tr>
-        <th scope="row">{props.requestNumber+1}</th>
+        <th scope="row">{props.requestNumber + 1}</th>
         <td>{handleDate()}</td>
         <td>{props.type}</td>
         <td>{props.subject}</td>
@@ -50,7 +50,9 @@ function MngrEachService(props) {
             Delete
           </button>
         </td>
-        <td><ImageModal id={modalId} image={props.image} /></td>
+        <td>
+          <DetailModal id={modalId} image={props.image} />
+        </td>
       </tr>
     </>
   );
