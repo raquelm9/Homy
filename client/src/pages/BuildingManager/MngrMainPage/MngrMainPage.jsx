@@ -7,6 +7,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 import MngrRequestList from '../../../components/MngrRequestList/MngrRequestList';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MngrRequestListOfResidents from '../../../components/MngrRequestListOfResidents/MngrRequestListOfResidents';
+import MngrNavbarBs from '../../../components/Layouts/MngrNavbarBs';
 
 
 
@@ -17,7 +18,7 @@ const MngrMainPage = () => {
                 <div>
                     <Container fluid>
                         <Row>
-                            <MngrNavbar />
+                            <MngrNavbarBs/>
                             <div>
                             </div>
                         </Row>
@@ -32,7 +33,6 @@ const MngrMainPage = () => {
                                 <h2 style={{color:'lightgrey'}}>Residents</h2>
                                 <h2 style={{color:'lightgrey'}}>Units</h2>
                                 <h2 style={{color:'lightgrey'}}>Reports</h2>
-                                <h2 style={{color:'lightgrey'}}>Announcements</h2>
                             </Col>
                             <Col sm={9} md={9} className="service-window">
                                         <Route exact path="/manager/request-list-of-services" component=        {MngrRequestList}/>

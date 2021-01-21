@@ -49,8 +49,9 @@ function MngrEachService(props) {
           <button className="btn btn-secondary" onClick={handleOnClick}>
             Delete
           </button>
+          <td><ImageModal id={modalId} image={props.image} /></td>
         </td>
-        <td><ImageModal id={modalId} image={props.image} /></td>
+
       </tr>
     </>
   );

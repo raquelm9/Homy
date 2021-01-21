@@ -1,46 +1,72 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
-/* base styles */
-/* * {
+@font-face {
+  font-family: comfortaa;
+  src: url(../../../assets/fonts/ComfortaaBold.ttf);
+}
+
+@font-face {
+  font-family: roboto;
+  src: url(../../../assets/fonts/RobotoBlack.ttf);
+}
+
+/* base styles
+* {
   margin: 0;
   font-family: "Quicksand";
   color: #333;
 } */
-.mngr-navbar {
+/* .mngr-navbar {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 0px;
   padding-right: 20px;
   display: flex;
-  align-items: center;
+  align-items: center; */
   /* max-width: 600px; */
-  max-width: 100%;
+  /* max-width: 100%;
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
   border: 1px solid #0f0ff4;
+} */
+.homyTextNavbar {
+  font-family: comfortaa;
+  font-size: 50px;
+  padding-right: 250px;
+  padding-left:10px;
+  /* border: 1px solid #0f0ff4; */
 }
+
+.addressTextNavbar {
+  font-family: comfortaa;
+  font-size: 30px;
+  padding-left: 50px;
+}
+
 
 .mngr-navbar-logo {
-    border: 1px solid #67f40f;
-    padding-left: 20px;
-
+  border: 1px solid #67f40f;
+  padding-left: 20px;
+  font-family: comfortaa;
+  font-size: 50px;
 }
-.mngr-navbar h1 {
+
+/* .mngr-navbar h1 {
   color: #f1356d;
   border: 1px solid #67f40f;
-}
-.mngr-navbar h4 {
-  color: #b1b1b1;
+} */
+/* .mngr-navbar h4 {
+  color: #b1b1b1; */
   /* padding: 12px; */
-  margin-left: 160px;
-}
-.mngr-navbar .links {
+  /* margin-left: 160px;
+} */
+/* .mngr-navbar .links { */
   /* align-items: flex-start; */
   /* margin-right: 0px; */
-  align-items: center;
-  border: 1px solid #bf2626;
-}
-.mngr-navbar a {
+  /* align-items: center;
+  border: 1px solid #bf2626; */
+/* } */
+/* .mngr-navbar a {
   width: fit-content;
   margin-right: 0px;
   color: white;
@@ -48,28 +74,28 @@
   border-radius: 8px;
   text-decoration: none;
   padding: 6px;
-}
+} */
 
-.mngr-navbar a:hover {
+/* .mngr-navbar a:hover {
   color: black;
-}
+} */
 
-.content {
+/* .content {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
-}
+} */
 
 .service-window {
-    padding-left: 20px;
+  padding-left: 20px;
   padding-top: 20px;
-  border: 1px solid #bf2626;
+  /* border: 1px solid #bf2626; */
 }
 
 .menu-window {
   padding-left: 20px;
   padding-top: 20px;
-  border: 1px solid #67f40f;
+  border-right: 1px solid lightgray;
 }
 
 .menu-link {
@@ -78,5 +104,4 @@
 }
 .menu-link h2:hover {
   color:#f1356d;
-  font-size: 40px;
 }
