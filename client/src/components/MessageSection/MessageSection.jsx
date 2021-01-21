@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./MessageSection.css";
 import { useSelector } from "react-redux";
+import MessageCard from "../MessageCard/MessageCard";
 
 function MessageSection(props) {
   const [message, setMessage] = useState("");
@@ -12,15 +13,25 @@ function MessageSection(props) {
   };
 
   const handleSubmit = (event) => {
-    console.log("User Name", name);
-    console.log("Message", message);
-    console.log("Request Id", props.requestId);
+    <div className="alert alert-primary" role="alert">
+      {message}
+    </div>;
+
+    // <MessageCard message={message}></MessageCard>;
+
+    // console.log("User Name", name);
+    // console.log("Message", message);
+    // console.log("Request Id", props.requestId);
+
     event.preventDefault();
   };
 
   return (
     <>
       <p className="titles-modal">Comments:</p>
+      <div className="alert alert-primary" role="alert">
+        Hello
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-9">
