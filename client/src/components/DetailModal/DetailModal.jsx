@@ -17,6 +17,8 @@ function DetailModal(props) {
         </>
       )
     }
+    else {
+      return (null)}
   }
   
   return (
