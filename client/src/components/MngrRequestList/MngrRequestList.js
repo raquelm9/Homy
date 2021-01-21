@@ -46,7 +46,7 @@ function MngrRequestList() {
           <th scope="col">Date</th>
           <th scope="col">Type</th>
           <th scope="col">Subject</th>
-          <th scope="col">Image</th>
+          <th scope="col">Details</th>
           <th scope="col">Delete</th>
         </tr>
       </thead>

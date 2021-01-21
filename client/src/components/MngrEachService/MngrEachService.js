@@ -1,15 +1,19 @@
 import React from "react";
 import DetailModal from "../DetailModal/DetailModal";
+import { useHistory } from "react-router-dom";
+
 
 function MngrEachService(props) {
   const modalId = `request-${props.id}`;
-
+  const history = useHistory();
   const handleOnClick = () => {
     fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
       method: "DELETE",
+      headers: {
+        "x-auth-token": `${localStorage.getItem("token")}`,
+      },
     });
-
-    window.location.reload();
+    history.go(0);
   };
 
   const handleDate = () => {
@@ -22,20 +26,20 @@ function MngrEachService(props) {
     return canFormat;
   };
 
-  const showButtonImage = () => {
-    if (props.image) {
-      return (
-        <button
-          type="button"
-          className="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target={`#${modalId}`}
-        >
-          Image
-        </button>
-      );
-    }
-  };
+  // const showButtonImage = () => {
+  //   if (props.image) {
+  //     return (
+  //       <button
+  //         type="button"
+  //         className="btn btn-primary"
+  //         data-bs-toggle="modal"
+  //         data-bs-target={`#${modalId}`}
+  //       >
+  //         Image
+  //       </button>
+  //     );
+  //   }
+  // };
 
   return (
     <>
@@ -44,15 +48,31 @@ function MngrEachService(props) {
         <td>{handleDate()}</td>
         <td>{props.type}</td>
         <td>{props.subject}</td>
-        <td>{showButtonImage()}</td>
+        {/* <td>{showButtonImage()}</td> */}
+        <td>
+        <button
+            type="button"
+            className="btn btn-dark"
+            data-bs-toggle="modal"
+            data-bs-target={`#${modalId}`}
+          >
+          Details
+          </button>
+        <DetailModal
+            id={modalId}
+            image={props.image}
+            subject={props.subject}
+            description={props.description}
+          />
+          </td>
         <td>
           <button className="btn btn-secondary" onClick={handleOnClick}>
             Delete
           </button>
-          <td><ImageModal id={modalId} image={props.image} /></td>
+          {/* <td><ImageModal id={modalId} image={props.image} /></td> */}
         </td>
         <td>
-          <DetailModal id={modalId} image={props.image} />
+        
         </td>
       </tr>
     </>

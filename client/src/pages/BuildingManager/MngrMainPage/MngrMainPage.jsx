@@ -8,6 +8,7 @@ import MngrRequestList from '../../../components/MngrRequestList/MngrRequestList
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MngrRequestListOfResidents from '../../../components/MngrRequestListOfResidents/MngrRequestListOfResidents';
 import MngrNavbarBs from '../../../components/Layouts/MngrNavbarBs';
+import MngrHomeView from '../../../components/MngrHomeView/MngrHomeView';
 
 
 
@@ -35,8 +36,9 @@ const MngrMainPage = () => {
                                 <h2 style={{color:'lightgrey'}}>Reports</h2>
                             </Col>
                             <Col sm={9} md={9} className="service-window">
-                                        <Route exact path="/manager/request-list-of-services" component=        {MngrRequestList}/>
-                                        <Route exact path="/manager/request-list-of-residents" component=        {MngrRequestListOfResidents}/>
+                                <Route exact path='/manager' component={MngrHomeView}></Route>
+                                <Route exact path="/manager/request-list-of-services" component=        {MngrRequestList}/>
+                                <Route exact path="/manager/request-list-of-residents" component=        {MngrRequestListOfResidents}/>
                             </Col>
                         </Row>
                     </Container>
