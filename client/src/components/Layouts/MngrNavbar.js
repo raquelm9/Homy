@@ -13,8 +13,7 @@ const MngrNavbar = () => {
             </Col>
             <Col xs={0} md={3}>
                 <div className="links">
-                    <Link href="/manager">Home</Link>
-                    <Link href="/manager">Help</Link>
+                    <Link to="/manager">Home</Link>
                     {/* <Link to="/manager" >Home</Link>
                     <Link to="/manager" style={{
                         color: "white",

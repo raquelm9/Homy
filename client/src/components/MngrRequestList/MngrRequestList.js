@@ -39,7 +39,7 @@ function MngrRequestList() {
 
     <h2>Service Requests</h2> 
     <div className="table-responsive">
-    <table className="table table-bordered table-hover table-condensed ">
+    <table className="table table-stripped table-hover table-condensed ">
       <thead>
         <tr>
           <th scope="col">#</th>
