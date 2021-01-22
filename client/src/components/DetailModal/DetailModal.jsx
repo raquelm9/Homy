@@ -54,7 +54,7 @@ function DetailModal(props) {
             <p className="titles-modal">Reference Number:</p>
             <p>{props.id}</p>
             <hr></hr>
-            <MessageSection requestId={props.id}></MessageSection>
+            <MessageSection requestId={props.id} resident_name={props.resident_name}></MessageSection>
             {props.image ? (
               <img
                 src={`${config.SERVER_URL}/${props.image}`}

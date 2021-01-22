@@ -4,13 +4,21 @@ import { useSelector } from "react-redux";
 import MessageCard from "../MessageCard/MessageCard";
 
 function MessageSection(props) {
-  const globalMessages = ["a", "b", "c"];
-  const [message, setMessage] = useState("");
+  // const globalMessages = ["a", "b", "c"];
+  // const [message, setMessage] = useState("");
 
-  // const name = useSelector((state) => state.userReducer.user.name);
+
+  const [newMessage, setNewMessage] = useState('');
+  const [currentMessages, setCurrentMessages] = useState([]);
 
   const myChangeHandler = (event) => {
-    setMessage(event.target.value);
+    setNewMessage(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    setCurrentMessages((currentMessages) => [...currentMessages, newMessage]);
+    setNewMessage('');
+    event.preventDefault();
   };
 
   const ShowMessageCard = (props) => {
@@ -20,37 +28,29 @@ function MessageSection(props) {
           className="test"
           style={{
             width: "auto",
-            backgroundColor: "beige",
+            backgroundColor: "lightgrey",
+            borderRadius: '12px'
           }}
         >
-          {msg}
+          <span style={{
+            color: '#f1356d'
+          }}>{props.resident_name}:</span> {msg}
         </span>
       </div>
     ));
   };
 
-  const handleSubmit = (event) => {
-    globalMessages.push(message);
-    setMessage("");
-    event.preventDefault();
-
-    // console.log("User Name", name);
-    // console.log("Message", message);
-    // console.log("Request Id", props.requestId);
-  };
   return (
     <>
       <p className="titles-modal">Comments:</p>
-
-      <ShowMessageCard messageArray={globalMessages} />
-
+      <ShowMessageCard messageArray={currentMessages} resident_name={props.resident_name} />
       <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-9">
             <input
               className="comment-input-section input-custom-details"
               type="text"
-              value={message}
+              value={newMessage}
               onChange={myChangeHandler}
             />
           </div>
