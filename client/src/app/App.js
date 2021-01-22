@@ -13,6 +13,7 @@ import { autoLogin } from "../actions/userActions";
 import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
 
 import ResidentNavbar from '../components/Layouts/ResidentNavbar';
+import ResidentShopPage from "../pages/Residents/ResidentShopPage/ResidentShopPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ function App() {
         <Route exact path="/login" component={Login} />
 
         <Route path="/manager" component={MngrMainPage} />
+        <Route path="/shop" component={ResidentShopPage} />
 
       </Switch>
     </Router>
