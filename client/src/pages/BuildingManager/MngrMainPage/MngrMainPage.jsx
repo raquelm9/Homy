@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 // import {useState, useEffect} from 'react';
-import MngrNavbar from '../../../components/Layouts/MngrNavbar';
 import './MngrMainPage.css';
 import {Container, Row, Col} from 'react-bootstrap';
 import MngrRequestList from '../../../components/MngrRequestList/MngrRequestList';
