@@ -3,6 +3,7 @@ import React from 'react';
 import { Card , Button} from 'react-bootstrap';
 import {products} from './Products';
 import './ResidentShopPage.css';
+import {Link} from 'react-router-dom';
 
 
 const ResidentShopPage = () => {
@@ -17,7 +18,7 @@ const ResidentShopPage = () => {
                 <Card.Text>
                      {product.price} CAD
                 </Card.Text>
-                <Button variant="primary" className="shop-button">Buy</Button>
+                <Button variant="primary" className="shop-button"><Link to="/checkout">Buy</Link></Button>
             </Card.Body>
         </Card>
 

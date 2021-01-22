@@ -14,6 +14,8 @@ import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
 
 import ResidentNavbar from '../components/Layouts/ResidentNavbar';
 import ResidentShopPage from "../pages/Residents/ResidentShopPage/ResidentShopPage";
+import CheckoutForm from "../pages/Residents/CheckoutForm/CheckoutForm";
+import Checkout from "../pages/Residents/CheckoutForm/Checkout";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +46,8 @@ function App() {
 
         <Route path="/manager" component={MngrMainPage} />
         <Route path="/shop" component={ResidentShopPage} />
+        <Route path="/checkout" component={Checkout} />
+
 
       </Switch>
     </Router>
