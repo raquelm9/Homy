@@ -1,15 +1,11 @@
 
-import { CardElement, useStripe, useElements, Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
 
 const CheckoutForm = () => {
     const stripe = useStripe();
     const elements = useElements();
-    // const stripePromise = loadStripe(
-    //     "pk_test_51IBDyvF2HDM8CiHYQJfsy5btrP7rN4aZ6jgN1iSx8DYAXcOlbpxVeDpOJ0zZUCFTJwwV6zjBirsx2RHoOQLGJizj00NqqTs3Bx"
 
-    // )
     const handleSubmit = async event => {
         event.preventDefault()
         if (!stripe || !elements) return
@@ -32,20 +28,19 @@ const CheckoutForm = () => {
                 body: JSON.stringify({ payment_method_id: paymentMethod.id })
             })
         }
-
-        return (
-            <div>
-
-                <form onSubmit={handleSubmit}>
-                    <CardElement />
-                    <button type="submit" disabled={!stripe}>
-                        Pay
+    }
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <CardElement />
+                <button type="submit" disabled={!stripe}>
+                    Pay
             </button>
-                </form>
+            </form>
 
-            </div>
-        )
-    };
-}
+        </div>
+    )
+};
+
 
 export default CheckoutForm;
