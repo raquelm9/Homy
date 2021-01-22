@@ -17,6 +17,7 @@ const upload = multer({ storage: storage });
 module.exports = (app) => {
   router.delete("/:id", auth, request.deleteRequest);
   router.post("/", [auth, upload.single("image")], request.createRequest);
+  router.put("/:requestId/comment", auth, request.commentOnRequest);
   router.get("/", auth, request.getRequest);
 
   app.use("/api/service-requests", router);
