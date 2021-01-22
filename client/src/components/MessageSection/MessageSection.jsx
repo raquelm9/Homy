@@ -4,17 +4,17 @@ import { useSelector } from "react-redux";
 import MessageCard from "../MessageCard/MessageCard";
 
 function MessageSection(props) {
+  const globalMessages = ["a", "b", "c"];
   const [message, setMessage] = useState("");
-  const [showMessage, setShowMessage] = useState(false);
 
-  const name = useSelector((state) => state.userReducer.user.name);
+  // const name = useSelector((state) => state.userReducer.user.name);
 
   const myChangeHandler = (event) => {
     setMessage(event.target.value);
   };
 
-  const showMessageCard = () => {
-    return (
+  const ShowMessageCard = (props) => {
+    return props.messageArray.map((msg) => (
       <div className="row">
         <span
           className="test"
@@ -23,27 +23,26 @@ function MessageSection(props) {
             backgroundColor: "beige",
           }}
         >
-          {message}
+          {msg}
         </span>
       </div>
-    );
+    ));
   };
 
   const handleSubmit = (event) => {
-    setShowMessage(true);
-
+    globalMessages.push(message);
+    setMessage("");
     event.preventDefault();
 
     // console.log("User Name", name);
     // console.log("Message", message);
     // console.log("Request Id", props.requestId);
   };
-
   return (
     <>
       <p className="titles-modal">Comments:</p>
 
-      {showMessage ? showMessageCard() : null}
+      <ShowMessageCard messageArray={globalMessages} />
 
       <form onSubmit={handleSubmit}>
         <div className="row">
@@ -51,6 +50,7 @@ function MessageSection(props) {
             <input
               className="comment-input-section input-custom-details"
               type="text"
+              value={message}
               onChange={myChangeHandler}
             />
           </div>
@@ -65,7 +65,6 @@ function MessageSection(props) {
           </div>
         </div>
       </form>
-      <handleSubmit />
     </>
   );
 }

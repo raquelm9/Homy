@@ -5,8 +5,27 @@ var endPoints = `${config.SERVER_URL}/api/service-requests`;
 const endPointsResidents = `${config.SERVER_URL}/api/residents`;
 
 class HttpService {
+  commentOnRequest = (requestId, name, comment) => {
+    const commetUrl = `${endPoints}/${requestId}/comment`;
+
+    var promise = new Promise((resolve, reject) => {
+      fetch(commetUrl, {
+        method: "put",
+        body: {
+          name,
+          comment,
+        },
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        },
+      }).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
+
   getRequests = () => {
-    console.log("get request");
     var promise = new Promise((resolve, reject) => {
       fetch(endPoints, {
         headers: {
@@ -33,8 +52,6 @@ class HttpService {
   };
 
   addServiceRequest = (value) => {
-    console.log(value);
-
     var promise = new Promise((resolve, reject) => {
       const data = new FormData();
       data.append("type", value.type);

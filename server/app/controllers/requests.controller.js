@@ -48,7 +48,7 @@ exports.createRequest = async (req, res) => {
 
 exports.deleteRequest = async (req, res) => {
   const serviceRequestId = req.params.id;
-  const request = await Request.findById(serviceRequestId);
+  let request = await Request.findById(serviceRequestId);
 
   if (!request) return res.status(404).send("The request was not find");
 
