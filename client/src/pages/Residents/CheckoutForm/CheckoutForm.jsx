@@ -1,6 +1,4 @@
-
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-
 
 const CheckoutForm = () => {
     const stripe = useStripe();
@@ -20,7 +18,7 @@ const CheckoutForm = () => {
         }
         else {
             console.log('PaymentMethod', paymentMethod)
-            fetch('http://localhost:3008/shop/pay', {
+            fetch('http://localhost:3008/api/shop/pay', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
