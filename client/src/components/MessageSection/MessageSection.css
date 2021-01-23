@@ -8,11 +8,18 @@ span.style-tag-resident {
   margin: 10px;
   background-color: lightgrey;
   border-radius: 20px;
+  padding: 0px 10px;
 }
 
 span.style-tag-manager {
   width: auto;
   margin: 10px;
+  float: right;
+  padding: 0px 10px;
   background-color: rgba(173, 216, 230, 0.438);
   border-radius: 20px;
+}
+
+span.style-tag-header {
+  width: auto;
 }

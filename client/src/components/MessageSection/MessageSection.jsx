@@ -32,20 +32,20 @@ function MessageSection(props) {
     if (item.name !== "Manager") {
       return (
         <div className="row">
-          <span className="style-tag-resident">
-            {item.name}
-            {item.comment}
-            {moment(item.createdAt).fromNow()}
+          <span className="style-tag-header">
+            {item.name} {moment(item.createdAt).fromNow()}
+            <br></br>
+            <span className="style-tag-resident">{item.comment}</span>
           </span>
         </div>
       );
     } else {
       return (
         <div className="row d-flex justify-content-end">
-          <span className="style-tag-manager">
-            {item.name}
-            {item.comment}
-            {moment(item.createdAt).fromNow()}
+          <span className="style-tag-header">
+            {item.name} {moment(item.createdAt).fromNow()}
+            <br></br>
+            <span className="style-tag-manager">{item.comment}</span>
           </span>
         </div>
       );
