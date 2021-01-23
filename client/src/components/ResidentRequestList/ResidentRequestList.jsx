@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import ResidentEachService from "../ResidentEachService/ResidentEachService";
 import HttpService from "../../services/http-service";
 
 function ResidentRequestList() {
   const [request, setRequest] = useState([]);
-  const loggedIn = useSelector(state => state.userReducer.loggedIn)
+  const loggedIn = useSelector((state) => state.userReducer.loggedIn);
   useEffect(() => {
-
     if (loggedIn) {
       loadData();
     }
@@ -18,7 +17,7 @@ function ResidentRequestList() {
       (data) => {
         setRequest(data);
       },
-      (err) => { }
+      (err) => {}
     );
   };
 
@@ -32,6 +31,7 @@ function ResidentRequestList() {
         description={service.description}
         date={service.date}
         image={service.image}
+        comments={service.comments}
       />
     );
   }

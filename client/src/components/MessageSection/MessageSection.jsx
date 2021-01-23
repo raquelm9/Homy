@@ -1,49 +1,65 @@
 import React, { useState } from "react";
+import HttpService from "../../services/http-service";
 import "./MessageSection.css";
-import { useSelector } from "react-redux";
-import MessageCard from "../MessageCard/MessageCard";
+import { useStore } from "react-redux";
+import moment from "moment";
 
 function MessageSection(props) {
-  // const globalMessages = ["a", "b", "c"];
-  // const [message, setMessage] = useState("");
-
-
-  const [newMessage, setNewMessage] = useState('');
-  const [currentMessages, setCurrentMessages] = useState([]);
+  const store = useStore();
+  const name = store.getState().userReducer.user.name;
+  const requestId = props.requestId.split("-")[1];
+  const [newMessage, setNewMessage] = useState("");
+  const [currentMessages, setCurrentMessages] = useState(props.comments || []);
 
   const myChangeHandler = (event) => {
     setNewMessage(event.target.value);
   };
 
   const handleSubmit = (event) => {
-    setCurrentMessages((currentMessages) => [...currentMessages, newMessage]);
-    setNewMessage('');
     event.preventDefault();
+    const newComment = {
+      comment: newMessage,
+      name,
+      createdAt: moment().toString(),
+    };
+    new HttpService().commentOnRequest(requestId, name, newMessage).then(() => {
+      setCurrentMessages([newComment, ...currentMessages]);
+      setNewMessage("");
+    });
+  };
+
+  const showStyleOfCard = (item) => {
+    if (item.name !== "Manager") {
+      return (
+        <div className="row">
+          <span className="style-tag-resident">
+            {item.name}
+            {item.comment}
+            {moment(item.createdAt).fromNow()}
+          </span>
+        </div>
+      );
+    } else {
+      return (
+        <div className="row d-flex justify-content-end">
+          <span className="style-tag-manager">
+            {item.name}
+            {item.comment}
+            {moment(item.createdAt).fromNow()}
+          </span>
+        </div>
+      );
+    }
   };
 
   const ShowMessageCard = (props) => {
-    return props.messageArray.map((msg) => (
-      <div className="row">
-        <span
-          className="test"
-          style={{
-            width: "auto",
-            backgroundColor: "lightgrey",
-            borderRadius: '12px'
-          }}
-        >
-          <span style={{
-            color: '#f1356d'
-          }}>{props.resident_name}:</span> {msg}
-        </span>
-      </div>
-    ));
+    return props.comments.map((item) => showStyleOfCard(item));
   };
 
   return (
     <>
       <p className="titles-modal">Comments:</p>
-      <ShowMessageCard messageArray={currentMessages} resident_name={props.resident_name} />
+      <ShowMessageCard comments={currentMessages} />
       <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-9">

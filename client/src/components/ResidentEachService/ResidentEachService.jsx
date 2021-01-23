@@ -49,6 +49,7 @@ function ResidentEachService(props) {
             image={props.image}
             subject={props.subject}
             description={props.description}
+            comments={props.comments}
           />
         </td>
       </tr>

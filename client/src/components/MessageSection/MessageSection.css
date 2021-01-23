@@ -3,8 +3,16 @@
   border-radius: 20px;
 }
 
-.test {
-  background-color: red;
-  padding: 10px;
-  margin: 20px 0px;
+span.style-tag-resident {
+  width: auto;
+  margin: 10px;
+  background-color: lightgrey;
+  border-radius: 20px;
+}
+
+span.style-tag-manager {
+  width: auto;
+  margin: 10px;
+  background-color: rgba(173, 216, 230, 0.438);
+  border-radius: 20px;
 }

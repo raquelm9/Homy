@@ -6,18 +6,19 @@ const endPointsResidents = `${config.SERVER_URL}/api/residents`;
 
 class HttpService {
   commentOnRequest = (requestId, name, comment) => {
-    const commetUrl = `${endPoints}/${requestId}/comment`;
+    const commentUrl = `${endPoints}/${requestId}/comment`;
 
     var promise = new Promise((resolve, reject) => {
-      fetch(commetUrl, {
+      fetch(commentUrl, {
         method: "put",
-        body: {
-          name,
-          comment,
-        },
         headers: {
+          "Content-Type": "application/json",
           "x-auth-token": `${localStorage.getItem("token")}`,
         },
+        body: JSON.stringify({
+          name,
+          comment,
+        }),
       }).then((response) => {
         resolve(response.json());
       });

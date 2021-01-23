@@ -4,23 +4,22 @@ import MessageSection from "../MessageSection/MessageSection";
 import "./DetailModal.css";
 
 function DetailModal(props) {
-
   const CheckUnitAndName = () => {
     if (props.unit_num) {
       return (
         <>
           <p className="titles-modal">Unit:</p>
           <p> {props.unit_num}</p>
-          
+
           <p className="titles-modal">Requested by:</p>
           <p> {props.resident_name}</p>
         </>
-      )
+      );
+    } else {
+      return null;
     }
-    else {
-      return (null)}
-  }
-  
+  };
+
   return (
     <div
       className="modal fade"
@@ -43,18 +42,20 @@ function DetailModal(props) {
             ></button>
           </div>
           <div className="modal-body">
-           
             <p className="titles-modal">Subject:</p>
             <p> {props.subject}</p>
-
-            <CheckUnitAndName/> {/* Checks if there are unit number and name in props passed */}
-
+            <CheckUnitAndName />{" "}
+            {/* Checks if there are unit number and name in props passed */}
             <p className="titles-modal">Description:</p>
             <p>{props.description}</p>
             <p className="titles-modal">Reference Number:</p>
             <p>{props.id}</p>
             <hr></hr>
-            <MessageSection requestId={props.id} resident_name={props.resident_name}></MessageSection>
+            <MessageSection
+              comments={props.comments}
+              requestId={props.id}
+            ></MessageSection>
+            <br></br>
             {props.image ? (
               <img
                 src={`${config.SERVER_URL}/${props.image}`}

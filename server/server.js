@@ -21,8 +21,8 @@ mongoose
   .then(() => console.log("Connected to MongoDB..."))
   .catch((err) => console.error("Could not connect to MongoDb...", err));
 
-require("./routes/auth.route")(app);
 require("./routes/requests.route")(app);
+require("./routes/auth.route")(app);
 require("./routes/users.route")(app);
 require("./routes/residents.route")(app);
 
