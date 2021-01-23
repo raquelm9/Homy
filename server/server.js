@@ -5,11 +5,17 @@ const path = require("path");
 
 const app = express();
 
+
+const dotenv = require('dotenv');
+dotenv.config();
+
 app.use(cors({ exposedHeaders: ["x-auth-token"] }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
 
 mongoose
   .connect("mongodb://localhost/homy", {
@@ -25,7 +31,9 @@ require("./routes/requests.route")(app);
 require("./routes/auth.route")(app);
 require("./routes/users.route")(app);
 require("./routes/residents.route")(app);
+require("./routes/shop.route")(app);
+const port = process.env.PORT || 3008;
 
-app.listen(3008, function () {
-  console.log("API running on port 3008");
+app.listen(port, function () {
+  console.log(`API running on port ${port}`);
 });
