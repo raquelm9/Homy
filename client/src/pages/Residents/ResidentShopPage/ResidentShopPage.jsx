@@ -17,7 +17,7 @@ const ResidentShopPage = () => {
     const getProducts = () => {
         return products.map((product) => {
             return (
-                <Card style={{ width: '18rem' }} key={product._id}>
+                <Card style={{ width: '18rem' }} key={product._id} className="shopping-card">
                     <Card.Img variant="top" src={`http://localhost:3008/${product.imagePath}`} />
                     <Card.Body>
                         <Card.Title>{product.title}</Card.Title>
@@ -38,7 +38,7 @@ const ResidentShopPage = () => {
 
     return (
 
-        <div>
+        <div className="shopping-container">
             {products ? getProducts() : null}
         </div>
 
