@@ -1,3 +1,5 @@
+const auth = require('../app/middleware/auth');
+
 const multer = require("multer");
 const shop = require("../app/controllers/shop.controller");
 const router = require("express").Router();
@@ -16,8 +18,8 @@ const upload = multer({ storage: storage });
 
 module.exports = (app) => {
 
-    router.post("/pay", shop.payment);
+    router.post("/pay", auth, shop.payment);
     router.post('/products', upload.single("image"), shop.createProduct)
-    router.get('/products', shop.getProducts)
+    router.get('/products', auth, shop.getProducts)
     app.use("/api/shop", router);
 };

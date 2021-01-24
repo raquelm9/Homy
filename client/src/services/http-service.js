@@ -1,9 +1,10 @@
 import "whatwg-fetch";
 import { config } from "../config/config";
 
-var endPoints = `${config.SERVER_URL}/api/service-requests`;
+const endPoints = `${config.SERVER_URL}/api/service-requests`;
 const endPointsResidents = `${config.SERVER_URL}/api/residents`;
-
+const endPointsPayment = `${config.SERVER_URL}/api/shop/pay`;
+const endPointsProducts = `${config.SERVER_URL}/api/shop/products`;
 class HttpService {
   commentOnRequest = (requestId, name, comment) => {
     const commentUrl = `${endPoints}/${requestId}/comment`;
@@ -75,6 +76,39 @@ class HttpService {
     });
     return promise;
   };
-}
 
+  //*****Payment*** */
+  postPaymentMethod = (paymentMethodId, productId, userId) => {
+    console.log('POST')
+    var promise = new Promise((resolve, reject) => {
+      fetch(endPointsPayment, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          payment_method_id: paymentMethodId,
+          product_id: productId,
+          user_id: userId
+        })
+      }).then((res) => resolve(res.json()))
+    });
+    return promise;
+  };
+
+  /*******Products**********/
+  getProducts = () => {
+    var promise = new Promise((resolve, reject) => {
+      fetch(endPointsProducts, {
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        }
+      })
+        .then(resp => resolve(resp.json()))
+    })
+    return promise;
+  };
+
+}
 export default HttpService;

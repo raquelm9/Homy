@@ -2,8 +2,9 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import HttpService from '../../../services/http-service';
 import './CheckoutForm.css';
+
 
 const CARD_OPTIONS = {
     iconStyle: 'solid',
@@ -47,17 +48,8 @@ const CheckoutForm = (props) => {
         }
         else {
             console.log('PaymentMethod', paymentMethod)
-            fetch('http://localhost:3008/api/shop/pay', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    payment_method_id: paymentMethod.id,
-                    product_id: state.product._id,
-                    user_id: userId
-                })
-            })
+            new HttpService().postPaymentMethod(paymentMethod.id, state.product._id, userId)
+                .then(data => console.log(data))
         }
     }
 
