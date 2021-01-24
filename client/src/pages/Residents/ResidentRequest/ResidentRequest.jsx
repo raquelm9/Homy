@@ -37,9 +37,9 @@ function ResidentRequestType() {
         <div className="row align-items-center">
           <div className="col" />
           <div className="col-md-6 col-sm-12">
-            <a onClick={goToRequestList} className="list-group-item size-type">
+            <div onClick={goToRequestList} className="list-group-item size-type">
               REQUESTED SERVICES
-            </a>
+            </div>
           </div>
           <div className="col" />
         </div>

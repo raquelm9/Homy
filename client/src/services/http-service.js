@@ -79,7 +79,7 @@ class HttpService {
 
   //*****Payment*** */
   postPaymentMethod = (paymentMethodId, productId, userId) => {
-    console.log('POST')
+
     var promise = new Promise((resolve, reject) => {
       fetch(endPointsPayment, {
         method: 'POST',

@@ -33,3 +33,6 @@ grid-gap: 3px;
 .checkout-button{
     justify-self: center;
 }
+.checkout-card-element{
+    padding: 100% auto;
+}

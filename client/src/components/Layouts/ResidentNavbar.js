@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logUserOut } from "../../actions/userActions";
@@ -27,12 +27,12 @@ function ResidentNavbar() {
                   </Link>
                 </li>
               ) : (
-                <li className="nav-item">
-                  <Link className="nav-link " to="/login">
-                    Login
+                  <li className="nav-item">
+                    <Link className="nav-link " to="/login">
+                      Login
                   </Link>
-                </li>
-              )}
+                  </li>
+                )}
             </ul>
           </nav>
         </div>

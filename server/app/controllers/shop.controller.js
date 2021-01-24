@@ -24,7 +24,7 @@ exports.payment = async (req, res) => {
                 req.body.payment_intent_id
             );
         }
-        console.log(intent)
+
         // Send the response to the client
         res.send(generateResponse(intent));
     } catch (e) {
