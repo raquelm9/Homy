@@ -1,9 +1,38 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const CheckoutForm = () => {
+import './CheckoutForm.css';
+
+const CARD_OPTIONS = {
+    iconStyle: 'solid',
+    style: {
+        base: {
+            iconColor: '#5ba1f7',
+            color: '#a9b4f2',
+            fontWeight: 500,
+            fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+            fontSize: '16px',
+            fontSmoothing: 'antialiased',
+            ':-webkit-autofill': { color: '#fce883' },
+            '::placeholder': { color: '#87bbfd' },
+        },
+        '::placeholder': {
+            color: '#87bbfd',
+        },
+        invalid: {
+            iconColor: '#ffc7ee',
+            color: 'black',
+        },
+    },
+};
+const CheckoutForm = (props) => {
+
     const stripe = useStripe();
     const elements = useElements();
-
+    const { state } = useLocation();
+    const userId = useSelector(state => state.userReducer.user._id)
     const handleSubmit = async event => {
         event.preventDefault()
         if (!stripe || !elements) return
@@ -23,22 +52,29 @@ const CheckoutForm = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ payment_method_id: paymentMethod.id })
+                body: JSON.stringify({
+                    payment_method_id: paymentMethod.id,
+                    product_id: state.product._id,
+                    user_id: userId
+                })
             })
         }
     }
+
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <CardElement />
-                <button type="submit" disabled={!stripe}>
-                    Pay
-            </button>
+        <div className="checkout-container">
+            <form onSubmit={handleSubmit} className="checkout-form">
+                <CardElement options={CARD_OPTIONS} />
+                <button
+                    className="btn btn-lg btn-block button-center"
+                    type="submit" disabled={!stripe}>
+                    Pay {state.product.price}$
+                </button>
             </form>
 
         </div>
     )
 };
 
-
+//4000001240000000 canada card number
 export default CheckoutForm;

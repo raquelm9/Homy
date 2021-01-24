@@ -1,0 +1,13 @@
+.checkout-container{
+    height: 50vh;
+    display: grid;
+    grid-template-columns: [margin_left]15% [centered]auto  [margin_right]15%;
+    grid-template-rows: [header]15% [centered]auto [footer]15%;
+    width: 100%;
+    justify-items: center;
+}
+.checkout-form{
+    height: 100%;
+    width: 100%;
+    grid-area: centered;
+}
