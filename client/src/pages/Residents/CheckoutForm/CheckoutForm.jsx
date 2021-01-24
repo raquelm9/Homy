@@ -12,10 +12,13 @@ const CARD_OPTIONS = {
         base: {
             iconColor: '#5ba1f7',
             color: '#a9b4f2',
-            fontWeight: 500,
+            fontWeight: 700,
             fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-            fontSize: '16px',
+            fontSize: '20px',
             fontSmoothing: 'antialiased',
+            backgroundColor: '#d9dddc',
+            lineHeight: '60px',
+            padding: '50px 10px',
             ':-webkit-autofill': { color: '#fce883' },
             '::placeholder': { color: '#87bbfd' },
         },
@@ -55,16 +58,20 @@ const CheckoutForm = (props) => {
 
     return (
         <div className="checkout-container">
+            <div className="checkout-product">
+                <div className="checkout-product-element"><img src={`http://localhost:3008/${state.product.imagePath}`} /></div>
+                <div className="checkout-product-element"><h4>{state.product.title}</h4></div>
+            </div>
             <form onSubmit={handleSubmit} className="checkout-form">
                 <CardElement options={CARD_OPTIONS} />
                 <button
-                    className="btn btn-lg btn-block button-center"
+                    className="btn btn-lg btn-outline-secondary checkout-button"
                     type="submit" disabled={!stripe}>
                     Pay {state.product.price}$
                 </button>
             </form>
 
-        </div>
+        </div >
     )
 };
 

@@ -1,13 +1,35 @@
 .checkout-container{
-    height: 50vh;
-    display: grid;
-    grid-template-columns: [margin_left]15% [centered]auto  [margin_right]15%;
-    grid-template-rows: [header]15% [centered]auto [footer]15%;
+    min-height: 80vh;
     width: 100%;
-    justify-items: center;
+    display: inline-grid;
+    grid-template-columns: 15% auto 15%;
+    grid-template-rows: 15% auto auto 15%;
+    grid-template-areas: 
+    "header header header"
+    "margin_left product_section margin_right"
+    "margin_left payment_section margin_right"
+    "footer footer footer";
+grid-gap: 3px;
+}
+.checkout-product{
+    height: 100%;
+    width: auto;
+    grid-area: product_section;
+    display: flex;
+    flex-direction: column;
 }
 .checkout-form{
     height: 100%;
     width: 100%;
-    grid-area: centered;
+    padding: 20px auto;
+    grid-area: payment_section;
+    display: grid;
+    align-items: center;
+   
+}
+.checkout-product-element{
+    align-self: center;
+}
+.checkout-button{
+    justify-self: center;
 }
