@@ -23,7 +23,7 @@ function MessageSection(props) {
       createdAt: moment().toString(),
     };
     new HttpService().commentOnRequest(requestId, name, newMessage).then(() => {
-      setCurrentMessages([newComment, ...currentMessages]);
+      setCurrentMessages([...currentMessages, newComment]);
       setNewMessage("");
     });
   };
@@ -33,7 +33,9 @@ function MessageSection(props) {
       return (
         <div className="row">
           <span className="style-tag-header">
-            {item.name} {moment(item.createdAt).fromNow()}
+            <span className="style-tag-header-resident">
+              {item.name} {moment(item.createdAt).fromNow()}
+            </span>
             <br></br>
             <span className="style-tag-resident">{item.comment}</span>
           </span>
@@ -43,7 +45,9 @@ function MessageSection(props) {
       return (
         <div className="row d-flex justify-content-end">
           <span className="style-tag-header">
-            {item.name} {moment(item.createdAt).fromNow()}
+            <span className="style-tag-header-manager">
+              {item.name} {moment(item.createdAt).fromNow()}
+            </span>
             <br></br>
             <span className="style-tag-manager">{item.comment}</span>
           </span>
