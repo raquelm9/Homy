@@ -33,6 +33,7 @@ function MngrRequestList() {
         unit_num={service.unit_num}
         resident_name={service.resident_name}
         description={service.description}
+        comments={service.comments}
       />
     );
   }
