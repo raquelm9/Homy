@@ -63,7 +63,7 @@ function MessageSection(props) {
   return (
     <>
       <p className="titles-modal">Comments:</p>
-      <ShowMessageCard comments={currentMessages} />
+      <ShowMessageCard comments={currentMessages} key={currentMessages} />
       <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-9">

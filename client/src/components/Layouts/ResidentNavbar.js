@@ -11,26 +11,14 @@ function ResidentNavbar() {
   const location = useLocation();
   const history = useHistory();
 
-  const goToHome = () => {
-    history.push("/");
-  };
-
-  const goToNewRequest = () => {
-    history.push("/resident-request");
-  };
-
-  const goToServices = () => {
-    history.push("/resident-list-request");
-  };
-
   return (
     <>
       {location.pathname === "/" ? null : (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#">
+            <Link className="navbar-brand" to='/'>
               Homy
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -45,23 +33,23 @@ function ResidentNavbar() {
             <div className="collapse navbar-collapse" id="navbarText">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a
+                  <Link
                     className="nav-link active"
                     aria-current="page"
-                    onClick={goToHome}
+                    to="/"
                   >
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" onClick={goToNewRequest}>
+                  <Link className="nav-link" to="/resident-request">
                     New Request
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" onClick={goToServices}>
+                  <Link className="nav-link" to="/resident-list-request">
                     Services
-                  </a>
+                  </Link>
                 </li>
               </ul>
               <span className="navbar-text">
@@ -78,14 +66,14 @@ function ResidentNavbar() {
                     </li>
                   </ul>
                 ) : (
-                  <ul className="navbar-nav">
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/login">
-                        Login
+                    <ul className="navbar-nav">
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/login">
+                          Login
                       </Link>
-                    </li>
-                  </ul>
-                )}
+                      </li>
+                    </ul>
+                  )}
               </span>
             </div>
           </div>
