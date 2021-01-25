@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logUserOut } from "../../actions/userActions";
 
@@ -9,6 +9,19 @@ function ResidentNavbar() {
   const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.userReducer.loggedIn);
   const location = useLocation();
+  const history = useHistory();
+
+  const goToHome = () => {
+    history.push("/");
+  };
+
+  const goToNewRequest = () => {
+    history.push("/resident-request");
+  };
+
+  const goToServices = () => {
+    history.push("/resident-list-request");
+  };
 
   return (
     <>
@@ -32,18 +45,22 @@ function ResidentNavbar() {
             <div className="collapse navbar-collapse" id="navbarText">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="#">
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    onClick={goToHome}
+                  >
                     Home
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Features
+                  <a className="nav-link" onClick={goToNewRequest}>
+                    New Request
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Pricing
+                  <a className="nav-link" onClick={goToServices}>
+                    Services
                   </a>
                 </li>
               </ul>
