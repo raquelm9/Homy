@@ -15,7 +15,7 @@ function ResidentNavbar() {
       {location.pathname === "/" ? null : (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
-            <Link className="navbar-brand" to='/'>
+            <Link className="navbar-brand" to="/">
               Homy
             </Link>
             <button
@@ -32,11 +32,7 @@ function ResidentNavbar() {
             <div className="collapse navbar-collapse" id="navbarText">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to="/"
-                  >
+                  <Link className="nav-link active" aria-current="page" to="/">
                     Home
                   </Link>
                 </li>
@@ -48,6 +44,11 @@ function ResidentNavbar() {
                 <li className="nav-item">
                   <Link className="nav-link" to="/resident-list-request">
                     Services
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/shop">
+                    Shop
                   </Link>
                 </li>
               </ul>
@@ -65,14 +66,14 @@ function ResidentNavbar() {
                     </li>
                   </ul>
                 ) : (
-                    <ul className="navbar-nav">
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/login">
-                          Login
+                  <ul className="navbar-nav">
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/login">
+                        Login
                       </Link>
-                      </li>
-                    </ul>
-                  )}
+                    </li>
+                  </ul>
+                )}
               </span>
             </div>
           </div>

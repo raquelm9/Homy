@@ -79,10 +79,9 @@ class HttpService {
 
   //*****Payment*** */
   postPaymentMethod = (paymentMethodId, productId, userId) => {
-
     var promise = new Promise((resolve, reject) => {
       fetch(endPointsPayment, {
-        method: 'POST',
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           "x-auth-token": `${localStorage.getItem("token")}`,
@@ -90,9 +89,9 @@ class HttpService {
         body: JSON.stringify({
           payment_method_id: paymentMethodId,
           product_id: productId,
-          user_id: userId
-        })
-      }).then((res) => resolve(res.json()))
+          user_id: userId,
+        }),
+      }).then((res) => resolve(res.json()));
     });
     return promise;
   };
@@ -103,12 +102,10 @@ class HttpService {
       fetch(endPointsProducts, {
         headers: {
           "x-auth-token": `${localStorage.getItem("token")}`,
-        }
-      })
-        .then(resp => resolve(resp.json()))
-    })
+        },
+      }).then((resp) => resolve(resp.json()));
+    });
     return promise;
   };
-
 }
 export default HttpService;
