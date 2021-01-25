@@ -1,5 +1,5 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HttpService from '../../../services/http-service';
@@ -30,6 +30,32 @@ const CARD_OPTIONS = {
         },
     },
 };
+const Field = ({
+    label,
+    id,
+    type,
+    placeholder,
+    required,
+    autoComplete,
+    value,
+    onChange,
+}) => (
+    <div className="">
+        <label htmlFor={id} className="">
+            {label}
+        </label>
+        <input
+            className=""
+            id={id}
+            type={type}
+            placeholder={placeholder}
+            required={required}
+            autoComplete={autoComplete}
+            value={value}
+            onChange={onChange}
+        />
+    </div>
+);
 const CheckoutForm = (props) => {
 
     const stripe = useStripe();
@@ -37,6 +63,11 @@ const CheckoutForm = (props) => {
     const { state } = useLocation();
     const userId = useSelector(state => state.userReducer.user._id)
     const history = useHistory();
+    const [billingDetails, setBillingDetails] = useState({
+        email: '',
+        phone: '',
+        name: '',
+    });
     const handleSubmit = async event => {
         event.preventDefault()
         if (!stripe || !elements) return
@@ -61,7 +92,7 @@ const CheckoutForm = (props) => {
                 title: "Thanks",
                 text: "Your payment has been processed",
                 button: "Dismiss"
-            }).then(() => { history.push('/resident-request') })      
+            })//.then(() => { history.push('/resident-request') })      
         }
         else {
             swal({
@@ -86,15 +117,40 @@ const CheckoutForm = (props) => {
                         <div className="checkout-product-element"><h4>{state.product.title}</h4></div>
                     </div>
                     <form onSubmit={handleSubmit} className="checkout-form">
-
-                        <div className="checkout-card-element">
-                            <CardElement options={CARD_OPTIONS} />
-                        </div>
-                        <button
-                            className="btn btn-lg btn-outline-secondary checkout-button"
-                            type="submit" disabled={!stripe}>
-                            Pay {state.product.price}$
+                        <fieldset className="">
+                            <Field
+                                label="Name"
+                                id="name"
+                                type="text"
+                                placeholder=""
+                                required
+                                autoComplete="name"
+                                value={billingDetails.name}
+                                onChange={(e) => {
+                                    setBillingDetails({ ...billingDetails, name: e.target.value });
+                                }}
+                            />
+                            <Field
+                                label="Email"
+                                id="email"
+                                type="text"
+                                placeholder=""
+                                required
+                                autoComplete="email"
+                                value={billingDetails.email}
+                                onChange={(e) => {
+                                    setBillingDetails({ ...billingDetails, email: e.target.value });
+                                }}
+                            />
+                            <div className="checkout-card-element">
+                                <CardElement options={CARD_OPTIONS} />
+                            </div>
+                            <button
+                                className="btn btn-lg btn-outline-secondary checkout-button"
+                                type="submit" disabled={!stripe}>
+                                Pay {state.product.price}$
                 </button>
+                        </fieldset>
                     </form>
                 </div >) : null
             }
