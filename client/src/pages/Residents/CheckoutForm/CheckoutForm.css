@@ -36,3 +36,12 @@ grid-gap: 3px;
 .checkout-card-element{
     padding: 100% auto;
 }
+.swal-text {
+  background-color: #12d840;
+  padding: 17px;
+  border: 1px solid #F0E1A1;
+  display: block;
+  margin: 22px;
+  text-align: center;
+  color: #61534e;
+}
