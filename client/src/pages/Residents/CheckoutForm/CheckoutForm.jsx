@@ -1,8 +1,9 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HttpService from '../../../services/http-service';
+import swal from 'sweetalert';
 import './CheckoutForm.css';
 
 
@@ -35,6 +36,7 @@ const CheckoutForm = (props) => {
     const elements = useElements();
     const { state } = useLocation();
     const userId = useSelector(state => state.userReducer.user._id)
+    const history = useHistory();
     const handleSubmit = async event => {
         event.preventDefault()
         if (!stripe || !elements) return
@@ -50,14 +52,32 @@ const CheckoutForm = (props) => {
         else {
             console.log('PaymentMethod', paymentMethod)
             new HttpService().postPaymentMethod(paymentMethod.id, state.product._id, userId)
-                .then(data => console.log('checkout form:', data))
+                .then(data => handleMessageModal(data))
         }
     }
+    const handleMessageModal = (msg) => {
+        if (msg.success) {
+            swal({
+                title: "Thanks",
+                text: "Your payment has been processed",
+                button: "Dismiss"
+            }).then(() => { history.push('/resident-request') })      
+        }
+        else {
+            swal({
+                title: "Oops",
+                text: msg.error || "An error happened while processing your payment",
+                button: 'Dismiss'
+            })
+        }
+
+    }
+
 
     return (
         <>
             {
-                state ? <div className="checkout-container">
+                state ? (<div className="checkout-container">
                     <div className="checkout-product">
                         <div className="checkout-product-element">
                             <img
@@ -66,6 +86,7 @@ const CheckoutForm = (props) => {
                         <div className="checkout-product-element"><h4>{state.product.title}</h4></div>
                     </div>
                     <form onSubmit={handleSubmit} className="checkout-form">
+
                         <div className="checkout-card-element">
                             <CardElement options={CARD_OPTIONS} />
                         </div>
@@ -75,11 +96,13 @@ const CheckoutForm = (props) => {
                             Pay {state.product.price}$
                 </button>
                     </form>
-                </div > : null
+                </div >) : null
             }
         </>
     )
 };
 
 //4000001240000000 canada card number
+//4000000000009995 insuficient funds
+//4242424242424242 
 export default CheckoutForm;
