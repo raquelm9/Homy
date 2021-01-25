@@ -5,6 +5,8 @@ const endPoints = `${config.SERVER_URL}/api/service-requests`;
 const endPointsResidents = `${config.SERVER_URL}/api/residents`;
 const endPointsPayment = `${config.SERVER_URL}/api/shop/pay`;
 const endPointsProducts = `${config.SERVER_URL}/api/shop/products`;
+const endPointsAllServiceRequests = `${config.SERVER_URL}/api/service-requests/manager/all-service-requests`;
+
 class HttpService {
   commentOnRequest = (requestId, name, comment) => {
     const commentUrl = `${endPoints}/${requestId}/comment`;
@@ -40,6 +42,19 @@ class HttpService {
     return promise;
   };
 
+  getAllServiceRequests = () => {
+    var promise = new Promise((resolve, reject) => {
+      fetch(endPointsAllServiceRequests, {
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        },
+      }).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
+  
   getResidents = () => {
     const promise = new Promise((resolve, reject) => {
       fetch(endPointsResidents, {

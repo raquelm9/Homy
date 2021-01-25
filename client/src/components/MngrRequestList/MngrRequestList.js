@@ -5,9 +5,11 @@ import {table} from 'react-bootstrap';
 
 function MngrRequestList() {
   const [requests, setRequests] = useState([]);
+  const [allRequests, setAllRequests] = useState([]);
 
   useEffect(() => {
     loadData();
+    loadAllData();
   }, []);
 
   const loadData = () => {
@@ -19,6 +21,18 @@ function MngrRequestList() {
       (err) => {}
     );
   };
+
+  const loadAllData = () => {
+    new HttpService().getAllServiceRequests().then(
+      (data) => {
+          
+        setAllRequests(data);
+      },
+      (err) => {}
+    );
+  };
+
+
 
   const listOfServices = (service, i) => {
     return (
@@ -54,7 +68,7 @@ function MngrRequestList() {
           <th scope="col">Delete</th>
         </tr>
       </thead>
-      <tbody>{requests.map(listOfServices)}</tbody>
+      <tbody>{allRequests.map(listOfServices)}</tbody>
     </table>
     </div>
     </div>

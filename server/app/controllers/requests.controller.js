@@ -8,6 +8,10 @@ exports.getRequest = (req, res) => {
   Request.find({ user_id: req.user._id }).then((data) => res.send(data));
 };
 
+exports.getAllServiceRequests = (req, res) => {
+  Request.find().then((data) => res.send(data));
+};
+
 exports.createRequest = async (req, res) => {
   const file = req.file;
   const path = file ? file.path : undefined;
