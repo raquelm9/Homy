@@ -13,6 +13,7 @@ const schema = mongoose.Schema({
     type: String,
     required: true,
   },
+  isManager: Boolean
 });
 
 schema.methods.generateAuthToken = function () {
@@ -27,6 +28,7 @@ exports.validate = function validateUser(user) {
   const schema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(5),
+    isManager: Joi.boolean()
   });
   return schema.validate(user);
 };

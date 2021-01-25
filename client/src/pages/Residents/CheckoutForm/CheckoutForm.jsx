@@ -1,5 +1,5 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HttpService from '../../../services/http-service';
@@ -61,13 +61,15 @@ const CheckoutForm = (props) => {
     const stripe = useStripe();
     const elements = useElements();
     const { state } = useLocation();
-    const userId = useSelector(state => state.userReducer.user._id)
+    const userId = useSelector(state => state.userReducer.user._id);
+    const userName = useSelector(state => state.userReducer.user.name);
+    const userEmail = useSelector(state => state.userReducer.user.email);
     const history = useHistory();
     const [billingDetails, setBillingDetails] = useState({
-        email: '',
-        phone: '',
-        name: '',
+        email: userEmail,
+        name: userName,
     });
+
     const handleSubmit = async event => {
         event.preventDefault()
         if (!stripe || !elements) return
@@ -75,7 +77,8 @@ const CheckoutForm = (props) => {
 
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
-            card: cardElement
+            card: cardElement,
+            billing_details: billingDetails
         })
         if (error) {
             console.log('error', error)
@@ -92,7 +95,7 @@ const CheckoutForm = (props) => {
                 title: "Thanks",
                 text: "Your payment has been processed",
                 button: "Dismiss"
-            })//.then(() => { history.push('/resident-request') })      
+            }).then(() => { history.push('/resident-request') })
         }
         else {
             swal({
@@ -113,7 +116,8 @@ const CheckoutForm = (props) => {
                         <div className="checkout-product-element">
                             <img
                                 alt="product"
-                                src={`http://localhost:3008/${state.product.imagePath}`} /></div>
+                                src={`http://localhost:3008/${state.product.imagePath}`} />
+                        </div>
                         <div className="checkout-product-element"><h4>{state.product.title}</h4></div>
                     </div>
                     <form onSubmit={handleSubmit} className="checkout-form">
