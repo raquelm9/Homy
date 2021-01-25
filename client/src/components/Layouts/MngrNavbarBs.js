@@ -7,7 +7,7 @@ const MngrNavbarBs = () => {
         <Navbar.Brand href="/manager" className="homyTextNavbar">homy</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
-            <Nav justify-content-end>
+            <Nav justify-content-end="true">
                 <Nav.Link href="/manager">Home</Nav.Link>
                 <Nav.Link href="/manager/request-list-of-services" >Requests</Nav.Link>
             </Nav>
