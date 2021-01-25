@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logUserOut } from "../../actions/userActions";
 
@@ -9,7 +9,6 @@ function ResidentNavbar() {
   const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.userReducer.loggedIn);
   const location = useLocation();
-  const history = useHistory();
 
   return (
     <>
