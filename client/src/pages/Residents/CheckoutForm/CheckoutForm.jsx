@@ -66,9 +66,15 @@ const CheckoutForm = (props) => {
     const userEmail = useSelector(state => state.userReducer.user.email);
     const history = useHistory();
     const [billingDetails, setBillingDetails] = useState({
-        email: userEmail,
-        name: userName,
+        email: '',
+        name: '',
     });
+
+    useEffect(() => {
+        if (userEmail && userName && !billingDetails.email.lenght) {
+            setBillingDetails({ email: userEmail, name: userName })
+        }
+    }, [userEmail, userName])
 
     const handleSubmit = async event => {
         event.preventDefault()
@@ -81,7 +87,11 @@ const CheckoutForm = (props) => {
             billing_details: billingDetails
         })
         if (error) {
-            console.log('error', error)
+            swal({
+                title: "Error",
+                text: error.message,
+                button: "Dismiss"
+            })
         }
         else {
             console.log('PaymentMethod', paymentMethod)

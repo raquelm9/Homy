@@ -32,7 +32,11 @@ function ResidentNavbar() {
             <div className="collapse navbar-collapse" id="navbarText">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/home"
+                  >
                     Home
                   </Link>
                 </li>
@@ -58,7 +62,7 @@ function ResidentNavbar() {
                     <li className="nav-item">
                       <Link
                         className="nav-link"
-                        to="/"
+                        to="/login"
                         onClick={() => dispatch(logUserOut())}
                       >
                         Logout
