@@ -30,7 +30,10 @@ function HomePage() {
       <div className="row" key={serviceOption + index}>
         <div className="col"></div>
         <div className="col-md-8 col-sm-10 space-text-center">
-          <div className="card" onClick={() => ChangeRoute(serviceOption)}>
+          <div
+            className="card card-hoover-option"
+            onClick={() => ChangeRoute(serviceOption)}
+          >
             <div className="card-body">{serviceOption}</div>
           </div>
         </div>
