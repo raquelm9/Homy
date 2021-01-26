@@ -20,9 +20,6 @@ const CARD_OPTIONS = {
       ":-webkit-autofill": { color: "#fce883" },
       "::placeholder": { color: "#87bbfd" },
     },
-    "::placeholder": {
-      color: "#87bbfd",
-    },
     invalid: {
       iconColor: "#ffc7ee",
       color: "black",
@@ -72,7 +69,7 @@ const CheckoutForm = (props) => {
     if (userEmail && userName && !billingDetails.email.lenght) {
       setBillingDetails({ email: userEmail, name: userName });
     }
-  }, [userEmail, userName]);
+  }, [userEmail, userName, billingDetails.email]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
