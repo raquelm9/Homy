@@ -54,7 +54,7 @@ function HomePage() {
 
         <div className="row">
           <div className="col-12 center-service-title">
-            <p className="greeting-second">WHAT IS ON YOUR MIND TODAY</p>
+            <p className="greeting-second">WHAT IS ON YOUR MIND TODAY?</p>
           </div>
         </div>
 
