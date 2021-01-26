@@ -32,6 +32,8 @@ require("./routes/auth.route")(app);
 require("./routes/users.route")(app);
 require("./routes/residents.route")(app);
 require("./routes/shop.route")(app);
+require("./routes/managers.route")(app);
+
 const port = process.env.PORT || 3008;
 
 app.listen(port, function () {

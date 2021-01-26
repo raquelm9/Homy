@@ -17,6 +17,7 @@ const userReducer = (state = defaultState, action) => {
       return {
         loggedIn: false,
         user: {},
+        
       };
     default:
       return state;

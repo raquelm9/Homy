@@ -1,6 +1,6 @@
 import React from "react";
-import DetailModal from "../DetailModal/DetailModal";
-import { useHistory } from "react-router-dom";
+// import DetailModal from "../DetailModal/DetailModal";
+// import { useHistory } from "react-router-dom";
 
 function ResidentEachService(props) {
     // const modalId = `request-${props.id}`;
@@ -42,9 +42,9 @@ function ResidentEachService(props) {
                         Details
           </button>
                 </td> */}
-                <td>
-                    {/* <i className="fas fa-trash-alt" onClick={handleOnClick}></i> */}
-                </td>
+                {/* <td> */}
+                {/* <i className="fas fa-trash-alt" onClick={handleOnClick}></i> */}
+                {/* </td> */}
                 {/* <td>
                     <DetailModal
                         // id={modalId}
