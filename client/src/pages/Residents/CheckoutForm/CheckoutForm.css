@@ -1,59 +1,79 @@
-.checkout-container{
-    min-height: 80vh;
-    width: 100%;
-    display: inline-grid;
-    grid-template-columns: 8% auto 10%;
-    grid-template-rows: 15% auto auto 15%;
-    grid-template-areas: 
+/* .checkout-container {
+  min-height: 80vh;
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 8% auto 10%;
+  grid-template-rows: 15% auto auto 15%;
+  grid-template-areas:
     "header header header"
     "margin_left product_section margin_right"
     "margin_left payment_section margin_right"
     "footer footer footer";
-    grid-gap: 3px;
-}
-.checkout-product{
-    height: 100%;
-    width: auto;
-    grid-area: product_section;
-    display: flex;
-    flex-direction: column;
-}
-.checkout-form{
-    height: 100%;
-    width: 100%;
-    padding: 20px auto;
-    grid-area: payment_section;
-    display: grid;
-    align-items: center;
-   
-}
-.checkout-form input{
-    width: 100%;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    height: 50px;
+  grid-gap: 3px;
+} */
+
+img.image-adjustment {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 }
 
-.checkout-form button{
-    margin-top: 20px;;
+div.center-title {
+  text-align: center;
+  margin-top: 10px;
 }
-.checkout-product-element{
-    align-self: center;
+
+.checkout-product {
+  height: 100%;
+  width: auto;
+  grid-area: product_section;
+  display: flex;
+  flex-direction: column;
 }
-.checkout-button{
-    justify-self: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.5)
+.checkout-form {
+  height: 100%;
+  width: 100%;
+  padding: 20px auto;
+  grid-area: payment_section;
+  display: grid;
+  align-items: center;
 }
-.checkout-card-element{
-    padding: 100% auto;
+.checkout-form input {
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  height: 50px;
+}
+
+.checkout-product-element {
+  align-self: center;
+}
+button.checkout-button {
+  margin-top: 20px;
+  justify-self: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.5);
+}
+.checkout-card-element {
+  padding: 100% auto;
 }
 .swal-text {
   background-color: #12d840;
   padding: 17px;
-  border: 1px solid #F0E1A1;
+  border: 1px solid #f0e1a1;
   display: block;
   margin: 22px;
   text-align: center;
   color: #61534e;
+}
+
+div.center-content {
+  display: block;
+  margin: auto;
+}
+
+div.button-center {
+  text-align: center;
+  margin-top: 20px;
 }
