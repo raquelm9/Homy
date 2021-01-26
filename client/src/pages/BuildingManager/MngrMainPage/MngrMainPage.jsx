@@ -13,8 +13,7 @@ import MngrShowOrders from '../../../components/MngrShowOrders/MngrShowOrders';
 
 const MngrMainPage = () => {
     return (
-        <Router>
-            <Switch>
+
                 <div>
                     <Container fluid>
                         <Row>
@@ -47,8 +46,7 @@ const MngrMainPage = () => {
                         </Row>
                     </Container>
                 </div>
-            </Switch>
-        </Router>
+
 
     );
 }
