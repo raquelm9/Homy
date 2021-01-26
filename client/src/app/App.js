@@ -17,6 +17,7 @@ import ResidentNavbar from "../components/Layouts/ResidentNavbar";
 import ResidentShopPage from "../pages/Residents/ResidentShopPage/ResidentShopPage";
 import CheckoutForm from "../pages/Residents/CheckoutForm/CheckoutForm";
 
+import MainLogin from '../pages/Auth/MainLogin';
 function App() {
   const dispatch = useDispatch();
 
@@ -42,11 +43,13 @@ function App() {
           component={ResidentListRequest}
         />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/mainlogin" component={MainLogin} />
         <Route exact path="/login" component={Login} />
 
         <Route path="/manager" component={MngrMainPage} />
         <Route path="/shop" component={ResidentShopPage} />
         <Route path="/checkout" component={CheckoutForm} />
+
       </Switch>
     </Router>
   );

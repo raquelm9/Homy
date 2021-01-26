@@ -11,3 +11,22 @@
 .input-style {
   margin: 40px 0px;
 }
+.loggin__box{
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 5% auto;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;  
+
+  cursor: pointer;
+
+}
+.loggin__centered{
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -16,6 +16,18 @@ export const fetchUser = userInfo => dispatch => {
         })
         .then(data => dispatch(setUser(data)))
 }
+export const fetchUserAsManager = userInfo => dispatch => {
+    fetch(`http://localhost:3008/api/login/manager`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userInfo)
+    })
+        .then(res => {
+            localStorage.setItem("token", res.headers.get('x-auth-token'))
+            return res.json()
+        })
+        .then(data => dispatch(setUser(data)))
+}
 
 export const register = userInfo => dispatch => {
     console.log(userInfo)

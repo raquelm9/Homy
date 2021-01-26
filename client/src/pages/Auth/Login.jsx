@@ -1,26 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./auth.css";
 
-import { fetchUser } from "../../actions/userActions";
+import { fetchUser, fetchUserAsManager } from "../../actions/userActions";
 
-function Login() {
+function Login(props) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const loggedIn = useSelector((state) => state.userReducer.loggedIn);
+  const [loginPath, setLoginPath] = useState(null)
+
 
   useEffect(() => {
+
     if (loggedIn) history.push("/home");
+    if (!location.state) history.push('/mainlogin');
+    if (location.state.loginPath) setLoginPath(location.state.loginPath);
   }, [loggedIn, history]);
 
+
   return (
+
     <div className="container register__centered">
+
       <Formik
         initialValues={{ email: "", password: "" }}
-        onSubmit={(data) =>
-          dispatch(fetchUser({ email: data.email, password: data.password }))
+        onSubmit={(data) => {
+          if (loginPath === 'Resident') return dispatch(fetchUser({ email: data.email, password: data.password }))
+          if (loginPath === 'Manager') return dispatch(fetchUserAsManager({ email: data.email, password: data.password }))
+        }
         }
         validate={(values) => {
           const errors = {};
@@ -43,7 +54,7 @@ function Login() {
         <Form>
           <div className="row">
             <div className="col-12">
-              <h1 className="">Login</h1>
+              <h1 className="">{loginPath} Login</h1>
             </div>
           </div>
           <div className="form-group row input-style">
@@ -98,7 +109,21 @@ function Login() {
         </Form>
       </Formik>
     </div>
+
   );
+
+
 }
 
 export default Login;
+
+// A computer shall not harm your work orientation, 
+// through inactivity
+// or allow your work to come to harm
+
+//Heaven and hell
+
+//A computer shall not waste your time 
+//or require you to domore work thab is striclty neccesary
+
+//Unnecessary clicking or navigation or asking you to go back or relogin
