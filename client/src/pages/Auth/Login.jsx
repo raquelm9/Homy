@@ -12,7 +12,7 @@ function Login() {
   const loggedIn = useSelector((state) => state.userReducer.loggedIn);
 
   useEffect(() => {
-    if (loggedIn) history.push("/resident-request");
+    if (loggedIn) history.push("/home");
   }, [loggedIn, history]);
 
   return (
@@ -46,7 +46,7 @@ function Login() {
               <h1 className="">Login</h1>
             </div>
           </div>
-          <div className="form-group row">
+          <div className="form-group row input-style">
             <label htmlFor="email" className="col-sm-3 col-form-label">
               Email
             </label>
@@ -65,7 +65,7 @@ function Login() {
               />
             </div>
           </div>
-          <div className="form-group row">
+          <div className="form-group row input-style">
             <label htmlFor="password" className="col-sm-3 col-form-label">
               Password
             </label>
@@ -84,7 +84,7 @@ function Login() {
             </div>
           </div>
 
-          <div className="form-group row">
+          <div className="form-group row input-style">
             <div className="col-2"></div>
             <div className="col-8">
               <button

@@ -8,6 +8,10 @@ exports.getRequest = (req, res) => {
   Request.find({ user_id: req.user._id }).then((data) => res.send(data));
 };
 
+exports.getAllServiceRequests = (req, res) => {
+  Request.find().then((data) => res.send(data));
+};
+
 exports.createRequest = async (req, res) => {
   const file = req.file;
   const path = file ? file.path : undefined;
@@ -50,7 +54,7 @@ exports.deleteRequest = async (req, res) => {
   const serviceRequestId = req.params.id;
   let request = await Request.findById(serviceRequestId);
 
-  if (!request) return res.status(404).send("The request was not find");
+  if (!request) return res.status(404).send("The request was not found");
 
   if (request.user_id !== req.user._id)
     return res.status(401).send("Unauthorized");
@@ -62,7 +66,7 @@ exports.deleteRequest = async (req, res) => {
     });
   }
   request = await Request.deleteOne({ _id: serviceRequestId });
-  if (!request) return res.status(404).send("The request was not find");
+  if (!request) return res.status(404).send("The request was not found");
 
   res.send(request);
 };
@@ -71,7 +75,7 @@ exports.commentOnRequest = async (req, res) => {
   const serviceRequestId = req.params.requestId;
   const request = await Request.findById(serviceRequestId);
 
-  if (!request) return res.status(404).send("The request was not find");
+  if (!request) return res.status(404).send("The request was not found");
 
   if (request.user_id !== req.user._id)
     return res.status(401).send("Unauthorized");

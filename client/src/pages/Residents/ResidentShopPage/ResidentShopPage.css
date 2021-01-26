@@ -2,3 +2,12 @@
     background-color: black;
     border-radius: 5px;
 }
+.shopping-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.shopping-card{
+    margin: 1%;
+}

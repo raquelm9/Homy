@@ -20,5 +20,7 @@ module.exports = (app) => {
   router.put("/:requestId/comment", auth, request.commentOnRequest);
   router.get("/", auth, request.getRequest);
 
+  router.get("/manager/all-service-requests", auth, request.getAllServiceRequests);
+
   app.use("/api/service-requests", router);
 };

@@ -32,16 +32,15 @@
 .homyTextNavbar {
   font-family: comfortaa;
   font-size: 50px;
-  padding-right: 250px;
   padding-left:10px;
   /* border: 1px solid #0f0ff4; */
 }
 
-.addressTextNavbar {
+/* .addressTextNavbar {
   font-family: comfortaa;
   font-size: 30px;
   padding-left: 50px;
-}
+} */
 
 
 .mngr-navbar-logo {

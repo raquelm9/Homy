@@ -23,3 +23,7 @@ span.style-tag-manager {
 span.style-tag-header {
   width: auto;
 }
+
+span.style-tag-header-manager {
+  float: right;
+}

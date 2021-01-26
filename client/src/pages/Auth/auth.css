@@ -1,9 +1,13 @@
-.register__centered{
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items:  center;
+.register__centered {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.error-msg{
-    color: red;
+.error-msg {
+  color: red;
+}
+
+.input-style {
+  margin: 40px 0px;
 }

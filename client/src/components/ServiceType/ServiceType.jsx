@@ -16,7 +16,7 @@ function ServiceType({ type, icon }) {
   return (
     <>
       <div className="col-md-5 col-sm-12">
-        <a onClick={handleClick} className="list-group-item size-type">
+        <div onClick={handleClick} className="list-group-item size-type">
           <div className="row">
             <div className="col-4">
               <i className={`${icon} icon-adjust-size`}></i>
@@ -25,7 +25,7 @@ function ServiceType({ type, icon }) {
               <p>{type}</p>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </>
   );

@@ -20,20 +20,22 @@ function MessageSection(props) {
     const newComment = {
       comment: newMessage,
       name,
-      createdAt: moment().toString(),
+      createdAt: moment().format('YYYY-MM-DD HH:mm:ss').toString(),
     };
     new HttpService().commentOnRequest(requestId, name, newMessage).then(() => {
-      setCurrentMessages([newComment, ...currentMessages]);
+      setCurrentMessages([...currentMessages, newComment]);
       setNewMessage("");
     });
   };
 
-  const showStyleOfCard = (item) => {
-    if (item.name !== "Manager") {
+  const showStyleOfCard = (item, index) => {
+    if (item.isManager !== false) {
       return (
-        <div className="row">
+        <div className="row" key={item + index}>
           <span className="style-tag-header">
-            {item.name} {moment(item.createdAt).fromNow()}
+            <span className="style-tag-header-resident">
+              {item.name} {moment(item.createdAt).fromNow(true)}
+            </span>
             <br></br>
             <span className="style-tag-resident">{item.comment}</span>
           </span>
@@ -41,9 +43,11 @@ function MessageSection(props) {
       );
     } else {
       return (
-        <div className="row d-flex justify-content-end">
+        <div className="row d-flex justify-content-end" key={item + index}>
           <span className="style-tag-header">
-            {item.name} {moment(item.createdAt).fromNow()}
+            <span className="style-tag-header-manager">
+              {item.name} {moment(item.createdAt).fromNow()}
+            </span>
             <br></br>
             <span className="style-tag-manager">{item.comment}</span>
           </span>
@@ -53,7 +57,7 @@ function MessageSection(props) {
   };
 
   const ShowMessageCard = (props) => {
-    return props.comments.map((item) => showStyleOfCard(item));
+    return props.comments.map((item, index) => showStyleOfCard(item, index));
   };
 
   return (

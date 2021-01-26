@@ -1,7 +1,13 @@
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.HOMY_STRIPE_SECRET_KEY);
+const { Product, validate } = require('../models/product.model');
+const { Order, validateOrder } = require('../models/order.model');
+const { Resident } = require('../models/resident.model');
 
 exports.payment = async (req, res) => {
+
+    const product = await Product.findById(req.body.product_id)
+    if (!product) return res.status(404).send("The product was not found");
 
     try {
         let intent;
@@ -9,8 +15,9 @@ exports.payment = async (req, res) => {
             // Create the PaymentIntent
             intent = await stripe.paymentIntents.create({
                 payment_method: req.body.payment_method_id,
-                amount: 1099,
-                currency: 'usd',
+                amount: product.price * 100,
+                currency: 'cad',
+                description: product.title,
                 confirmation_method: 'manual',
                 confirm: true
             });
@@ -19,6 +26,19 @@ exports.payment = async (req, res) => {
                 req.body.payment_intent_id
             );
         }
+        const resident = await Resident.findOne({ user_id: req.body.user_id })
+        console.log(resident)
+        if (!resident) return res.status(404).send("The resident was not found");
+
+
+        const order = new Order({
+            unit_num: resident.unit_num,
+            name: resident.name,
+            type: product.title
+        });
+
+        await order.save();
+
         // Send the response to the client
         res.send(generateResponse(intent));
     } catch (e) {
@@ -52,3 +72,29 @@ const generateResponse = (intent) => {
         }
     }
 };
+
+exports.createProduct = (req, res) => {
+    const file = req.file;
+    const path = file ? file.path : undefined;
+
+    const result = validate(req.body);
+    if (result.error) {
+        return res.status(400).send(result.error.details[0].message);
+    }
+
+    const product = new Product({
+        title: req.body.title,
+        price: req.body.price,
+        imagePath: path
+    });
+
+    product.save().then((data) => res.send(data));
+}
+
+exports.getProducts = (req, res) => {
+    Product.find().then((data) => res.send(data));
+
+}
+exports.getOrders = (req, res) => {
+    Order.find().then(data => res.send(data))
+}
