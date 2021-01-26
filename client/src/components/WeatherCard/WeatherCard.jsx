@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./WeatherCard.css";
 
 function WeatherCard() {
-  const [city, setCity] = useState("");
   const [cityc, setCityC] = useState("");
   const [country, setCountry] = useState("");
   const [temperature, setTemperature] = useState("");
@@ -15,17 +14,8 @@ function WeatherCard() {
     base: "https://api.openweathermap.org/data/2.5/",
   };
 
-  const handleChange = (event) => {
-    setCity(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    getResults(city);
-  };
-
-  const getResults = (query) => {
-    fetch(`${api.base}weather?q=${query}&units=metric&appid=${api.key}`)
+  const getResults = (city) => {
+    fetch(`${api.base}weather?q=${city}&units=metric&appid=${api.key}`)
       .then((weather) => {
         return weather.json();
       })
@@ -45,56 +35,39 @@ function WeatherCard() {
   let cityCountry = `${cityc} ${country}`;
 
   return (
-    <div className="row">
-      <div className="col"></div>
-      <div className="col-md-8 col-sm-10">
-        <div className="card">
-          <div className="card-body">
-            <h1 className="center-title">Weather</h1>
-            <div className="row">
-              <div className="col"></div>
-              <div className="col-md-10 col-sm-12">
-                <form onSubmit={handleSubmit}>
-                  <div className="input-group mb-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      aria-label="Sizing example input"
-                      aria-describedby="inputGroup-sizing-default"
-                      placeholder="Search for city..."
-                      value={city}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </form>
-              </div>
-              <div className="col"></div>
-            </div>
-            <div className="row">
-              <div className="col-8">
-                <div className="row">
-                  <div className="city">{cityCountry}</div>
-                  <div className="daytime">{daytime}</div>
+    <>
+      {getResults("Calgary")}
+      <div className="row">
+        <div className="col"></div>
+        <div className="col-md-8 col-sm-10">
+          <div className="card card-margin">
+            <div className="card-body">
+              <div className="row">
+                <div className="col-6 space-content">
+                  <div className="row">
+                    <div className="city">{cityCountry}</div>
+                    <div className="daytime">{daytime}</div>
 
-                  <div className="current">
-                    <div className="hi-low">
-                      {tempMax} {!!tempMax && <span>°C / </span>} {tempMin}
-                      {!!tempMin && <span>°C</span>}
+                    <div className="current">
+                      <div className="hi-low">
+                        {tempMax} {!!tempMax && <span>°C / </span>} {tempMin}
+                        {!!tempMin && <span>°C</span>}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-4">
-                <div className="temp">
-                  {temperature} {!!temperature && <span>°C</span>}
+                <div className="col-6 center-temp">
+                  <div className="temp">
+                    {temperature} {!!temperature && <span>°C</span>}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div className="col"></div>
       </div>
-      <div className="col"></div>
-    </div>
+    </>
   );
 }
 
