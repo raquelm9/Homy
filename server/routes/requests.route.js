@@ -1,5 +1,6 @@
 const multer = require("multer");
 const auth = require("../app/middleware/auth");
+const manager = require("../app/middleware/manager");
 const request = require("../app/controllers/requests.controller");
 const router = require("express").Router();
 
@@ -20,7 +21,7 @@ module.exports = (app) => {
   router.put("/:requestId/comment", auth, request.commentOnRequest);
   router.get("/", auth, request.getRequest);
 
-  router.get("/manager/all-service-requests", auth, request.getAllServiceRequests);
+  router.get("/manager/all-service-requests", [auth, manager], request.getAllServiceRequests);
 
   app.use("/api/service-requests", router);
 };
