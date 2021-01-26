@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 //Pages
@@ -19,6 +19,7 @@ import CheckoutForm from "../pages/Residents/CheckoutForm/CheckoutForm";
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(autoLogin());
@@ -26,7 +27,7 @@ function App() {
 
   return (
     <Router>
-      <ResidentNavbar />
+      {!location.pathname.includes("/manager") && <ResidentNavbar />}
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/home" component={HomePage} />

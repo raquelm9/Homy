@@ -1,5 +1,6 @@
 const multer = require("multer");
 const auth = require("../app/middleware/auth");
+const manager = require("../app/middleware/manager");
 const request = require("../app/controllers/requests.controller");
 const router = require("express").Router();
 
@@ -18,6 +19,7 @@ module.exports = (app) => {
   router.delete("/:id", auth, request.deleteRequest);
   router.post("/", [auth, upload.single("image")], request.createRequest);
   router.put("/:requestId/comment", auth, request.commentOnRequest);
+  router.put('/:requestId/comment/manager', auth, request.commentOnRequestAsManager);
   router.get("/", auth, request.getRequest);
 
   router.get("/manager/all-service-requests", auth, request.getAllServiceRequests);

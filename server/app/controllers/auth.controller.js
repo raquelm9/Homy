@@ -1,5 +1,6 @@
 const { User } = require("../models/user.model");
 const { Resident } = require("../models/resident.model");
+const { Manager } = require('../models/manager.model');
 
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
@@ -48,6 +49,8 @@ exports.verifyUser = async (req, res) => {
 
   let user = await User.findById(decoded._id);
 
+  // if (!user.isManager) {
+
   let resident = await Resident.findOne({ user_id: user._id });
   if (!resident)
     return res.status(400).send("This user don't have an account yet.");
@@ -58,4 +61,58 @@ exports.verifyUser = async (req, res) => {
   res
     .header("x-auth-token", token)
     .send(_.pick(user, ["_id", "email", "unit_num", "name"]));
+
+  // } else {
+
+  //   let manager = await Manager.findOne({ user_id: user._id }); //
+
+  //   if (!manager)
+  //     return res.status(400).send("This user don't have an account yet.");
+
+  //   user.building_id = manager.building_id;
+  //   user.name = manager.name;
+
+  //   res
+  //     .header("x-auth-token", token)
+  //     .send(_.pick(user, ["_id", "isManager", "name", "building_id"]));
+
+  // }
+
+
+
+};
+
+exports.loginAsManager = async (req, res) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(5),
+  });
+
+  const result = schema.validate(req.body);
+
+  if (result.error) {
+    return res.status(400).send(result.error.details[0].message);
+  }
+
+  let user = await User.findOne({ email: req.body.email });
+
+  if (!user) return res.status(400).send("Invalid email or password.");
+  if (!user.isManager) return res.status(403).send('Forbidden')
+
+  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  if (!validPassword) return res.status(400).send("Invalid email or password.");
+
+  let manager = await Manager.findOne({ user_id: user._id }); //
+
+  if (!manager)
+    return res.status(400).send("This user don't have an account yet.");
+
+  user.building_id = manager.building_id;
+  user.name = manager.name;
+
+  const token = user.generateAuthToken();
+
+  res
+    .header("x-auth-token", token)
+    .send(_.pick(user, ["_id", "isManager", "name", "building_id"]));
 };
