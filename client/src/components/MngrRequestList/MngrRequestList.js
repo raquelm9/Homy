@@ -5,15 +5,26 @@ import { table } from "react-bootstrap";
 
 function MngrRequestList() {
   const [requests, setRequests] = useState([]);
+  const [allRequests, setAllRequests] = useState([]);
 
   useEffect(() => {
     loadData();
+    loadAllData();
   }, []);
 
   const loadData = () => {
     new HttpService().getRequests().then(
       (data) => {
         setRequests(data);
+      },
+      (err) => {}
+    );
+  };
+
+  const loadAllData = () => {
+    new HttpService().getAllServiceRequests().then(
+      (data) => {
+        setAllRequests(data);
       },
       (err) => {}
     );
@@ -32,7 +43,7 @@ function MngrRequestList() {
         unit_num={service.unit_num}
         resident_name={service.resident_name}
         description={service.description}
-        message={service.messages}
+        comments={service.comments}
       />
     );
   };
@@ -52,7 +63,7 @@ function MngrRequestList() {
               <th scope="col">Delete</th>
             </tr>
           </thead>
-          <tbody>{requests.map(listOfServices)}</tbody>
+          <tbody>{allRequests.map(listOfServices)}</tbody>
         </table>
       </div>
     </div>
