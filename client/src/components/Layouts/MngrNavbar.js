@@ -1,12 +1,13 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logUserOut } from "../../actions/userActions";
+import './MngrNavbar.css'
 
 const NavbarCommon = () => {
     const dispatch = useDispatch();
     const loggedIn = useSelector((state) => state.userReducer.loggedIn);
-    const location = useLocation();
+    // const location = useLocation();
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

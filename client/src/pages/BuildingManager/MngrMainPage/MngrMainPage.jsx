@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import './MngrMainPage.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import MngrRequestList from '../../../components/MngrRequestList/MngrRequestList';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {Route} from "react-router-dom";
 import MngrRequestListOfResidents from '../../../components/MngrRequestListOfResidents/MngrRequestListOfResidents';
 // import MngrNavbarBs from '../../../components/Layouts/MngrNavbarBs';
 import MngrHomeView from '../../../components/MngrHomeView/MngrHomeView';

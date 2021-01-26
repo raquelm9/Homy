@@ -29,7 +29,7 @@ function MessageSection(props) {
   };
 
   const showStyleOfCard = (item, index) => {
-    if (item.name !== "Manager") {
+    if (!item.name.includes('Manager')) {
       return (
         <div className="row" key={item + index}>
           <span className="style-tag-header">
