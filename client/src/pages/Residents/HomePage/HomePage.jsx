@@ -1,4 +1,5 @@
 import React from "react";
+import { Container, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useStore } from "react-redux";
 import WeartherCard from "../../../components/WeatherCard/WeatherCard";
@@ -30,25 +31,29 @@ function HomePage() {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="space-weather-card">
-        <WeartherCard></WeartherCard>
-      </div>
+    <>
+      <Container fluid className="p-0 mainPage">
+        <div className="container-fluid">
+          <div className="space-weather-card">
+            <WeartherCard></WeartherCard>
+          </div>
 
-      <div className="row">
-        <div className="col-12 center-service-title">
-          <h1 className="greeting-info">Welcome, {name}!</h1>
+          <div className="row">
+            <div className="col-12 center-service-title">
+              <h1 className="greeting-info">Welcome, {name}!</h1>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12 center-service-title">
+              <p className="greeting-second">WHAT IS ON YOUR MIND TODAY</p>
+            </div>
+          </div>
+
+          {serviceOptions.map((serviceOption) => cardHistory(serviceOption))}
         </div>
-      </div>
-
-      <div className="row">
-        <div className="col-12 center-service-title">
-          <p className="greeting-second">WHAT IS ON YOUR MIND TODAY</p>
-        </div>
-      </div>
-
-      {serviceOptions.map((serviceOption) => cardHistory(serviceOption))}
-    </div>
+      </Container>
+    </>
   );
 }
 

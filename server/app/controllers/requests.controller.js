@@ -99,3 +99,32 @@ exports.commentOnRequest = async (req, res) => {
 
   return res.status(200).send(request);
 };
+
+exports.commentOnRequestAsManager = async (req, res) => {
+  const serviceRequestId = req.params.requestId;
+  const request = await Request.findById(serviceRequestId);
+
+  if (!request) return res.status(404).send("The request was not found");
+
+  // if (request.user_id !== req.user._id)
+  //   return res.status(401).send("Unauthorized");
+
+  const result = validateComment(req.body);
+
+  if (result.error) {
+    return res.status(400).send(result.error.details[0].message);
+  }
+
+  if (!request.comments) {
+    request.comments = [];
+  }
+
+  request.comments.push({
+    name: req.body.name,
+    comment: req.body.comment,
+  });
+
+  await request.save();
+
+  return res.status(200).send(request);
+};
