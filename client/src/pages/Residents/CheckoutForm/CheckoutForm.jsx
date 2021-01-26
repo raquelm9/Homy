@@ -122,63 +122,82 @@ const CheckoutForm = (props) => {
       {state ? (
         <div className="container-fluid">
           <div className="row">
+            <div className="col"></div>
             <div className="col-12">
               <img
-                className="img-fluid"
+                className="img-fluid image-adjustment"
                 alt="product"
                 src={`http://localhost:3008/${state.product.imagePath}`}
               />
             </div>
+            <div className="col"></div>
           </div>
+
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 center-title">
               <h4>{state.product.title}</h4>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="checkout-form">
-            <fieldset className="">
-              <Field
-                label="Name"
-                id="name"
-                type="text"
-                placeholder=""
-                required
-                autoComplete="name"
-                value={billingDetails.name}
-                onChange={(e) => {
-                  setBillingDetails({
-                    ...billingDetails,
-                    name: e.target.value,
-                  });
-                }}
-              />
-              <Field
-                label="Email"
-                id="email"
-                type="text"
-                placeholder=""
-                required
-                autoComplete="email"
-                value={billingDetails.email}
-                onChange={(e) => {
-                  setBillingDetails({
-                    ...billingDetails,
-                    email: e.target.value,
-                  });
-                }}
-              />
-              <div className="checkout-card-element">
-                <CardElement options={CARD_OPTIONS} />
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="col-md-7 col-sm-12 center-content">
+                <fieldset>
+                  <div className="form-group row input-margin">
+                    <Field
+                      label="Name"
+                      id="name"
+                      type="text"
+                      placeholder=""
+                      required
+                      autoComplete="name"
+                      value={billingDetails.name}
+                      onChange={(e) => {
+                        setBillingDetails({
+                          ...billingDetails,
+                          name: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+
+                  <div className="form-group row input-margin">
+                    <Field
+                      label="Email"
+                      id="email"
+                      type="text"
+                      placeholder=""
+                      required
+                      autoComplete="email"
+                      value={billingDetails.email}
+                      onChange={(e) => {
+                        setBillingDetails({
+                          ...billingDetails,
+                          email: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6 col-sm-12">
+                      <CardElement options={CARD_OPTIONS} />
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-6 col-sm-12 button-center">
+                      <button
+                        className="btn btn-lg btn-outline-secondary"
+                        type="submit"
+                        disabled={!stripe}
+                      >
+                        Pay {state.product.price}$
+                      </button>
+                    </div>
+                  </div>
+                </fieldset>
               </div>
-              <button
-                className="btn btn-lg btn-outline-secondary checkout-button"
-                type="submit"
-                disabled={!stripe}
-              >
-                Pay {state.product.price}$
-              </button>
-            </fieldset>
+            </div>
           </form>
         </div>
       ) : null}
