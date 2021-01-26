@@ -49,34 +49,34 @@ exports.verifyUser = async (req, res) => {
 
   let user = await User.findById(decoded._id);
 
-  if (!user.isManager) {
+  // if (!user.isManager) {
 
-    let resident = await Resident.findOne({ user_id: user._id });
-    if (!resident)
-      return res.status(400).send("This user don't have an account yet.");
+  let resident = await Resident.findOne({ user_id: user._id });
+  if (!resident)
+    return res.status(400).send("This user don't have an account yet.");
 
-    user.unit_num = resident.unit_num;
-    user.name = resident.name;
+  user.unit_num = resident.unit_num;
+  user.name = resident.name;
 
-    res
-      .header("x-auth-token", token)
-      .send(_.pick(user, ["_id", "email", "unit_num", "name"]));
+  res
+    .header("x-auth-token", token)
+    .send(_.pick(user, ["_id", "email", "unit_num", "name"]));
 
-  } else {
+  // } else {
 
-    let manager = await Manager.findOne({ user_id: user._id }); //
+  //   let manager = await Manager.findOne({ user_id: user._id }); //
 
-    if (!manager)
-      return res.status(400).send("This user don't have an account yet.");
+  //   if (!manager)
+  //     return res.status(400).send("This user don't have an account yet.");
 
-    user.building_id = manager.building_id;
-    user.name = manager.name;
+  //   user.building_id = manager.building_id;
+  //   user.name = manager.name;
 
-    res
-      .header("x-auth-token", token)
-      .send(_.pick(user, ["_id", "isManager", "name", "building_id"]));
+  //   res
+  //     .header("x-auth-token", token)
+  //     .send(_.pick(user, ["_id", "isManager", "name", "building_id"]));
 
-  }
+  // }
 
 
 

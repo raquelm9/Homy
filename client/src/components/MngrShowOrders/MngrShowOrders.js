@@ -35,7 +35,7 @@ function ResidentRequestList() {
 
     return (
         <div className="row">
-            <div className="col"></div>
+            {/* <div className="col"></div> */}
             <div className="col-md-7">
                 <table className="table table-hover margin-table">
                     <thead>
@@ -49,7 +49,7 @@ function ResidentRequestList() {
                     <tbody>{orders.map(listOfOrders)}</tbody>
                 </table>
             </div>
-            <div className="col"></div>
+            {/* <div className="col"></div> */}
         </div>
     );
 }
