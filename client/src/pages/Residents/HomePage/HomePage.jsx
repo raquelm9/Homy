@@ -1,4 +1,5 @@
 import React from "react";
+import {Container, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useStore } from "react-redux";
 import "./HomePage.css";
@@ -9,17 +10,49 @@ function HomePage() {
   const name = store.getState().userReducer.user.name;
   const history = useHistory();
 
-  //   const goToServiceRequest = () => {
-  //     history.push("/resident-request");
-  //   };
+  const goToServiceRequest = () => {
+      history.push("/resident-request");
+    };
+
+  const goToShop = () => {
+      history.push("/shop/products");
+    }; 
 
   return (
+    <>
+    <Container fluid className="p-0 mainPage">
     <div className="container-fluid">
       <div className="row">
         <div className="col-12 center-service-title">
           <h1 className="greeting-info">Welcome, {name}!</h1>
         </div>
       </div>
+
+      <h1 className="center-service-title">What would you like to do today?</h1>
+
+     
+          <div className="col-sm-12">
+            <Button
+              className="home-page-buttons"
+              variant="dark"
+              onClick={goToServiceRequest}
+            >
+              SERVICES
+            </Button>
+          </div>
+        
+        
+          <div className="col-sm-12">
+            <Button
+               className="home-page-buttons"
+              variant="dark"
+              onClick={goToShop}
+            >
+              SHOP
+            </Button>
+          </div>
+       
+       
       {/* <div className="row">
         <div className="col-12">
           <HomeCarousel></HomeCarousel>
@@ -91,7 +124,11 @@ function HomePage() {
         <div className="col"></div>
       </div> */}
     </div>
+    </Container>
+        </>
+
   );
+  
 }
 
 export default HomePage;

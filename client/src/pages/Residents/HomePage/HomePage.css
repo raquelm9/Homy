@@ -27,3 +27,9 @@ p.service-request-title {
   font-size: 20px;
   font-weight: 500;
 }
+.home-page-buttons{
+  margin-top: 30px;
+  font-family: Arial, roboto;
+  font-size: 20px;
+  padding: 20px;
+}
