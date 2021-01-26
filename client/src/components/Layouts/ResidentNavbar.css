@@ -3,3 +3,10 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.homyTextNavbar {
+    font-family: comfortaa;
+    font-size: 50px;
+    padding-left:10px;
+    color: #f1356d;
+}
