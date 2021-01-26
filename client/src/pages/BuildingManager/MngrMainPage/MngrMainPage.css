@@ -31,14 +31,11 @@
 } */
 .homyTextNavbar {
   font-family: comfortaa;
-  /* font-size: 50px;
   padding-left:10px;
-  color: #f1356d; */
   font-size: 50px;
   background: -webkit-radial-gradient( left, rgb(255, 247, 0), #f1356d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* border: 1px solid #0f0ff4; */
 }
 
 /* .addressTextNavbar {
