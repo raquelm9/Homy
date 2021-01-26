@@ -29,6 +29,28 @@ class HttpService {
     return promise;
   };
 
+  commentOnRequestAsManager = (requestId, name, comment) => {
+    const commentUrl = `${endPoints}/${requestId}/comment/manager`;
+
+    var promise = new Promise((resolve, reject) => {
+      fetch(commentUrl, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          name,
+          comment,
+        }),
+      }).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
+
+
   getRequests = () => {
     var promise = new Promise((resolve, reject) => {
       fetch(endPoints, {

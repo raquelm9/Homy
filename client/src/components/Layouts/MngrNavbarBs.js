@@ -13,7 +13,7 @@ const MngrNavbarBs = () => {
      */
     const dispatch = useDispatch();
     const loggedIn = useSelector((state) => state.userReducer.loggedIn);
-    const location = useLocation();
+
 
 
     return ( 

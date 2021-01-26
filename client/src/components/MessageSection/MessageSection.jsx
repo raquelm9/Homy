@@ -22,7 +22,7 @@ function MessageSection(props) {
       name,
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss').toString(),
     };
-    new HttpService().commentOnRequest(requestId, name, newMessage).then(() => {
+    new HttpService().commentOnRequestAsManager(requestId, name, newMessage).then(() => {
       setCurrentMessages([...currentMessages, newComment]);
       setNewMessage("");
     });
