@@ -16,6 +16,7 @@ import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
 import ResidentNavbar from "../components/Layouts/ResidentNavbar";
 import ResidentShopPage from "../pages/Residents/ResidentShopPage/ResidentShopPage";
 import CheckoutForm from "../pages/Residents/CheckoutForm/CheckoutForm";
+import NavbarCommon from "../components/Layouts/MngrNavbar";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
   return (
     <Router>
       {!location.pathname.includes("/manager") && <ResidentNavbar />}
+      {location.pathname.includes("/manager") && <NavbarCommon />}
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/home" component={HomePage} />
