@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 // import DetailModal from "../DetailModal/DetailModal";
 // import { useHistory } from "react-router-dom";
 

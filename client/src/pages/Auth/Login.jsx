@@ -16,10 +16,13 @@ function Login(props) {
 
   useEffect(() => {
 
-    if (loggedIn) history.push("/home");
-    if (!location.state) history.push('/mainlogin');
-    if (location.state.loginPath) setLoginPath(location.state.loginPath);
-  }, [loggedIn, history]);
+    if (loggedIn && loginPath === 'Resident') return history.push("/home");
+    if (loggedIn && loginPath === 'Manager') return history.push("/manager");
+
+    if (!location.state) return history.push('/mainlogin');
+    if (location.state.loginPath) return setLoginPath(location.state.loginPath);
+
+  }, [loggedIn, history, location.state, loginPath]);
 
 
   return (
@@ -117,13 +120,3 @@ function Login(props) {
 
 export default Login;
 
-// A computer shall not harm your work orientation, 
-// through inactivity
-// or allow your work to come to harm
-
-//Heaven and hell
-
-//A computer shall not waste your time 
-//or require you to domore work thab is striclty neccesary
-
-//Unnecessary clicking or navigation or asking you to go back or relogin

@@ -21,6 +21,6 @@ module.exports = (app) => {
     router.post("/pay", auth, shop.payment);
     router.post('/products', upload.single("image"), shop.createProduct)
     router.get('/products', auth, shop.getProducts)
-    router.get('/orders', shop.getOrders);
+    router.get('/orders', auth, shop.getOrders);
     app.use("/api/shop", router);
 };

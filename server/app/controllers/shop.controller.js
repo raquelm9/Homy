@@ -96,5 +96,6 @@ exports.getProducts = (req, res) => {
 
 }
 exports.getOrders = (req, res) => {
+
     Order.find().then(data => res.send(data))
 }

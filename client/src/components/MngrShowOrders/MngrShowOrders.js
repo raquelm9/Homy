@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import MngrEachOrder from "../MngrEachOrder/MngrEachOrder";
-// import HttpService from "../../services/http-service";
+import HttpService from "../../services/http-service";
 import './MngrShowOrders.css'
 
 function ResidentRequestList() {
@@ -14,10 +14,9 @@ function ResidentRequestList() {
     }, [loggedIn]);
 
     const loadData = () => {
-        fetch('http://localhost:3008/api/shop/orders')
-            .then(resp => resp.json())
-            .then(data => setOrders(data))
-    };
+        new HttpService().getAllOrders().then(data => setOrders(data))
+
+    }
 
     function listOfOrders(order) {
         return (
