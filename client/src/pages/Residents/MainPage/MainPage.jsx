@@ -7,8 +7,8 @@ import "./MainPage.css";
 function MainPage() {
   const history = useHistory();
 
-  const goToServiceRequest = () => {
-    history.push("/resident-request");
+  const goToLogin = () => {
+    history.push("/login");
   };
 
   return (
@@ -21,7 +21,7 @@ function MainPage() {
             <Button
               className="buttonGetStarted"
               variant="dark"
-              onClick={goToServiceRequest}
+              onClick={goToLogin}
             >
               Get Started
             </Button>

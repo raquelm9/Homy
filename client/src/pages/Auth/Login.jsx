@@ -12,7 +12,7 @@ function Login() {
   const loggedIn = useSelector((state) => state.userReducer.loggedIn);
 
   useEffect(() => {
-    if (loggedIn) history.push("/resident-request");
+    if (loggedIn) history.push("/home");
   }, [loggedIn, history]);
 
   return (

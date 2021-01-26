@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 //Pages
+import HomePage from "../pages/Residents/HomePage/HomePage";
 import MainPage from "../pages/Residents/MainPage/MainPage";
 import ResidentServiceRequest from "../pages/Residents/ResidentServiceRequest/ResidentServiceRequest";
 import ResidentRequest from "../pages/Residents/ResidentRequest/ResidentRequest";
@@ -12,7 +13,7 @@ import Login from "../pages/Auth/Login";
 import { autoLogin } from "../actions/userActions";
 import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
 
-import ResidentNavbar from '../components/Layouts/ResidentNavbar';
+import ResidentNavbar from "../components/Layouts/ResidentNavbar";
 import ResidentShopPage from "../pages/Residents/ResidentShopPage/ResidentShopPage";
 import CheckoutForm from "../pages/Residents/CheckoutForm/CheckoutForm";
 
@@ -24,11 +25,11 @@ function App() {
   }, [dispatch]);
 
   return (
-
     <Router>
       <ResidentNavbar />
       <Switch>
         <Route exact path="/" component={MainPage} />
+        <Route exact path="/home" component={HomePage} />
         <Route exact path="/resident-request" component={ResidentRequest} />
         <Route
           exact
@@ -46,11 +47,8 @@ function App() {
         <Route path="/manager" component={MngrMainPage} />
         <Route path="/shop" component={ResidentShopPage} />
         <Route path="/checkout" component={CheckoutForm} />
-
-
       </Switch>
     </Router>
-
   );
 }
 
