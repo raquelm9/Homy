@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import DetailModal from "../DetailModal/DetailModal";
 // import { useHistory } from "react-router-dom";
 
@@ -15,20 +15,20 @@ function ResidentEachService(props) {
     //     history.go(0);
     // };
 
-    // const handleDate = () => {
-    //     let dateObject = new Date(props.date);
-    //     const canFormat = new Intl.DateTimeFormat("en-CA", {
-    //         dateStyle: "short",
-    //         timeStyle: "short",
-    //     }).format(dateObject);
+    const handleDate = () => {
 
-    //     return canFormat;
-    // };
+        let dateObject = new Date(props.date).toLocaleDateString("en-CA", {
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric'
+        });
+        return dateObject;
+    };
 
     return (
         <>
             <tr>
-                {/* <td>{handleDate()}</td> */}
+                <td>{props.date && handleDate()}</td>
                 <td>{props.type}</td>
                 <td>{props.name}</td>
                 <td>{props.unit}</td>
