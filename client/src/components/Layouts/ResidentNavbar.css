@@ -7,6 +7,7 @@
 .homyTextNavbar {
     font-family: comfortaa;
     font-size: 50px;
-    padding-left:10px;
-    color: #f1356d;
+    background: -webkit-radial-gradient( left, rgb(255, 247, 0), #f1356d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
