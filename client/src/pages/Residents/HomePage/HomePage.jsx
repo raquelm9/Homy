@@ -1,8 +1,8 @@
 import React from "react";
-import { Container, Button } from "react-bootstrap";
+//import { Container, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import WeartherCard from "../../../components/WeatherCard/WeatherCard";
+//import WeartherCard from "../../../components/WeatherCard/WeatherCard";
 import "./HomePage.css";
 
 function HomePage() {
