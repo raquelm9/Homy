@@ -28,7 +28,6 @@ function App() {
 
   useEffect(() => {
     dispatch(autoLogin());
-
   }, [dispatch]);
 
   return (
