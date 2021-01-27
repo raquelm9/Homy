@@ -1,0 +1,37 @@
+.temp {
+  text-align: center;
+  font-size: 40px;
+}
+
+.center-temp {
+  margin-top: 20px;
+}
+
+.space-content {
+  padding-left: 40px;
+  font-size: 25px;
+}
+
+@media only screen and (max-width: 768px) {
+  .space-content {
+    padding-left: 10px;
+  }
+
+  .temp {
+    font-size: 30px;
+  }
+
+  .space-content {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .temp {
+    font-size: 25px;
+  }
+
+  .space-content {
+    font-size: 15px;
+  }
+}

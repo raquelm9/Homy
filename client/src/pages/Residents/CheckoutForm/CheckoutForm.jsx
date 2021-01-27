@@ -138,11 +138,12 @@ const CheckoutForm = (props) => {
 
           <form onSubmit={handleSubmit}>
             <div className="row">
-              <div className="col-md-7 col-sm-12 center-content">
-                <fieldset>
+              <div className="col"></div>
+              <div className="col-md-6 col-sm-12">
+                <fieldset className="center-items">
                   <div className="form-group row input-margin">
                     <Field
-                      label="Name"
+                      label="Name:"
                       id="name"
                       type="text"
                       placeholder=""
@@ -160,7 +161,7 @@ const CheckoutForm = (props) => {
 
                   <div className="form-group row input-margin">
                     <Field
-                      label="Email"
+                      label="Email: "
                       id="email"
                       type="text"
                       placeholder=""
@@ -175,14 +176,15 @@ const CheckoutForm = (props) => {
                       }}
                     />
                   </div>
+
                   <div className="row">
-                    <div className="col-md-6 col-sm-12">
+                    <div className="col-md-6 col-sm-12 center-card">
                       <CardElement options={CARD_OPTIONS} />
                     </div>
                   </div>
 
                   <div className="row">
-                    <div className="col-md-6 col-sm-12 button-center">
+                    <div className="col-sm-12 button-center">
                       <button
                         className="btn btn-lg btn-outline-secondary"
                         type="submit"
@@ -194,6 +196,7 @@ const CheckoutForm = (props) => {
                   </div>
                 </fieldset>
               </div>
+              <div className="col"></div>
             </div>
           </form>
         </div>

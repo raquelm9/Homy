@@ -4,24 +4,23 @@ import { Link } from 'react-router-dom'
 import './MngrMainPage.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import MngrRequestList from '../../../components/MngrRequestList/MngrRequestList';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {Route} from "react-router-dom";
 import MngrRequestListOfResidents from '../../../components/MngrRequestListOfResidents/MngrRequestListOfResidents';
-import MngrNavbarBs from '../../../components/Layouts/MngrNavbarBs';
+// import MngrNavbarBs from '../../../components/Layouts/MngrNavbarBs';
 import MngrHomeView from '../../../components/MngrHomeView/MngrHomeView';
 import MngrShowOrders from '../../../components/MngrShowOrders/MngrShowOrders';
 
 
 const MngrMainPage = () => {
     return (
-        <Router>
-            <Switch>
+
                 <div>
                     <Container fluid>
-                        <Row>
+                        {/* <Row>
                             <MngrNavbarBs />
                             <div>
                             </div>
-                        </Row>
+                        </Row> */}
                         <Row>
                             <Col sm={3} md={3} className="menu-window">
                                 <Link className="menu-link" to='/manager/request-list-of-services' >
@@ -47,8 +46,7 @@ const MngrMainPage = () => {
                         </Row>
                     </Container>
                 </div>
-            </Switch>
-        </Router>
+
 
     );
 }
