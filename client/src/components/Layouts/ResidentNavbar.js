@@ -32,13 +32,13 @@ function ResidentNavbar() {
             <div className="collapse navbar-collapse" id="navbarText">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Link
+                  {/* <Link
                     className="nav-link active"
                     aria-current="page"
                     to="/home"
                   >
                     Home
-                  </Link>
+                  </Link> */}
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/resident-request">
