@@ -15,8 +15,8 @@ function ResidentNavbar() {
       {location.pathname === "/" ? null : (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
-            <Link className="navbar-brand" to="/">
-            <span className='homyTextNavbar'>homy</span>
+            <Link className="navbar-brand" to="/home">
+              <span className="homyTextNavbar">homy</span>
             </Link>
             <button
               className="navbar-toggler"
