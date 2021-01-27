@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 //Pages
 import HomePage from "../pages/Residents/HomePage/HomePage";
@@ -27,7 +25,6 @@ import Unauthorized from '../components/Unauthorized/Unauthorized';
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
-
 
   useEffect(() => {
     dispatch(autoLogin());
