@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Pages
 import HomePage from "../pages/Residents/HomePage/HomePage";
@@ -18,11 +18,16 @@ import ResidentShopPage from "../pages/Residents/ResidentShopPage/ResidentShopPa
 import CheckoutForm from "../pages/Residents/CheckoutForm/CheckoutForm";
 
 import MainLogin from '../pages/Auth/MainLogin';
+import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
+import Unauthorized from '../components/Unauthorized/Unauthorized';
+
 function App() {
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     dispatch(autoLogin());
+
   }, [dispatch]);
 
   return (
@@ -46,7 +51,8 @@ function App() {
         <Route exact path="/mainlogin" component={MainLogin} />
         <Route exact path="/login" component={Login} />
 
-        <Route path="/manager" component={MngrMainPage} />
+        <ProtectedRoute path="/manager" user={useSelector(state => state.userReducer.user.isManager)} component={MngrMainPage} />
+        <Route path="/unauthorized" component={Unauthorized} />
         <Route path="/shop" component={ResidentShopPage} />
         <Route path="/checkout" component={CheckoutForm} />
 
