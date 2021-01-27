@@ -46,7 +46,7 @@ function HomePage() {
     <>
       <div className="container-fluid">
         <div className="space-weather-card">
-          <WeartherCard></WeartherCard>
+          {/* <WeartherCard></WeartherCard> */}
         </div>
 
         <div className="row">

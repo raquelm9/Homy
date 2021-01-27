@@ -77,8 +77,8 @@ exports.commentOnRequest = async (req, res) => {
 
   if (!request) return res.status(404).send("The request was not found");
 
-  if (request.user_id !== req.user._id)
-    return res.status(401).send("Unauthorized");
+  // if (request.user_id !== req.user._id)
+  //   return res.status(401).send("Unauthorized");
 
   const result = validateComment(req.body);
 
@@ -93,6 +93,7 @@ exports.commentOnRequest = async (req, res) => {
   request.comments.push({
     name: req.body.name,
     comment: req.body.comment,
+    isManager: false
   });
 
   await request.save();
@@ -122,6 +123,7 @@ exports.commentOnRequestAsManager = async (req, res) => {
   request.comments.push({
     name: req.body.name,
     comment: req.body.comment,
+    isManager: true
   });
 
   await request.save();

@@ -3,6 +3,7 @@ import HttpService from "../../services/http-service";
 import "./MessageSection.css";
 import { useStore } from "react-redux";
 import moment from "moment";
+import { useSelector } from 'react-redux';
 
 function MessageSection(props) {
   const store = useStore();
@@ -10,7 +11,8 @@ function MessageSection(props) {
   const requestId = props.requestId.split("-")[1];
   const [newMessage, setNewMessage] = useState("");
   const [currentMessages, setCurrentMessages] = useState(props.comments || []);
-
+  // const isManager = useSelector(state => state.userReducer.user.isManager)
+  const currentUser = useSelector(state => state.userReducer.user);
   const myChangeHandler = (event) => {
     setNewMessage(event.target.value);
   };
@@ -21,27 +23,25 @@ function MessageSection(props) {
       comment: newMessage,
       name,
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss').toString(),
+      isManager: currentUser.isManager || false
     };
-    new HttpService().commentOnRequestAsManager(requestId, name, newMessage).then(() => {
-      setCurrentMessages([...currentMessages, newComment]);
-      setNewMessage("");
-    });
+    if (currentUser.isManager) {
+      new HttpService().commentOnRequestAsManager(requestId, name, newMessage).then(() => {
+        setCurrentMessages([...currentMessages, newComment]);
+        setNewMessage("");
+      });
+    } else {
+      new HttpService().commentOnRequest(requestId, name, newMessage).then(() => {
+        setCurrentMessages([...currentMessages, newComment]);
+        setNewMessage("");
+      });
+    }
+    console.log('currentUser:', currentUser.isManager === undefined)
   };
 
   const showStyleOfCard = (item, index) => {
-    if (!item.name.includes('Manager')) {
-      return (
-        <div className="row" key={item + index}>
-          <span className="style-tag-header">
-            <span className="style-tag-header-resident">
-              {item.name} {moment(item.createdAt).fromNow(true)}
-            </span>
-            <br></br>
-            <span className="style-tag-resident">{item.comment}</span>
-          </span>
-        </div>
-      );
-    } else {
+    if (item.isManager) {
+
       return (
         <div className="row d-flex justify-content-end" key={item + index}>
           <span className="style-tag-header">
@@ -52,6 +52,19 @@ function MessageSection(props) {
             <span className="style-tag-manager">{item.comment}</span>
           </span>
         </div>
+      );
+    } else {
+      return (
+        <div className="row" key={item + index}>
+          <span className="style-tag-header">
+            <span className="style-tag-header-resident">
+              {item.name} {moment(item.createdAt).fromNow(true)}
+            </span>
+            <br></br>
+            <span className="style-tag-resident">{item.comment}</span>
+          </span>
+        </div>
+
       );
     }
   };
