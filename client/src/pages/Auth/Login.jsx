@@ -79,7 +79,7 @@ function Login(props) {
           <Form>
             <div className="row">
               <div className="col-12">
-                <h1 className="">Login</h1>
+                <h1 className="text-center">Login</h1>
               </div>
             </div>
             <div className="form-group row input-style">
@@ -120,22 +120,29 @@ function Login(props) {
               </div>
             </div>
 
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="flexCheckDefault"
-                defaultChecked={checkIfManager}
-                onChange={checkIfChange}
-              />
-              <label className="form-check-label" htmlFor="flexCheckDefault">
-                I'm a manager
-              </label>
+            <div className="row">
+              <div className="col-md-9 col-sm-10">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault"
+                    defaultChecked={checkIfManager}
+                    onChange={checkIfChange}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexCheckDefault"
+                  >
+                    I'm a manager
+                  </label>
+                </div>
+              </div>
             </div>
 
             <div className="form-group row input-style">
-              <div className="col-2"></div>
-              <div className="col-8">
+              <div className="col"></div>
+              <div className="center-button">
                 <button
                   type="submit"
                   className="btn btn-dark btn-lg btn-block button-center"
@@ -143,6 +150,7 @@ function Login(props) {
                   Submit
                 </button>
               </div>
+              <div className="col"></div>
             </div>
           </Form>
         </Formik>
