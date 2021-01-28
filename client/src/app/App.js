@@ -26,6 +26,9 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  const isManager = useSelector(state => state.userReducer.user.isManager)
+
+
   useEffect(() => {
     dispatch(autoLogin());
   }, [dispatch]);
@@ -51,8 +54,9 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/mainlogin" component={MainLogin} />
         <Route exact path="/login" component={Login} />
-
-        <ProtectedRoute path="/manager" user={useSelector(state => state.userReducer.user.isManager)} component={MngrMainPage} />
+        {/* //user={useSelector(state => state.userReducer.user.isManager)} */}
+        {/* <ProtectedRoute path="/manager" isManager={isManager} component={MngrMainPage} /> */}
+        <Route path="/manager" component={MngrMainPage} />
         <Route path="/unauthorized" component={Unauthorized} />
         <Route path="/shop" component={ResidentShopPage} />
         <Route path="/checkout" component={CheckoutForm} />

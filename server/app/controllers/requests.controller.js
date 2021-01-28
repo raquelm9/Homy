@@ -51,13 +51,14 @@ exports.createRequest = async (req, res) => {
 };
 
 exports.deleteRequest = async (req, res) => {
+  console.log(req.params.id)
   const serviceRequestId = req.params.id;
   let request = await Request.findById(serviceRequestId);
 
   if (!request) return res.status(404).send("The request was not found");
 
-  if (request.user_id !== req.user._id)
-    return res.status(401).send("Unauthorized");
+  // if (request.user_id !== req.user._id)
+  //   return res.status(401).send("Unauthorized");
 
   //erase image on the server if one
   if (request.image) {
