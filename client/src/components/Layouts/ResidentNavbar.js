@@ -19,7 +19,7 @@ function ResidentNavbar() {
               <span className="homyTextNavbar">homy</span>
             </Link>
             <button
-              className="navbar-toggler"
+              className="navbar-toggler btn-outline-warning"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarText"
