@@ -1,19 +1,21 @@
 import React from "react";
 import DetailModal from "../DetailModal/DetailModal";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 
 function MngrEachService(props) {
   const modalId = `request-${props.id}`;
   const history = useHistory();
+  const location = useLocation();
   const handleOnClick = () => {
+    
     fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
       method: "DELETE",
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,
       },
     });
-    history.go(0);
+    history.push('/manager');
   };
 
   const handleDate = () => {
@@ -50,15 +52,15 @@ function MngrEachService(props) {
         <td>{props.subject}</td>
         {/* <td>{showButtonImage()}</td> */}
         <td>
-        <button
+          <button
             type="button"
             className="btn btn-dark"
             data-bs-toggle="modal"
             data-bs-target={`#${modalId}`}
           >
-          Details
+            Details
           </button>
-        <DetailModal
+          <DetailModal
             id={modalId}
             image={props.image}
             subject={props.subject}
@@ -67,7 +69,7 @@ function MngrEachService(props) {
             resident_name={props.resident_name}
             comments={props.comments}
           />
-          </td>
+        </td>
         <td>
           <button className="btn btn-secondary" onClick={handleOnClick}>
             Delete
@@ -75,7 +77,7 @@ function MngrEachService(props) {
           {/* <td><ImageModal id={modalId} image={props.image} /></td> */}
         </td>
         <td>
-        
+
         </td>
       </tr>
     </>

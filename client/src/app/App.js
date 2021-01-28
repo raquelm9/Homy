@@ -18,12 +18,15 @@ import CheckoutForm from "../pages/Residents/CheckoutForm/CheckoutForm";
 
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import Unauthorized from "../components/Unauthorized/Unauthorized";
-import { selectIsManager } from "../selectors/userSelectors";
+// import { selectIsManager } from "../selectors/userSelectors";
 import { AppHeader } from "./AppHeader";
 
 function App() {
   const dispatch = useDispatch();
-  const isManager = useSelector(selectIsManager);
+  // const isManager = useSelector(selectIsManager);
+
+  const isManager = useSelector(state => state.userReducer.user.isManager)
+
 
   useEffect(() => {
     dispatch(autoLogin());
@@ -49,12 +52,10 @@ function App() {
         <Route exact path="/register" component={Register} />
         {/* <Route exact path="/mainlogin" component={MainLogin} /> */}
         <Route exact path="/login" component={Login} />
+        {/* //user={useSelector(state => state.userReducer.user.isManager)} */}
+        {/* <ProtectedRoute path="/manager" isManager={isManager} component={MngrMainPage} /> */}
+        <Route path="/manager" component={MngrMainPage} />
 
-        <ProtectedRoute
-          path="/manager"
-          user={isManager}
-          component={MngrMainPage}
-        />
         <Route path="/unauthorized" component={Unauthorized} />
         <Route path="/shop" component={ResidentShopPage} />
         <Route path="/checkout" component={CheckoutForm} />

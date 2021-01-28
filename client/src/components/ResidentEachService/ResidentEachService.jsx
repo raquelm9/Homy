@@ -5,8 +5,9 @@ import { useHistory } from "react-router-dom";
 function ResidentEachService(props) {
   const modalId = `request-${props.id}`;
   const history = useHistory();
-  const handleOnClick = () => {
-    fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
+  const handleOnClick = async () => {
+    console.log(props.id)
+    await fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
       method: "DELETE",
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,

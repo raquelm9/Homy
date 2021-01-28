@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const ProtectedRoute = ({ component: Component, user, ...rest }) => {
+const ProtectedRoute = ({ component: Component, isManager, ...rest }) => {
+
     return (
         <Route {...rest} render={
             props => {
-                if (user) {
+                if (isManager) {
                     return <Component {...rest} {...props} />
                 } else {
                     return <Redirect to={
