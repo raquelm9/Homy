@@ -10,17 +10,11 @@ export const AppHeader = () => {
   const isManager = useSelector(selectIsManager);
   const location = useLocation();
 
-  if (!isLoggedIn) {
+  if (location.pathname === "/" || !isLoggedIn) {
     return null;
-  }
-
-  if (location.pathname === "/") {
-    return null;
+  } else if (isManager) {
+    return <NavbarCommon />;
   } else {
-    if (isManager) {
-      return <NavbarCommon />;
-    }
-
     return <ResidentNavbar />;
   }
 };
