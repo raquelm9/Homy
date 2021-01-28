@@ -16,7 +16,6 @@ import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
 import ResidentShopPage from "../pages/Residents/ResidentShopPage/ResidentShopPage";
 import CheckoutForm from "../pages/Residents/CheckoutForm/CheckoutForm";
 
-import MainLogin from "../pages/Auth/MainLogin";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import Unauthorized from "../components/Unauthorized/Unauthorized";
 import { selectIsManager } from "../selectors/userSelectors";
@@ -48,7 +47,7 @@ function App() {
           component={ResidentListRequest}
         />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/mainlogin" component={MainLogin} />
+        {/* <Route exact path="/mainlogin" component={MainLogin} /> */}
         <Route exact path="/login" component={Login} />
 
         <ProtectedRoute
