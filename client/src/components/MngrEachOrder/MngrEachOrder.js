@@ -18,9 +18,10 @@ function ResidentEachService(props) {
     const handleDate = () => {
 
         let dateObject = new Date(props.date).toLocaleDateString("en-CA", {
-            month: 'long',
+            month: 'short',
             day: 'numeric',
-            hour: 'numeric'
+            hour: 'numeric',
+            minute: 'numeric'
         });
         return dateObject;
     };
