@@ -99,3 +99,10 @@ exports.getOrders = (req, res) => {
 
     Order.find().then(data => res.send(data))
 }
+exports.deleteOrder = (req, res) => {
+    const orderId = req.params.id;
+
+    Order.deleteOne({ _id: orderId }).then(data => res.send(data))
+
+
+}
