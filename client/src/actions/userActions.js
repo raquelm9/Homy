@@ -14,7 +14,10 @@ export const fetchUser = userInfo => dispatch => {
             localStorage.setItem("token", res.headers.get('x-auth-token'))
             return res.json()
         })
-        .then(data => dispatch(setUser(data)))
+        .then(data => {
+            localStorage.setItem("isManager", data.isManager)
+            dispatch(setUser(data))
+        })
 }
 export const fetchUserAsManager = userInfo => dispatch => {
     fetch(`http://localhost:3008/api/login/manager`, {
@@ -26,7 +29,10 @@ export const fetchUserAsManager = userInfo => dispatch => {
             localStorage.setItem("token", res.headers.get('x-auth-token'))
             return res.json()
         })
-        .then(data => dispatch(setUser(data)))
+        .then(data => {
+            localStorage.setItem("isManager", data.isManager)
+            dispatch(setUser(data))
+        })
 }
 
 export const register = userInfo => dispatch => {
@@ -40,7 +46,10 @@ export const register = userInfo => dispatch => {
             localStorage.setItem("token", res.headers.get('x-auth-token'))
             return res.json()
         })
-        .then(data => dispatch(setUser(data)))
+        .then(data => {
+            localStorage.setItem("isManager", data.isManager)
+            dispatch(setUser(data))
+        })
 
 }
 
@@ -59,7 +68,10 @@ export const autoLogin = () => dispatch => {
                 localStorage.setItem("token", res.headers.get('x-auth-token'))
                 return res.json()
             })
-            .then(data => dispatch(setUser(data)))
+            .then(data => {
+                localStorage.setItem("isManager", data.isManager)
+                dispatch(setUser(data))
+            })
     }
 
 }

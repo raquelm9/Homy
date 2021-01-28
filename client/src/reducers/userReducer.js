@@ -2,16 +2,17 @@ import { SET_USER, LOG_OUT } from "../actions/types";
 
 const defaultState = {
   loggedIn: false,
-  user: {},
+  user: {}
 };
 
 const userReducer = (state = defaultState, action) => {
   switch (action.type) {
     case SET_USER:
-      return Object.assign({}, {
+      return {
+        ...state,
         loggedIn: true,
-        user: { ...action.payload },
-      });
+        user: { ...action.payload }
+      };
     case LOG_OUT:
       localStorage.clear();
       return {
