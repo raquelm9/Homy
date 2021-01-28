@@ -1,19 +1,19 @@
 import React from "react";
 // import DetailModal from "../DetailModal/DetailModal";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function ResidentEachService(props) {
     // const modalId = `request-${props.id}`;
-    // const history = useHistory();
-    // const handleOnClick = () => {
-    //     fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
-    //         method: "DELETE",
-    //         headers: {
-    //             "x-auth-token": `${localStorage.getItem("token")}`,
-    //         },
-    //     });
-    //     history.go(0);
-    // };
+    const history = useHistory();
+    const handleOnClick = () => {
+        fetch(`http://localhost:3008/api/shop/orders/${props.id}`, {
+            method: "DELETE",
+            headers: {
+                "x-auth-token": `${localStorage.getItem("token")}`,
+            },
+        });
+        history.go(0);
+    };
 
     const handleDate = () => {
 
@@ -32,6 +32,14 @@ function ResidentEachService(props) {
                 <td>{props.type}</td>
                 <td>{props.name}</td>
                 <td>{props.unit}</td>
+                <td>
+                    <button
+                        onClick={handleOnClick}
+                        type="button"
+                        className="btn btn-dark"
+                    >
+                        Fulfilled
+                        </button></td>
                 {/* <td>
                     <button
                         type="button"
