@@ -1,4 +1,5 @@
 import { SET_USER, LOG_OUT } from "./types";
+import swal from "sweetalert";
 
 const setUser = (payload) => ({ type: SET_USER, payload });
 
@@ -14,7 +15,11 @@ export const fetchUser = (userInfo) => (dispatch) => {
             localStorage.setItem("token", res.headers.get("x-auth-token"));
             return res.json();
         })
-        .then((data) => dispatch(setUser(data)));
+        .then((data) => dispatch(setUser(data)))
+        .catch(err => {
+            dispatch(logUserOut())
+            loginErrorMsg()
+        })
 };
 export const fetchUserAsManager = (userInfo) => (dispatch) => {
     fetch(`http://localhost:3008/api/login/manager`, {
@@ -29,7 +34,11 @@ export const fetchUserAsManager = (userInfo) => (dispatch) => {
         .then((data) => {
             localStorage.setItem("isManager", true);
             dispatch(setUser(data))
-        });
+        })
+        .catch(err => {
+            dispatch(logUserOut())
+            loginErrorMsg()
+        })
 };
 
 export const register = (userInfo) => (dispatch) => {
@@ -45,7 +54,8 @@ export const register = (userInfo) => (dispatch) => {
         .then((data) => {
             if (data.isManager) localStorage.setItem("isManager", true);
             dispatch(setUser(data))
-        });
+        })
+
 };
 
 export const autoLogin = () => (dispatch) => {
@@ -65,6 +75,17 @@ export const autoLogin = () => (dispatch) => {
             .then((data) => {
                 if (data.isManager) localStorage.setItem("isManager", true);
                 dispatch(setUser(data))
-            });
+            })
+            .catch(err => {
+                dispatch(logUserOut())
+            })
     }
 };
+const loginErrorMsg = () => {
+    swal({
+        title: "Error",
+        text: 'Credential not valid',
+        icon: "error",
+        button: "Dismiss",
+    });
+}
