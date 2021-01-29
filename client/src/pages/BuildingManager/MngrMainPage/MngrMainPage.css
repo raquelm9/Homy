@@ -34,7 +34,7 @@
   padding-left:10px;
   font-size: 50px;
   background: -webkit-radial-gradient( left, rgb(255, 247, 0), #f1356d);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
