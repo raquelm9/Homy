@@ -27,7 +27,7 @@ function ResidentEachService(props) {
     };
 
     const styleButton = {
-        'font-weight': 'bold', 
+        'fontWeight': 'bold', 
         // "color" : "#eaff00"
         "color" : "white"
     }
@@ -38,7 +38,7 @@ function ResidentEachService(props) {
                 <td>{props.type}</td>
                 <td>{props.name}</td>
                 <td>{props.unit}</td>
-                <td>
+                <td style={{verticalAlign:'middle'}}>
                     <button
                         onClick={handleOnClick}
                         type="button"

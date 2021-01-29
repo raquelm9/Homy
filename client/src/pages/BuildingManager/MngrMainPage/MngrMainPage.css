@@ -38,54 +38,14 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* .addressTextNavbar {
-  font-family: comfortaa;
-  font-size: 30px;
-  padding-left: 50px;
-} */
+#trashIcon {
+  cursor: pointer;
+}
 
+#trashIcon:hover {
+  color:rgb(245, 52, 9);
+}
 
-/* .mngr-navbar-logo {
-  border: 1px solid #67f40f;
-  padding-left: 20px;
-  font-family: comfortaa;
-  font-size: 50px;
-} */
-
-/* .mngr-navbar h1 {
-  color: #f1356d;
-  border: 1px solid #67f40f;
-} */
-/* .mngr-navbar h4 {
-  color: #b1b1b1; */
-  /* padding: 12px; */
-  /* margin-left: 160px;
-} */
-/* .mngr-navbar .links { */
-  /* align-items: flex-start; */
-  /* margin-right: 0px; */
-  /* align-items: center;
-  border: 1px solid #bf2626; */
-/* } */
-/* .mngr-navbar a {
-  width: fit-content;
-  margin-right: 0px;
-  color: white;
-  background-color: #f1356d;
-  border-radius: 8px;
-  text-decoration: none;
-  padding: 6px;
-} */
-
-/* .mngr-navbar a:hover {
-  color: black;
-} */
-
-/* .content {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-} */
 
 .service-window {
   padding-left: 20px;

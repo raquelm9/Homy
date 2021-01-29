@@ -15,7 +15,7 @@ function MngrEachService(props) {
         "x-auth-token": `${localStorage.getItem("token")}`,
       },
     });
-    history.push('/manager');
+    history.go(0);
   };
 
   const handleDate = () => {
@@ -44,11 +44,11 @@ function MngrEachService(props) {
   // };
 
   const styleButton = {
-    'font-weight': 'bold', 
+    'fontWeight': 'bold', 
     // "color" : "white"
 }
 const styleButtonRemove = {
-  'font-weight': 'bold', 
+  'fontWeight': 'bold', 
   // "color" :   "#fe7369"
 
 }
@@ -61,7 +61,7 @@ const styleButtonRemove = {
         <td>{props.type}</td>
         <td>{props.subject}</td>
         {/* <td>{showButtonImage()}</td> */}
-        <td>
+        <td style={{verticalAlign:'middle'}}>
           <button
             style = {styleButton}
             type="button"
@@ -81,10 +81,11 @@ const styleButtonRemove = {
             comments={props.comments}
           />
         </td>
-        <td>
-          <button style = {styleButtonRemove} className="btn btn-dark btn-outline-danger" onClick={handleOnClick}>
+        <td style={{verticalAlign:'middle'}}>
+        <i className="fas fa-trash-alt fa-lg" onClick={handleOnClick} id="trashIcon"></i>
+          {/* <button style = {styleButtonRemove} className="btn btn-dark btn-outline-danger" onClick={handleOnClick}>
             Remove
-          </button>
+          </button> */}
           {/* <td><ImageModal id={modalId} image={props.image} /></td> */}
         </td>
         <td>

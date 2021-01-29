@@ -59,8 +59,8 @@ function MngrRequestList() {
               <th scope="col">Date</th>
               <th scope="col">Type</th>
               <th scope="col">Subject</th>
-              <th scope="col">Details</th>
-              <th scope="col">Delete</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>{allRequests.map(listOfServices)}</tbody>
