@@ -28,7 +28,8 @@ function ResidentEachService(props) {
 
     const styleButton = {
         'font-weight': 'bold', 
-        "color" : "#eaff00"
+        // "color" : "#eaff00"
+        "color" : "white"
     }
     return (
         <>
