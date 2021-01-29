@@ -43,6 +43,16 @@ function MngrEachService(props) {
   //   }
   // };
 
+  const styleButton = {
+    'font-weight': 'bold', 
+    "color" : "white"
+}
+const styleButtonRemove = {
+  'font-weight': 'bold', 
+  "color" :   "#fe7369"
+
+}
+
   return (
     <>
       <tr>
@@ -53,8 +63,9 @@ function MngrEachService(props) {
         {/* <td>{showButtonImage()}</td> */}
         <td>
           <button
+            style = {styleButton}
             type="button"
-            className="btn btn-dark"
+            className="btn btn-dark btn-outline-warning"
             data-bs-toggle="modal"
             data-bs-target={`#${modalId}`}
           >
@@ -71,8 +82,8 @@ function MngrEachService(props) {
           />
         </td>
         <td>
-          <button className="btn btn-secondary" onClick={handleOnClick}>
-            Delete
+          <button style = {styleButtonRemove} className="btn btn-dark btn-outline-danger" onClick={handleOnClick}>
+            Remove
           </button>
           {/* <td><ImageModal id={modalId} image={props.image} /></td> */}
         </td>

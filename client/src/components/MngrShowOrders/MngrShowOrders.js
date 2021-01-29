@@ -34,6 +34,8 @@ function ResidentRequestList() {
     }//datae
 
     return (
+        <div>
+      <h2>Orders</h2>
         <div className="row">
             {/* <div className="col"></div> */}
             {/* <div className="col-md-10"> */}
@@ -54,6 +56,7 @@ function ResidentRequestList() {
 
             {/* </div> */}
             {/* <div className="col"></div> */}
+        </div>
         </div>
     );
 }

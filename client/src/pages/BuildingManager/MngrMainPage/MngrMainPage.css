@@ -45,12 +45,12 @@
 } */
 
 
-.mngr-navbar-logo {
+/* .mngr-navbar-logo {
   border: 1px solid #67f40f;
   padding-left: 20px;
   font-family: comfortaa;
   font-size: 50px;
-}
+} */
 
 /* .mngr-navbar h1 {
   color: #f1356d;
@@ -104,5 +104,5 @@
   color:black
 }
 .menu-link h2:hover {
-  color:#f1356d;
+  color:#f97000;
 }

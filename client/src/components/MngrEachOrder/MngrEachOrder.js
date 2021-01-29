@@ -26,6 +26,10 @@ function ResidentEachService(props) {
         return dateObject;
     };
 
+    const styleButton = {
+        'font-weight': 'bold', 
+        "color" : "white"
+    }
     return (
         <>
             <tr>
@@ -37,9 +41,9 @@ function ResidentEachService(props) {
                     <button
                         onClick={handleOnClick}
                         type="button"
-                        className="btn btn-dark"
+                        className="btn btn-dark btn-outline-success"
                     >
-                        Fulfilled
+                        <span style={styleButton}>Fulfilled</span>
                         </button></td>
                 {/* <td>
                     <button
