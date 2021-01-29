@@ -1,7 +1,20 @@
 .shop-button {
-    background-color: black;
-    border-radius: 5px;
+    /* border: 2px solid rgb(255, 247, 0);
+    box-shadow: rgba(255, 247, 0, 0.5); */
+
+    background-color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    
 }
+
+.shop-button:hover{
+
+    background-color: rgb(255, 247, 0) ;
+
+}
+
+
 .shopping-container{
     display: flex;
     flex-wrap: wrap;
@@ -11,3 +24,10 @@
 .shopping-card{
     margin: 1%;
 }
+
+/* button.shop-button {
+    text-decoration: none;
+    color: white;
+
+
+} */
