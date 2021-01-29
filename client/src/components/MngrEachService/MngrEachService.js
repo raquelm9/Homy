@@ -45,11 +45,11 @@ function MngrEachService(props) {
 
   const styleButton = {
     'font-weight': 'bold', 
-    "color" : "white"
+    // "color" : "white"
 }
 const styleButtonRemove = {
   'font-weight': 'bold', 
-  "color" :   "#fe7369"
+  // "color" :   "#fe7369"
 
 }
 
