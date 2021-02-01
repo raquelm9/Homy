@@ -32,6 +32,7 @@ function ResidentRequestList() {
         date={service.date}
         image={service.image}
         comments={service.comments}
+        status={service.status}
       />
     );
   }
@@ -47,6 +48,7 @@ function ResidentRequestList() {
               <th scope="col">Type</th>
               <th scope="col">Details</th>
               <th scope="col"></th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>{request.map(listOfServices)}</tbody>
