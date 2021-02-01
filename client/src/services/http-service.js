@@ -52,6 +52,27 @@ class HttpService {
   };
 
 
+  updateStatusOnRequestAsManager = (requestId, status) => {
+    const commentUrl = `${endPoints}/${requestId}/status/manager`;
+
+    var promise = new Promise((resolve, reject) => {
+      fetch(commentUrl, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          status,
+        }),
+      }).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
+
+
   getRequests = () => {
     var promise = new Promise((resolve, reject) => {
       fetch(endPoints, {

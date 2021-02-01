@@ -46,6 +46,8 @@ function DetailModal(props) {
             <p> {props.subject}</p>
             <CheckUnitAndName />{" "}
             {/* Checks if there are unit number and name in props passed */}
+            <p className="titles-modal">Status</p>
+            <p>{props.status}</p>
             <p className="titles-modal">Description:</p>
             <p>{props.description}</p>
             <p className="titles-modal">Reference Number:</p>

@@ -131,3 +131,14 @@ exports.commentOnRequestAsManager = async (req, res) => {
 
   return res.status(200).send(request);
 };
+
+
+exports.updateStatusOnRequestAsManager = async (req, res) => {
+  const serviceRequestId = req.params.requestId;
+  const request = await Request.findById(serviceRequestId);
+
+
+  request.status=req.body.status;
+  await request.save();
+  return res.status(200).send(request);
+};
