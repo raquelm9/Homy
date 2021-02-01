@@ -42,6 +42,8 @@ function DetailModal(props) {
             ></button>
           </div>
           <div className="modal-body">
+            <p className="titles-modal">Status:</p>
+            <p> {props.status}</p>
             <p className="titles-modal">Subject:</p>
             <p> {props.subject}</p>
             <CheckUnitAndName />{" "}

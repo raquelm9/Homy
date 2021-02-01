@@ -51,8 +51,10 @@ function ResidentEachService(props) {
             subject={props.subject}
             description={props.description}
             comments={props.comments}
+            status={props.status}
           />
         </td>
+        <td>{props.status}</td>
       </tr>
     </>
   );
