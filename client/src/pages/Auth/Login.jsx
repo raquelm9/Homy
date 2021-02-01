@@ -109,7 +109,7 @@ function Login(props) {
                 <Field
                   placeholder="Password"
                   name="password"
-                  type="text"
+                  type="password"
                   className="form-control"
                   id="password"
                 />
