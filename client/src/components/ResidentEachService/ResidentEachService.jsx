@@ -1,6 +1,14 @@
 import React from "react";
 import DetailModal from "../DetailModal/DetailModal";
 import { useHistory } from "react-router-dom";
+import {NEW, 
+    VIEWED, 
+    INPROGRESS,
+    DONE,
+    ARCHIVED,
+    VERIFIED, 
+    statusTEXT
+    } from '../../constants/status';
 
 function ResidentEachService(props) {
   const modalId = `request-${props.id}`;
@@ -54,7 +62,8 @@ function ResidentEachService(props) {
             status={props.status}
           />
         </td>
-        <td>{props.status}</td>
+
+        <td>{props.status ? statusTEXT[props.status] : null }</td>
       </tr>
     </>
   );
