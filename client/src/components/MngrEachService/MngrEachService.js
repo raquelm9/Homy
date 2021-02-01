@@ -1,13 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import DetailModal from "../DetailModal/DetailModal";
-import { useHistory, useLocation } from "react-router-dom";
-
+import { useHistory, useLocation} from "react-router-dom";
+import HttpService from "../../services/http-service";
+import {NEW, VIEWED, INPROGRESS, DONE, VERIFIED, ARCHIVED, statusTEXT} from "../../constants/status"
 
 function MngrEachService(props) {
   const modalId = `request-${props.id}`;
   const history = useHistory();
   const location = useLocation();
+  const [status, setStatus] = useState(props.status);
   const handleOnClick = () => {
+  
     
     fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
       method: "DELETE",
@@ -27,6 +30,23 @@ function MngrEachService(props) {
 
     return canFormat;
   };
+
+  const handleOnClickStatus = () => {
+    if (status === NEW) {
+      console.log("Was 0 changed to 1")
+      new HttpService().updateStatusOnRequestAsManager(props.id, VIEWED).then((data)=> {
+        console.log(data)
+        setStatus(data.status)
+      })
+      // props.status = status; 
+    } else if (status === VIEWED) { 
+      new HttpService().updateStatusOnRequestAsManager(props.id, 0).then((data)=> {
+        console.log(data)
+        setStatus(data.status)
+      })
+    }
+    
+  }
 
   // const showButtonImage = () => {
   //   if (props.image) {
@@ -68,6 +88,7 @@ const styleButtonRemove = {
             className="btn btn-dark btn-outline-warning"
             data-bs-toggle="modal"
             data-bs-target={`#${modalId}`}
+            onClick={handleOnClickStatus}
           >
             Details
           </button>
@@ -79,6 +100,7 @@ const styleButtonRemove = {
             unit_num={props.unit_num}
             resident_name={props.resident_name}
             comments={props.comments}
+            status={status}
           />
         </td>
         <td style={{verticalAlign:'middle'}}>
@@ -89,7 +111,7 @@ const styleButtonRemove = {
           {/* <td><ImageModal id={modalId} image={props.image} /></td> */}
         </td>
         <td>
-
+            <h1>{statusTEXT[status]}</h1>
         </td>
       </tr>
     </>

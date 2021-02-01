@@ -10,7 +10,7 @@ const schema = mongoose.Schema({
   type: String,
   subject: String,
   description: String,
-  status: {type: Number, default: 3},
+  status: {type: Number, default: 0},
   image: String,
   request_number: Number,
   unit_num: String,

@@ -20,9 +20,14 @@ module.exports = (app) => {
   router.post("/", [auth, upload.single("image")], request.createRequest);
   router.put("/:requestId/comment", auth, request.commentOnRequest);
   router.put('/:requestId/comment/manager', [auth, manager], request.commentOnRequestAsManager);
+
+  router.put('/:requestId/status/manager', [auth, manager], request.updateStatusOnRequestAsManager);
+
   router.get("/", auth, request.getRequest);
 
   router.get("/manager/all-service-requests", auth, request.getAllServiceRequests);
+
+
 
   app.use("/api/service-requests", router);
 };
