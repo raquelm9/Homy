@@ -1,6 +1,8 @@
 const { Request, validate } = require("../models/request.model");
 const { Comment, validateComment } = require("../models/comments.schema");
 const Counter = require("../models/counter.model");
+const { createNotificationObject, sendNotification} = require("../helpers/notification");
+const {NEW, INPROGRESS, DONE, statusTEXT}
 
 const fs = require("fs");
 
@@ -135,8 +137,22 @@ exports.commentOnRequestAsManager = async (req, res) => {
 
 exports.updateStatusOnRequestAsManager = async (req, res) => {
   const serviceRequestId = req.params.requestId;
-  const request = await Request.findById(serviceRequestId);
+  const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
+  console.log(req.body);
+
+  if (request.status === req.body.status) {
+    return res.send({message: "DB has been updated."})
+  }
+
+  const resident = await Resident.findById(request.user_id);
+  
+  const residentEmail = resident.email
+  const emailSubject = "Your request status has changed to " + statusTEXT[req.status]
+  const emailTextBody = emailSubject
+  const emailHtmlBody = emailSubject
+  const residentNotificationEmail = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody)
+  console.log(residentNotificationEmail);
 
   request.status=req.body.status;
   await request.save();
