@@ -38,14 +38,31 @@ function MngrEachService(props) {
         console.log(data)
         setStatus(data.status)
       })
-      // props.status = status; 
-    } else if (status === VIEWED) { 
+    }
+  }
+
+  const handleOnClickStatusFlow = () => {
+    if (status === VIEWED) { 
+      new HttpService().updateStatusOnRequestAsManager(props.id, 2).then((data)=> {
+        console.log(data)
+        setStatus(data.status)
+      })
+    } else if (status === INPROGRESS) { 
+      new HttpService().updateStatusOnRequestAsManager(props.id, 3).then((data)=> {
+        console.log(data)
+        setStatus(data.status)
+      })
+    } else if (status === DONE) { 
+      new HttpService().updateStatusOnRequestAsManager(props.id, 4).then((data)=> {
+        console.log(data)
+        setStatus(data.status)
+      })
+    } else if (status === VERIFIED) { 
       new HttpService().updateStatusOnRequestAsManager(props.id, 0).then((data)=> {
         console.log(data)
         setStatus(data.status)
       })
     }
-    
   }
 
   // const showButtonImage = () => {
@@ -71,6 +88,10 @@ const styleButtonRemove = {
   'fontWeight': 'bold', 
   // "color" :   "#fe7369"
 
+}
+
+const ShowBadgeStatus = () => {
+  return "Hello"
 }
 
   return (
@@ -111,7 +132,9 @@ const styleButtonRemove = {
           {/* <td><ImageModal id={modalId} image={props.image} /></td> */}
         </td>
         <td>
-            <h1>{statusTEXT[status]}</h1>
+          <ShowBadgeStatus/>
+        <span onClick={handleOnClickStatusFlow} className="badge bg-secondary">{statusTEXT[status]}</span>
+            {/* <h1>{statusTEXT[status]}</h1> */}
         </td>
       </tr>
     </>

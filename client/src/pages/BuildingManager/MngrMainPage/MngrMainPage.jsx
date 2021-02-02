@@ -24,7 +24,7 @@ const MngrMainPage = () => {
                         <Row>
                             <Col sm={3} md={3} className="menu-window">
                                 <Link className="menu-link" to='/manager/request-list-of-services' >
-                                    <h2>Requests</h2>
+                                    <h2>Requests  <span className="badge bg-secondary">New</span></h2>
                                 </Link>
                                 <Link className="menu-link" to='/manager/orders' >
                                     <h2>Orders</h2>
