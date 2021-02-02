@@ -1,3 +1,6 @@
+const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
+
 
 exports.createNotificationObject = (residentEmail, subject, textBody, htmlBody) => {
   const mailOptions = {

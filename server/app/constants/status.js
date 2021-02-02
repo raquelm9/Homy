@@ -1,8 +1,8 @@
 
-export const NEW = 0;
-export const VIEWED = 1;
-export const INPROGRESS = 2;
-export const DONE = 3;
-export const VERIFIED = 4;
-export const ARCHIVED = 5;
-export const statusTEXT = ['NEW', 'VIEWED', 'INPROGRESS', 'DONE', 'VERIFIED', 'ARCHIVED']
+exports.NEW = 0;
+exports.VIEWED = 1;
+exports.INPROGRESS = 2;
+exports.DONE = 3;
+exports.VERIFIED = 4;
+exports.ARCHIVED = 5;
+exports.statusTEXT = ['NEW', 'VIEWED', 'INPROGRESS', 'DONE', 'VERIFIED', 'ARCHIVED']

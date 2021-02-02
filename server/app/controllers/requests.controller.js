@@ -1,8 +1,12 @@
 const { Request, validate } = require("../models/request.model");
+const { User } = require('../models/user.model');
 const { Comment, validateComment } = require("../models/comments.schema");
 const Counter = require("../models/counter.model");
-const { createNotificationObject, sendNotification} = require("../helpers/notification");
-const {NEW, INPROGRESS, DONE, statusTEXT}
+const { createNotificationObject, sendNotification } = require("../helpers/notification");
+const { NEW,
+  INPROGRESS,
+  DONE,
+  statusTEXT } = require('../constants/status');
 
 const fs = require("fs");
 
@@ -139,22 +143,23 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   const serviceRequestId = req.params.requestId;
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-  console.log(req.body);
+
 
   if (request.status === req.body.status) {
-    return res.send({message: "DB has been updated."})
+    return res.send({ message: "DB has been updated." })
   }
 
-  const resident = await Resident.findById(request.user_id);
-  
-  const residentEmail = resident.email
-  const emailSubject = "Your request status has changed to " + statusTEXT[req.status]
+  const user = await User.findById(request.user_id);
+
+  const residentEmail = user.email
+  const emailSubject = "Your request status has changed to " + statusTEXT[req.body.status]
   const emailTextBody = emailSubject
   const emailHtmlBody = emailSubject
-  const residentNotificationEmail = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody)
-  console.log(residentNotificationEmail);
 
-  request.status=req.body.status;
+  const residentNotificationEmail = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody)
+  // const responseNotification = await sendNotification(residentNotificationEmail)
+
+  request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);
 };
