@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./WeatherCard.css";
 
 function WeatherCard() {
@@ -14,29 +14,25 @@ function WeatherCard() {
     base: "https://api.openweathermap.org/data/2.5/",
   };
 
-  const getResults = (city) => {
-    fetch(`${api.base}weather?q=${city}&units=metric&appid=${api.key}`)
+  useEffect(() => {
+    fetch(`${api.base}weather?q=${"Calgary"}&units=metric&appid=${api.key}`)
       .then((weather) => {
         return weather.json();
       })
-      .then(displayResults);
-  };
-
-  const displayResults = (weather) => {
-    console.log(weather);
-    setCityC(weather.name);
-    setCountry(weather.sys.country);
-    setTemperature(weather.main.temp);
-    setDayTime(weather.weather[0].main);
-    setTempMin(weather.main.temp_min);
-    setTempMax(weather.main.temp_max);
-  };
+      .then((weather) => {
+        setCityC(weather.name);
+        setCountry(weather.sys.country);
+        setTemperature(weather.main.temp);
+        setDayTime(weather.weather[0].main);
+        setTempMin(weather.main.temp_min);
+        setTempMax(weather.main.temp_max);
+      });
+  }, []);
 
   let cityCountry = `${cityc} ${country}`;
 
   return (
     <>
-      {getResults("Calgary")}
       <div className="row">
         <div className="col"></div>
         <div className="col-md-8 col-sm-10">
