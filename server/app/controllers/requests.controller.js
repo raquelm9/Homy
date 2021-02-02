@@ -2,7 +2,7 @@ const { Request, validate } = require("../models/request.model");
 const { User } = require('../models/user.model');
 const { Comment, validateComment } = require("../models/comments.schema");
 const Counter = require("../models/counter.model");
-const { createNotificationObject, sendNotification } = require("../helpers/notification");
+const { createNotificationObject, sendEmailNotification, sendSMSNotification } = require("../helpers/notification");
 const { NEW,
   INPROGRESS,
   DONE,
@@ -157,8 +157,10 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   const emailHtmlBody = emailSubject
 
   const residentNotificationEmail = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody)
-  // const responseNotification = await sendNotification(residentNotificationEmail)
+  const responseNotification = await sendEmailNotification(residentNotificationEmail)
 
+
+  // const responseSMS = await sendSMSNotification(resident.phone, emailSubject)
   request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);

@@ -14,7 +14,7 @@ exports.createNotificationObject = (residentEmail, subject, textBody, htmlBody) 
   return mailOptions
 }
 
-exports.sendNotification = async (mailOptions) => {
+exports.sendEmailNotification = async (mailOptions) => {
 
   "use strict";
   const nodemailer = require("nodemailer");   // module needed for sending web mail
@@ -79,3 +79,18 @@ exports.sendNotification = async (mailOptions) => {
   return await sendMail(mailOptions)
 }
 
+exports.sendSMSNotification = async (residentPhoneNumber, residentMessage) => {
+
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const phone_number = process.env.TWILIO_PRIMARY_PHONE_NUMBER;
+
+  const client = require('twilio')(accountSid, authToken);
+
+  return await client.messages.create({
+    to: residentPhoneNumber,
+    from: phone_number,
+    body: residentMessage
+  })
+  // .then((message) => console.log(message.sid))
+}

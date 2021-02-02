@@ -6,7 +6,8 @@ const schema = mongoose.Schema(
         unit_num: String,
         email: String,
         name: String,
-        user_id: String
+        user_id: String,
+        phone: String
     }
 )
 
@@ -18,7 +19,8 @@ exports.validate = function validateResident(resident) {
         unit_num: Joi.string().required(),
         email: Joi.string().required(),
         name: Joi.string().required(),
-        user_id: Joi.string()
+        user_id: Joi.string(),
+        phone: Joi.string()
     })
     return schema.validate(resident);
 }
