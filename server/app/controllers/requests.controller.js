@@ -21,7 +21,7 @@ exports.getAllServiceRequests = (req, res) => {
 exports.createRequest = async (req, res) => {
   const file = req.file;
   const path = file ? file.path : undefined;
-
+  console.log(req.body)
   const result = validate(req.body);
   if (result.error) {
     return res.status(400).send(result.error.details[0].message);
@@ -51,6 +51,7 @@ exports.createRequest = async (req, res) => {
     unit_num: req.body.unit_num,
     resident_name: req.body.resident_name,
     user_id: req.user._id,
+    notification: req.body.notification
   });
 
   request.save().then((data) => res.send(data));
@@ -144,23 +145,33 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
 
-
   if (request.status === req.body.status) {
-    return res.send({ message: "DB has been updated." })
+    return res.send({ message: "Status has already been updated." })
   }
 
   const user = await User.findById(request.user_id);
 
-  const residentEmail = user.email
-  const emailSubject = "Your request status has changed to " + statusTEXT[req.body.status]
-  const emailTextBody = emailSubject
-  const emailHtmlBody = emailSubject
+  if (!process.env.HOMY_DISABLE_NOTIFICATION) {
+    if (request.notification === "email") {
 
-  const residentNotificationEmail = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody)
-  // const responseNotification = await sendEmailNotification(residentNotificationEmail)
+      const residentEmail = process.env.HOMY_DEV_EMAIL || user.email;
+      const emailSubject = "Your request status has changed to " + statusTEXT[req.body.status]
+      const emailTextBody = emailSubject
+      const emailHtmlBody = emailSubject
+
+      const residentNotificationEmail = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody)
+      const responseNotification = await sendEmailNotification(residentNotificationEmail)
+    }
+    if (request.notification === "phone") {
+      const residentPhone = process.env.HOMY_DEV_PHONE || residentEmail.phone;
+
+      const responseSMS = await sendSMSNotification(resident.phone, emailSubject)
+    }
 
 
-  // const responseSMS = await sendSMSNotification(resident.phone, emailSubject)
+
+  }
+
   request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);

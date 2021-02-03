@@ -10,13 +10,14 @@ const schema = mongoose.Schema({
   type: String,
   subject: String,
   description: String,
-  status: {type: Number, default: 0},
+  status: { type: Number, default: 0 },
   image: String,
   request_number: Number,
   unit_num: String,
   resident_name: String,
   user_id: String,
   comments: [{ type: Comment }],
+  notification: String
 });
 
 const Request = mongoose.model("request", schema);
@@ -33,6 +34,7 @@ function validateRequest(request) {
     unit_num: Joi.string(),
     resident_name: Joi.string(),
     user_id: Joi.string(),
+    notification: Joi.string()
   });
 
   return schema.validate(request);

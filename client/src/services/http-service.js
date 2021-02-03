@@ -122,6 +122,8 @@ class HttpService {
       data.append("image", value.image);
       data.append("unit_num", value.unit_num);
       data.append("resident_name", value.resident_name);
+      data.append("notification", value.notification)
+
       // data.append("status",0);
 
       fetch(endPoints, {
