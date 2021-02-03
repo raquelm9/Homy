@@ -4,6 +4,7 @@ const manager = require("../app/middleware/manager");
 const request = require("../app/controllers/requests.controller");
 const router = require("express").Router();
 
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -26,7 +27,7 @@ module.exports = (app) => {
   router.get("/", auth, request.getRequest);
 
   router.get("/manager/all-service-requests", auth, request.getAllServiceRequests);
-
+  router.get('notification/:token', request.authNotification)
 
 
   app.use("/api/service-requests", router);

@@ -2,13 +2,17 @@ const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 
 
-exports.createNotificationObject = (residentEmail, subject, textBody, htmlBody) => {
+exports.createNotificationObject = (residentEmail, subject, textBody, htmlBody, token) => {
   const mailOptions = {
-    from: "Administrator <homy.evolveu@gmail.com>",
+    from: "Homy Administrator<homy.evolveu@gmail.com>",
     to: residentEmail,
     subject: subject,
     text: textBody,
-    html: `<p>${htmlBody}</p>`
+    html: ` <p>${htmlBody}</p>
+            <br /> 
+            <a href="http://localhost:3000/notification/requests/${token}">Click here to see your request</a>
+            <h4> 'We got you, Homy'</h4>
+            `
   }
 
   return mailOptions

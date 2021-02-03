@@ -3,12 +3,16 @@ const { User } = require('../models/user.model');
 const { Comment, validateComment } = require("../models/comments.schema");
 const Counter = require("../models/counter.model");
 const { createNotificationObject, sendEmailNotification, sendSMSNotification } = require("../helpers/notification");
-const { NEW,
+const {
+  NEW,
   INPROGRESS,
   DONE,
-  statusTEXT } = require('../constants/status');
+  statusTEXT
+} = require('../constants/status');
 
 const fs = require("fs");
+const { request } = require("http");
+const EMAIL_SECRET = "abcdef"
 
 exports.getRequest = (req, res) => {
   Request.find({ user_id: req.user._id }).then((data) => res.send(data));
@@ -159,20 +163,36 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
       const emailTextBody = emailSubject
       const emailHtmlBody = emailSubject
 
-      const residentNotificationEmail = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody)
-      const responseNotification = await sendEmailNotification(residentNotificationEmail)
+      const token = request.generateNotificationToken(EMAIL_SECRET)
+
+      const residentNotificationEmailDetails = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody, token)
+      console.log(residentNotificationEmailDetails)
+      const responseNotification = await sendEmailNotification(residentNotificationEmailDetails)
+
     }
     if (request.notification === "phone") {
+
       const residentPhone = process.env.HOMY_DEV_PHONE || residentEmail.phone;
 
-      const responseSMS = await sendSMSNotification(resident.phone, emailSubject)
+      const responseSMS = await sendSMSNotification(resident.phone, emailSubject);
+
     }
 
 
 
   }
-
+  return res.status(200).send(request);
   request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);
 };
+
+exports.authNotification = (req, res) => {
+  // try {
+
+  // } catch (err) {
+  //   res.send('Error')
+  // }
+  // const token = request.generateNotificationToken()
+  res.send({ msg: 'autthNotification' })
+}

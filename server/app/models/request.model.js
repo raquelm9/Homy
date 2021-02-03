@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+const jwt = require('jsonwebtoken');
 const { Comment } = require("./comments.schema");
+
 
 const schema = mongoose.Schema({
   date: {
@@ -20,7 +22,13 @@ const schema = mongoose.Schema({
   notification: String
 });
 
-const Request = mongoose.model("request", schema);
+schema.methods.generateNotificationToken = function (email_secret) {
+  // const token = jwt.sign({ _id: user._id }, config.get('jwtPrivateKey'));
+  const token = jwt.sign({ _id: this._id, email_secret: email_secret }, "jwtPrivateKey");
+  return token;
+};
+
+exports.Request = mongoose.model("request", schema);
 
 function validateRequest(request) {
   const schema = Joi.object({
@@ -39,5 +47,8 @@ function validateRequest(request) {
 
   return schema.validate(request);
 }
-exports.Request = Request;
+
+
+
+
 exports.validate = validateRequest;
