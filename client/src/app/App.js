@@ -21,6 +21,8 @@ import Unauthorized from "../components/Unauthorized/Unauthorized";
 // import { selectIsManager } from "../selectors/userSelectors";
 import { AppHeader } from "./AppHeader";
 
+import NotificationRequest from '../components/Notification/NotificationRequest';
+
 function App() {
   const dispatch = useDispatch();
 
@@ -55,6 +57,8 @@ function App() {
         <Route path="/unauthorized" component={Unauthorized} />
         <Route path="/shop" component={ResidentShopPage} />
         <Route path="/checkout" component={CheckoutForm} />
+
+        <Route path="/notification/requests/:token" component={NotificationRequest} />
       </Switch>
     </Router>
 
