@@ -59,6 +59,7 @@ function App() {
         <Route path="/checkout" component={CheckoutForm} />
 
         <Route path="/notification/requests/:token" component={NotificationRequest} />
+
       </Switch>
     </Router>
 

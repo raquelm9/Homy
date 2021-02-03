@@ -27,7 +27,7 @@ module.exports = (app) => {
   router.get("/", auth, request.getRequest);
 
   router.get("/manager/all-service-requests", auth, request.getAllServiceRequests);
-  router.get('notification/:token', request.authNotification)
+  router.get('/notification/:token', request.authNotification)
 
 
   app.use("/api/service-requests", router);

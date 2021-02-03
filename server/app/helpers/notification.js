@@ -10,8 +10,8 @@ exports.createNotificationObject = (residentEmail, subject, textBody, htmlBody, 
     text: textBody,
     html: ` <p>${htmlBody}</p>
             <br /> 
-            <a href="http://localhost:3000/notification/requests/${token}">Click here to see your request</a>
-            <h4> 'We got you, Homy'</h4>
+            <a href="http://localhost:3000/login">Click here to see your request</a>
+            <h4> 'We got you, Homy!!'</h4>
             `
   }
 

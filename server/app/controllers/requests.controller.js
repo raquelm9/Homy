@@ -9,10 +9,13 @@ const {
   DONE,
   statusTEXT
 } = require('../constants/status');
+const EMAIL_SECRET = "abcdef";
+const jwt = require('jsonwebtoken');
+const _ = require('lodash');
 
 const fs = require("fs");
-const { request } = require("http");
-const EMAIL_SECRET = "abcdef"
+// const { request } = require("http");
+
 
 exports.getRequest = (req, res) => {
   Request.find({ user_id: req.user._id }).then((data) => res.send(data));
@@ -163,7 +166,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
       const emailTextBody = emailSubject
       const emailHtmlBody = emailSubject
 
-      const token = request.generateNotificationToken(EMAIL_SECRET)
+      const token = request.generateNotificationToken()
 
       const residentNotificationEmailDetails = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody, token)
       console.log(residentNotificationEmailDetails)
@@ -181,18 +184,27 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 
 
   }
-  return res.status(200).send(request);
+  // return res.status(200).send(request);
   request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);
 };
 
-exports.authNotification = (req, res) => {
+exports.authNotification = async (req, res) => {
+  // console.log('authNotification', req.params.token)
+
+  const decoded = jwt.verify(req.params.token, "jwtPrivateKey");
+  const request = await Request.findById(decoded._id);
+  console.log(request)
+  // return res.redirect('http://localhost:3000/resident-list-request')
+  // let user = await User.findById(decoded._id);
   // try {
 
   // } catch (err) {
   //   res.send('Error')
   // }
   // const token = request.generateNotificationToken()
-  res.send({ msg: 'autthNotification' })
+  // _.pick(user, ["_id", "isManager", "name", "building_id"])
+  res.send(request)
+
 }

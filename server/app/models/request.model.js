@@ -22,11 +22,13 @@ const schema = mongoose.Schema({
   notification: String
 });
 
-schema.methods.generateNotificationToken = function (email_secret) {
+schema.methods.generateNotificationToken = function () {
   // const token = jwt.sign({ _id: user._id }, config.get('jwtPrivateKey'));
-  const token = jwt.sign({ _id: this._id, email_secret: email_secret }, "jwtPrivateKey");
+  const token = jwt.sign({ _id: this._id }, "jwtPrivateKey");
   return token;
 };
+
+
 
 exports.Request = mongoose.model("request", schema);
 
