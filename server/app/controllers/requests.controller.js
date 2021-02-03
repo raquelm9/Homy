@@ -157,7 +157,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   const emailHtmlBody = emailSubject
 
   const residentNotificationEmail = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody)
-  const responseNotification = await sendEmailNotification(residentNotificationEmail)
+  // const responseNotification = await sendEmailNotification(residentNotificationEmail)
 
 
   // const responseSMS = await sendSMSNotification(resident.phone, emailSubject)
