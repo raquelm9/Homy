@@ -33,7 +33,7 @@
   font-family: comfortaa;
   padding-left:10px;
   font-size: 50px;
-  background: -webkit-radial-gradient( left, rgb(255, 247, 0), #f1356d);
+  background: -webkit-radial-gradient( left, #9c27b0, #f1356d);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -64,5 +64,10 @@
   color:black
 }
 .menu-link h2:hover {
-  color:#f97000;
+  color: #9c27b0;
+}
+
+.btn-outline-warning:hover {
+  color: #9c27b0;
+  background-color: #cbcbcb00;
 }

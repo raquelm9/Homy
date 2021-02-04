@@ -3,6 +3,9 @@
     display: flex;
     justify-content: flex-end;
 }
+.navbar {
+    border-bottom: rgb(123, 123, 123) solid 1px;
+}
 
 /* .homyTextNavbar {
     font-family: comfortaa;
