@@ -1,6 +1,7 @@
 const { Request, validate } = require("../models/request.model");
 const { User } = require('../models/user.model');
 const { Comment, validateComment } = require("../models/comments.schema");
+const { Notification } = require('../models/notification.model');
 const Counter = require("../models/counter.model");
 const { createNotificationObject, sendEmailNotification, sendSMSNotification } = require("../helpers/notification");
 const {
@@ -11,6 +12,7 @@ const {
 } = require('../constants/status');
 const EMAIL_SECRET = "abcdef";
 const jwt = require('jsonwebtoken');
+
 const _ = require('lodash');
 
 const fs = require("fs");
@@ -158,18 +160,24 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 
   const user = await User.findById(request.user_id);
 
+  const notification = new Notification({
+    type: request.type,
+    description: request.description,
+    status: request.status
+  })
+  await notification.save();
   if (!process.env.HOMY_DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
 
       const residentEmail = process.env.HOMY_DEV_EMAIL || user.email;
-      const emailSubject = "Your request status has changed to " + statusTEXT[req.body.status]
+      const emailSubject = "Status of request changed"
       const emailTextBody = emailSubject
       const emailHtmlBody = emailSubject
-
-      const token = request.generateNotificationToken()
+      // + statusTEXT[req.body.status]
+      const token = notification.generateNotificationToken();
 
       const residentNotificationEmailDetails = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody, token)
-      console.log(residentNotificationEmailDetails)
+
       const responseNotification = await sendEmailNotification(residentNotificationEmailDetails)
 
     }
@@ -194,8 +202,9 @@ exports.authNotification = async (req, res) => {
   // console.log('authNotification', req.params.token)
 
   const decoded = jwt.verify(req.params.token, "jwtPrivateKey");
-  const request = await Request.findById(decoded._id);
-  console.log(request)
+
+  const notification = await Notification.findById(decoded._id);
+
   // return res.redirect('http://localhost:3000/resident-list-request')
   // let user = await User.findById(decoded._id);
   // try {
@@ -205,6 +214,7 @@ exports.authNotification = async (req, res) => {
   // }
   // const token = request.generateNotificationToken()
   // _.pick(user, ["_id", "isManager", "name", "building_id"])
-  res.send(request)
+  console.log(notification)
+  res.send(notification)
 
 }

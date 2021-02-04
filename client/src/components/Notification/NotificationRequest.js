@@ -3,7 +3,11 @@ import { useHistory, Redirect } from 'react-router-dom';
 import HttpService from './../../services/http-service';
 
 function NotificationRequest({ match }) {
-    const [requestId, setRequestId] = useState(null);
+    const [notification, setNotification] = useState({
+        type: '',
+        description: '',
+        status: ''
+    });
     const history = useHistory();
 
     useEffect(() => {
@@ -16,13 +20,17 @@ function NotificationRequest({ match }) {
             }
         })
             .then(resp => resp.json())
-            .then(data => history.push('/resident-list-request'))
+            .then(data => setNotification(data))
     }, [])
     return (
         <div>
-            Redirecting your request. Please wait!
+            <div><p>This update is to let you know than the request about {notification.type} issue has been updated</p></div>
+            <div><p>This {notification.status}</p></div>
+            <div>Description</div>
+            
         </div>
     )
 }
+
 
 export default NotificationRequest
