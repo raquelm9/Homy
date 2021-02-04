@@ -1,6 +1,7 @@
 const { Request, validate } = require("../models/request.model");
 const { User } = require('../models/user.model');
 const { Comment, validateComment } = require("../models/comments.schema");
+const { Notification } = require('../models/notification.model');
 const Counter = require("../models/counter.model");
 const { createNotificationObject, sendEmailNotification, sendSMSNotification } = require("../helpers/notification");
 const {
@@ -9,10 +10,14 @@ const {
   DONE,
   statusTEXT
 } = require('../constants/status');
+const EMAIL_SECRET = "abcdef";
+const jwt = require('jsonwebtoken');
+
+const _ = require('lodash');
 
 const fs = require("fs");
-const { request } = require("http");
-const EMAIL_SECRET = "abcdef"
+// const { request } = require("http");
+
 
 exports.getRequest = (req, res) => {
   Request.find({ user_id: req.user._id }).then((data) => res.send(data));
@@ -156,18 +161,24 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 
   const user = await User.findById(request.user_id);
 
+  const notification = new Notification({
+    type: request.type,
+    description: request.description,
+    status: req.body.status
+  })
+  await notification.save();
   if (!process.env.HOMY_DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
 
       const residentEmail = process.env.HOMY_DEV_EMAIL || user.email;
-      const emailSubject = "Your request status has changed to " + statusTEXT[req.body.status]
+      const emailSubject = "Status of request changed"
       const emailTextBody = emailSubject
       const emailHtmlBody = emailSubject
-
-      const token = request.generateNotificationToken(EMAIL_SECRET)
+      // + statusTEXT[req.body.status]
+      const token = notification.generateNotificationToken();
 
       const residentNotificationEmailDetails = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody, token)
-      console.log(residentNotificationEmailDetails)
+
       const responseNotification = await sendEmailNotification(residentNotificationEmailDetails)
       console.log(responseNotification);
 
@@ -189,12 +200,23 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   return res.status(200).send(request);
 };
 
-exports.authNotification = (req, res) => {
+exports.authNotification = async (req, res) => {
+  // console.log('authNotification', req.params.token)
+
+  const decoded = jwt.verify(req.params.token, "jwtPrivateKey");
+
+  const notification = await Notification.findById(decoded._id);
+
+  // return res.redirect('http://localhost:3000/resident-list-request')
+  // let user = await User.findById(decoded._id);
   // try {
 
   // } catch (err) {
   //   res.send('Error')
   // }
   // const token = request.generateNotificationToken()
-  res.send({ msg: 'autthNotification' })
+  // _.pick(user, ["_id", "isManager", "name", "building_id"])
+  console.log(notification)
+  res.send(notification)
+
 }

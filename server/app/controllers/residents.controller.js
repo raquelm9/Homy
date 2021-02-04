@@ -13,6 +13,7 @@ exports.createAccount = (req, res) => {
     name: req.body.name,
     email: req.body.email,
     user_id: req.body.user_id,
+    phone: req.body.phone
   });
 
   resident.save().then((data) => res.send(data));
