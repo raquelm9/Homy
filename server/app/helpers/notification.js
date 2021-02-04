@@ -85,9 +85,9 @@ exports.sendEmailNotification = async (mailOptions) => {
 
 exports.sendSMSNotification = async (residentPhoneNumber, residentMessage) => {
 
-  const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const phone_number = process.env.TWILIO_PRIMARY_PHONE_NUMBER;
+  const accountSid = process.env.TWILIO_ACCOUNT_SID || '';
+  const authToken = process.env.TWILIO_AUTH_TOKEN || '';
+  const phone_number = process.env.TWILIO_PRIMARY_PHONE_NUMBER || "";
 
   const client = require('twilio')(accountSid, authToken);
 
@@ -96,5 +96,5 @@ exports.sendSMSNotification = async (residentPhoneNumber, residentMessage) => {
     from: phone_number,
     body: residentMessage
   })
-  // .then((message) => console.log(message.sid))
+
 }
