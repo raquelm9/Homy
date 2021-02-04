@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import {useHistory, Link} from "react-router-dom";
 import HttpService from './../../services/http-service';
+import "./NotificationRequest.css"
+const {NEW, VIEWED, INPROGRESS, DONE, VERIFIED, ARCHIVED, statusTEXT} = require("../../constants/status");
 
 function NotificationRequest({ match }) {
     const [notification, setNotification] = useState({
@@ -8,7 +10,6 @@ function NotificationRequest({ match }) {
         description: '',
         status: ''
     });
-    const history = useHistory();
 
     useEffect(() => {
 
@@ -23,11 +24,12 @@ function NotificationRequest({ match }) {
             .then(data => setNotification(data))
     }, [])
     return (
-        <div>
-            <div><p>This update is to let you know than the request about {notification.type} issue has been updated</p></div>
-            <div><p>This {notification.status}</p></div>
-            <div>Description</div>
-            
+        <div className="notification">
+            <div><h3>Hello.</h3></div>
+            <div className="messageText"><p>This update is to let you know that the request about {notification.type} issue has been updated</p></div>
+            <div className="messageText"><p>Description: {notification.description}</p></div>
+            <div className="messageText"><p>This request status now is {statusTEXT[notification.status]}</p></div>
+            <Link to="/login" className="btn-dark btn-lg btn-block button-center">Continue</Link>
         </div>
     )
 }
