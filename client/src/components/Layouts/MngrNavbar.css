@@ -2,3 +2,7 @@
     background-color: blueviolet;
     color: brown;
 }
+
+.navbar {
+    border-bottom: rgb(123, 123, 123) solid 1px;
+}

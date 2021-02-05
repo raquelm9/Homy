@@ -151,6 +151,7 @@ exports.commentOnRequestAsManager = async (req, res) => {
 
 exports.updateStatusOnRequestAsManager = async (req, res) => {
   const serviceRequestId = req.params.requestId;
+  console.log(req.body);
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
 
@@ -179,6 +180,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
       const residentNotificationEmailDetails = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody, token)
 
       const responseNotification = await sendEmailNotification(residentNotificationEmailDetails)
+      console.log(responseNotification);
 
     }
     if (request.notification === "phone") {

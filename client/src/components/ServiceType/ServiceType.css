@@ -4,8 +4,15 @@
   color: black;
   padding: 25px;
   cursor: pointer;
+  border-color: #b12cc979;
 }
 
 .icon-adjust-size {
   font-size: 25px;
+  color: #a50171;
+}
+
+.buttonService {
+  border-radius: 30px;
+
 }
