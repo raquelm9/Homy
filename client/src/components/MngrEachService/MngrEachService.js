@@ -9,9 +9,11 @@ function MngrEachService(props) {
   const history = useHistory();
   const location = useLocation();
   const [status, setStatus] = useState(props.status);
-  const handleOnClick = async () => {
-    console.log(props.id)
-    await fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
+  const [request, setRequest] = useState(props)
+  const handleOnClick = () => {
+
+
+    fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
       method: "DELETE",
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,
@@ -19,6 +21,8 @@ function MngrEachService(props) {
     });
     history.go(0);
   };
+
+
 
   const handleDate = () => {
     let dateObject = new Date(props.date);
@@ -40,29 +44,30 @@ function MngrEachService(props) {
     }
   }
 
-  const handleOnClickStatusFlow = () => {
-    if (status === VIEWED) {
-      new HttpService().updateStatusOnRequestAsManager(props.id, 2).then((data) => {
-        console.log(data)
-        setStatus(data.status)
-      })
-    } else if (status === INPROGRESS) {
-      new HttpService().updateStatusOnRequestAsManager(props.id, 3).then((data) => {
-        console.log(data)
-        setStatus(data.status)
-      })
-    } else if (status === DONE) {
-      new HttpService().updateStatusOnRequestAsManager(props.id, 4).then((data) => {
-        console.log(data)
-        setStatus(data.status)
-      })
-    } else if (status === VERIFIED) {
-      new HttpService().updateStatusOnRequestAsManager(props.id, 0).then((data) => {
-        console.log(data)
-        setStatus(data.status)
-      })
-    }
-  }
+
+  // const handleOnClickStatusFlow = () => {
+  //   if (status === VIEWED) {
+  //     new HttpService().updateStatusOnRequestAsManager(props.id, 2).then((data) => {
+  //       console.log(data)
+  //       setStatus(data.status)
+  //     })
+  //   } else if (status === INPROGRESS) {
+  //     new HttpService().updateStatusOnRequestAsManager(props.id, 3).then((data) => {
+  //       console.log(data)
+  //       setStatus(data.status)
+  //     })
+  //   } else if (status === DONE) {
+  //     new HttpService().updateStatusOnRequestAsManager(props.id, 4).then((data) => {
+  //       console.log(data)
+  //       setStatus(data.status)
+  //     })
+  //   } else if (status === VERIFIED) {
+  //     new HttpService().updateStatusOnRequestAsManager(props.id, 0).then((data) => {
+  //       console.log(data)
+  //       setStatus(data.status)
+  //     })
+  //   }
+  // }
 
   // const showButtonImage = () => {
   //   if (props.image) {
@@ -114,6 +119,8 @@ function MngrEachService(props) {
           </button>
           <DetailModal
             id={modalId}
+            request={request}
+            requestId={props.id}
             image={props.image}
             subject={props.subject}
             description={props.description}
@@ -121,18 +128,20 @@ function MngrEachService(props) {
             resident_name={props.resident_name}
             comments={props.comments}
             status={status}
+            onChangeStatus={status => setStatus(status)}
           />
         </td>
         <td style={{ verticalAlign: 'middle' }}>
           <i className="fas fa-trash-alt fa-lg" onClick={handleOnClick} id="trashIcon"></i>
-          {/* <button style={styleButtonRemove} className="btn btn-dark btn-outline-danger" onClick={handleOnClick}>
+          {/* <button style = {styleButtonRemove} className="btn btn-dark btn-outline-danger" onClick={handleOnClick}>
             Remove
           </button> */}
           {/* <td><ImageModal id={modalId} image={props.image} /></td>  */}
         </td>
         <td>
           <ShowBadgeStatus />
-          <span onClick={handleOnClickStatusFlow} className="badge bg-secondary">{statusTEXT[status]}</span>
+          {/* <span onClick={handleOnClickStatusFlow} className="badge bg-secondary">{statusTEXT[status]}</span> */}
+          <span className="badge bg-secondary">{statusTEXT[status]}</span>
           {/* <h1>{statusTEXT[status]}</h1> */}
         </td>
       </tr>

@@ -154,7 +154,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   console.log(req.body);
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-
+  console.log(req.body)
   if (request.status === req.body.status) {
     return res.send({ message: "Status has already been updated." })
   }
@@ -207,15 +207,6 @@ exports.authNotification = async (req, res) => {
 
   const notification = await Notification.findById(decoded._id);
 
-  // return res.redirect('http://localhost:3000/resident-list-request')
-  // let user = await User.findById(decoded._id);
-  // try {
-
-  // } catch (err) {
-  //   res.send('Error')
-  // }
-  // const token = request.generateNotificationToken()
-  // _.pick(user, ["_id", "isManager", "name", "building_id"])
   console.log(notification)
   res.send(notification)
 
