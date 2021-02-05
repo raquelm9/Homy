@@ -39,11 +39,11 @@ function Login(props) {
   };
 
   const login = (email, password) => {
-    if (!checkIfManager) {
+    // if (!checkIfManager) {
       dispatch(fetchUser({ email: email, password: password }));
-    } else {
-      dispatch(fetchUserAsManager({ email: email, password: password }));
-    }
+    // } else {
+    //   dispatch(fetchUserAsManager({ email: email, password: password }));
+    // }
   };
 
   const checkIfChange = () => {
@@ -120,7 +120,7 @@ function Login(props) {
               </div>
             </div>
 
-            <div className="row">
+            {/* <div className="row">
               <div className="col-md-9 col-sm-10">
                 <div className="form-check">
                   <input
@@ -138,7 +138,7 @@ function Login(props) {
                   </label>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="form-group row input-style">
               <div className="col"></div>
