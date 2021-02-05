@@ -9,6 +9,7 @@ function MngrEachService(props) {
   const history = useHistory();
   const location = useLocation();
   const [status, setStatus] = useState(props.status);
+  const [request, setRequest] = useState(props)
   const handleOnClick = () => {
 
 
@@ -44,29 +45,29 @@ function MngrEachService(props) {
   }
 
 
-  const handleOnClickStatusFlow = () => {
-    if (status === VIEWED) {
-      new HttpService().updateStatusOnRequestAsManager(props.id, 2).then((data) => {
-        console.log(data)
-        setStatus(data.status)
-      })
-    } else if (status === INPROGRESS) {
-      new HttpService().updateStatusOnRequestAsManager(props.id, 3).then((data) => {
-        console.log(data)
-        setStatus(data.status)
-      })
-    } else if (status === DONE) {
-      new HttpService().updateStatusOnRequestAsManager(props.id, 4).then((data) => {
-        console.log(data)
-        setStatus(data.status)
-      })
-    } else if (status === VERIFIED) {
-      new HttpService().updateStatusOnRequestAsManager(props.id, 0).then((data) => {
-        console.log(data)
-        setStatus(data.status)
-      })
-    }
-  }
+  // const handleOnClickStatusFlow = () => {
+  //   if (status === VIEWED) {
+  //     new HttpService().updateStatusOnRequestAsManager(props.id, 2).then((data) => {
+  //       console.log(data)
+  //       setStatus(data.status)
+  //     })
+  //   } else if (status === INPROGRESS) {
+  //     new HttpService().updateStatusOnRequestAsManager(props.id, 3).then((data) => {
+  //       console.log(data)
+  //       setStatus(data.status)
+  //     })
+  //   } else if (status === DONE) {
+  //     new HttpService().updateStatusOnRequestAsManager(props.id, 4).then((data) => {
+  //       console.log(data)
+  //       setStatus(data.status)
+  //     })
+  //   } else if (status === VERIFIED) {
+  //     new HttpService().updateStatusOnRequestAsManager(props.id, 0).then((data) => {
+  //       console.log(data)
+  //       setStatus(data.status)
+  //     })
+  //   }
+  // }
 
   // const showButtonImage = () => {
   //   if (props.image) {
@@ -118,6 +119,7 @@ function MngrEachService(props) {
           </button>
           <DetailModal
             id={modalId}
+            request={request}
             requestId={props.id}
             image={props.image}
             subject={props.subject}
@@ -138,7 +140,8 @@ function MngrEachService(props) {
         </td>
         <td>
           <ShowBadgeStatus />
-          <span onClick={handleOnClickStatusFlow} className="badge bg-secondary">{statusTEXT[status]}</span>
+          {/* <span onClick={handleOnClickStatusFlow} className="badge bg-secondary">{statusTEXT[status]}</span> */}
+          <span className="badge bg-secondary">{statusTEXT[status]}</span>
           {/* <h1>{statusTEXT[status]}</h1> */}
         </td>
       </tr>

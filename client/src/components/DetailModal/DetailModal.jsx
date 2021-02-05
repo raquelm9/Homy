@@ -2,26 +2,30 @@ import React, { useState, useEffect } from "react";
 import { config } from "../../config/config";
 import MessageSection from "../MessageSection/MessageSection";
 import "./DetailModal.css";
-import { VIEWED, INPROGRESS, statusTEXT } from '../../constants/status';
+import { VIEWED, INPROGRESS, DONE, statusTEXT } from '../../constants/status';
 import { useSelector } from 'react-redux';
 import HttpService from '../../services/http-service';
 
 function DetailModal(props) {
   const currentUser = useSelector(state => state.userReducer.user)
-  const [status, setStatus] = useState(props.status);
-
-  useEffect(() => {
-    console.log('in use effect')
-    props.onChangeStatus(status)
-  }, [status])
 
   const handleClickChangeStatus = () => {
-
-    if (status === VIEWED) {
-      new HttpService().updateStatusOnRequestAsManager(props.requestId, INPROGRESS).then((data) => {
-        setStatus(data)
-      })
+    switch (props.status) {
+      case VIEWED:
+        new HttpService().updateStatusOnRequestAsManager(props.request.id, INPROGRESS).then((data) => {
+          props.onChangeStatus(data.status)
+          console.log(data)
+        })
+        break;
+      case INPROGRESS:
+        new HttpService().updateStatusOnRequestAsManager(props.request.id, DONE).then((data) => {
+          props.onChangeStatus(data.status)
+        })
+        break;
+      default:
+        break;
     }
+
   }
 
   const CheckUnitAndName = () => {
@@ -63,8 +67,8 @@ function DetailModal(props) {
           </div>
           <div className="modal-body">
             <p className="titles-modal">Status:</p>
-            <p> {statusTEXT[status]}</p>
-            {currentUser.isManager &&
+            <p> {statusTEXT[props.status]}</p>
+            {currentUser.isManager && (props.status === VIEWED || props.status === INPROGRESS) &&
               <>
                 <p className="titles-modal">Change Status To:</p>
                 <button
@@ -80,8 +84,8 @@ function DetailModal(props) {
             <p> {props.subject}</p>
             <CheckUnitAndName />{" "}
             {/* Checks if there are unit number and name in props passed */}
-            {/* <p className="titles-modal">Status</p>
-            <p>{props.status}</p> */}
+            {/* <p className="titles-modal">props.</p>
+            <p>{props.props.}</p> */}
             <p className="titles-modal">Description:</p>
             <p>{props.description}</p>
             <p className="titles-modal">Reference Number:</p>

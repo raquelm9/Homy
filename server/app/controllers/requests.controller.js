@@ -192,7 +192,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 
 
   }
-  return res.status(200).send(request);
+  // return res.status(200).send(request);
   request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);
@@ -205,15 +205,6 @@ exports.authNotification = async (req, res) => {
 
   const notification = await Notification.findById(decoded._id);
 
-  // return res.redirect('http://localhost:3000/resident-list-request')
-  // let user = await User.findById(decoded._id);
-  // try {
-
-  // } catch (err) {
-  //   res.send('Error')
-  // }
-  // const token = request.generateNotificationToken()
-  // _.pick(user, ["_id", "isManager", "name", "building_id"])
   console.log(notification)
   res.send(notification)
 
