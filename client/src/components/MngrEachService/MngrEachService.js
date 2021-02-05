@@ -1,18 +1,17 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import DetailModal from "../DetailModal/DetailModal";
-import { useHistory, useLocation} from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import HttpService from "../../services/http-service";
-import {NEW, VIEWED, INPROGRESS, DONE, VERIFIED, ARCHIVED, statusTEXT} from "../../constants/status"
+import { NEW, VIEWED, INPROGRESS, DONE, VERIFIED, ARCHIVED, statusTEXT } from "../../constants/status"
 
 function MngrEachService(props) {
   const modalId = `request-${props.id}`;
   const history = useHistory();
   const location = useLocation();
   const [status, setStatus] = useState(props.status);
-  const handleOnClick = () => {
-  
-    
-    fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
+  const handleOnClick = async () => {
+    console.log(props.id)
+    await fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
       method: "DELETE",
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,
@@ -34,7 +33,7 @@ function MngrEachService(props) {
   const handleOnClickStatus = () => {
     if (status === NEW) {
       console.log("Was 0 changed to 1")
-      new HttpService().updateStatusOnRequestAsManager(props.id, VIEWED).then((data)=> {
+      new HttpService().updateStatusOnRequestAsManager(props.id, VIEWED).then((data) => {
         console.log(data)
         setStatus(data.status)
       })
@@ -42,23 +41,23 @@ function MngrEachService(props) {
   }
 
   const handleOnClickStatusFlow = () => {
-    if (status === VIEWED) { 
-      new HttpService().updateStatusOnRequestAsManager(props.id, 2).then((data)=> {
+    if (status === VIEWED) {
+      new HttpService().updateStatusOnRequestAsManager(props.id, 2).then((data) => {
         console.log(data)
         setStatus(data.status)
       })
-    } else if (status === INPROGRESS) { 
-      new HttpService().updateStatusOnRequestAsManager(props.id, 3).then((data)=> {
+    } else if (status === INPROGRESS) {
+      new HttpService().updateStatusOnRequestAsManager(props.id, 3).then((data) => {
         console.log(data)
         setStatus(data.status)
       })
-    } else if (status === DONE) { 
-      new HttpService().updateStatusOnRequestAsManager(props.id, 4).then((data)=> {
+    } else if (status === DONE) {
+      new HttpService().updateStatusOnRequestAsManager(props.id, 4).then((data) => {
         console.log(data)
         setStatus(data.status)
       })
-    } else if (status === VERIFIED) { 
-      new HttpService().updateStatusOnRequestAsManager(props.id, 0).then((data)=> {
+    } else if (status === VERIFIED) {
+      new HttpService().updateStatusOnRequestAsManager(props.id, 0).then((data) => {
         console.log(data)
         setStatus(data.status)
       })
@@ -81,18 +80,18 @@ function MngrEachService(props) {
   // };
 
   const styleButton = {
-    'fontWeight': 'bold', 
+    'fontWeight': 'bold',
     // "color" : "white"
-}
-const styleButtonRemove = {
-  'fontWeight': 'bold', 
-  // "color" :   "#fe7369"
+  }
+  const styleButtonRemove = {
+    'fontWeight': 'bold',
+    // "color" :   "#fe7369"
 
-}
+  }
 
-const ShowBadgeStatus = () => {
-  return "Hello"
-}
+  const ShowBadgeStatus = () => {
+    return "Hello"
+  }
 
   return (
     <>
@@ -102,9 +101,9 @@ const ShowBadgeStatus = () => {
         <td>{props.type}</td>
         <td>{props.subject}</td>
         {/* <td>{showButtonImage()}</td> */}
-        <td style={{verticalAlign:'middle'}}>
+        <td style={{ verticalAlign: 'middle' }}>
           <button
-            style = {styleButton}
+            style={styleButton}
             type="button"
             className="btn btn-dark btn-outline-warning"
             data-bs-toggle="modal"
@@ -124,17 +123,17 @@ const ShowBadgeStatus = () => {
             status={status}
           />
         </td>
-        <td style={{verticalAlign:'middle'}}>
-        <i className="fas fa-trash-alt fa-lg" onClick={handleOnClick} id="trashIcon"></i>
-          {/* <button style = {styleButtonRemove} className="btn btn-dark btn-outline-danger" onClick={handleOnClick}>
+        <td style={{ verticalAlign: 'middle' }}>
+          <i className="fas fa-trash-alt fa-lg" onClick={handleOnClick} id="trashIcon"></i>
+          {/* <button style={styleButtonRemove} className="btn btn-dark btn-outline-danger" onClick={handleOnClick}>
             Remove
           </button> */}
-          {/* <td><ImageModal id={modalId} image={props.image} /></td> */}
+          {/* <td><ImageModal id={modalId} image={props.image} /></td>  */}
         </td>
         <td>
-          <ShowBadgeStatus/>
-        <span onClick={handleOnClickStatusFlow} className="badge bg-secondary">{statusTEXT[status]}</span>
-            {/* <h1>{statusTEXT[status]}</h1> */}
+          <ShowBadgeStatus />
+          <span onClick={handleOnClickStatusFlow} className="badge bg-secondary">{statusTEXT[status]}</span>
+          {/* <h1>{statusTEXT[status]}</h1> */}
         </td>
       </tr>
     </>
