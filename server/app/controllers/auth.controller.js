@@ -28,7 +28,7 @@ exports.login = async (req, res) => {
   if (!validPassword) return res.status(400).send("Invalid email or password.");
 
   if (user.isManager) {
-    let manager = await Manager.findOne({ user_id: user._id})
+    let manager = await Manager.findOne({ user_id: user._id })
 
     if (!manager)
       return res.status(400).send("This manager doesn't have an account yet.");
@@ -37,17 +37,17 @@ exports.login = async (req, res) => {
 
     const token = user.generateAuthToken();
 
-    res
+    return res
       .header("x-auth-token", token)
-      .send(_.pick(user, ["_id", "email", "name", "building_id"]));
-  
+      .send(_.pick(user, ["_id", "email", "name", "building_id", "isManager"]));
+
+
   }
 
 
   let resident = await Resident.findOne({ user_id: user._id }); //
 
-  if (!resident)
-    return res.status(400).send("This user don't have an account yet.");
+  if (!resident) return res.status(400).send("This user don't have an account yet.");
 
   user.unit_num = resident.unit_num;
   user.name = resident.name;

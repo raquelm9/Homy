@@ -15,7 +15,10 @@ export const fetchUser = (userInfo) => (dispatch) => {
             localStorage.setItem("token", res.headers.get("x-auth-token"));
             return res.json();
         })
-        .then((data) => dispatch(setUser(data)))
+        .then((data) => {
+            if (data.isManager) localStorage.setItem("isManager", true);
+            dispatch(setUser(data))
+        })
         .catch(err => {
             dispatch(logUserOut())
             loginErrorMsg()
