@@ -153,7 +153,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   const serviceRequestId = req.params.requestId;
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-
+  console.log(req.body)
   if (request.status === req.body.status) {
     return res.send({ message: "Status has already been updated." })
   }
@@ -192,7 +192,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 
 
   }
-  // return res.status(200).send(request);
+  return res.status(200).send(request);
   request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);
