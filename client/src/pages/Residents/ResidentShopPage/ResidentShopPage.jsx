@@ -24,8 +24,8 @@ const ResidentShopPage = () => {
                         <Card.Text>
                             {product.price} CAD
                 </Card.Text>
-                        <Button variant="primary" className="shop-button">
-                            <Link to={{
+                        <Button variant="warning" style={{backgroundColor:"white",}}  className="shop-button ">
+                            <Link style={{textDecoration:"none", color:"black"}} to={{
                                 pathname: "/checkout",
                                 state: { product: product }
                             }} >Buy</Link>

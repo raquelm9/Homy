@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 //Pages
@@ -21,18 +21,17 @@ import Unauthorized from "../components/Unauthorized/Unauthorized";
 // import { selectIsManager } from "../selectors/userSelectors";
 import { AppHeader } from "./AppHeader";
 
+import NotificationRequest from '../components/Notification/NotificationRequest';
+
 function App() {
   const dispatch = useDispatch();
-  // const isManager = useSelector(selectIsManager);
-
-  const isManager = useSelector(state => state.userReducer.user.isManager)
-
 
   useEffect(() => {
     dispatch(autoLogin());
   }, [dispatch]);
 
   return (
+
     <Router>
       <AppHeader />
       <Switch>
@@ -52,15 +51,18 @@ function App() {
         <Route exact path="/register" component={Register} />
         {/* <Route exact path="/mainlogin" component={MainLogin} /> */}
         <Route exact path="/login" component={Login} />
-        {/* //user={useSelector(state => state.userReducer.user.isManager)} */}
-        {/* <ProtectedRoute path="/manager" isManager={isManager} component={MngrMainPage} /> */}
-        <Route path="/manager" component={MngrMainPage} />
+
+        <ProtectedRoute path="/manager" component={MngrMainPage} />
 
         <Route path="/unauthorized" component={Unauthorized} />
         <Route path="/shop" component={ResidentShopPage} />
         <Route path="/checkout" component={CheckoutForm} />
+
+        <Route path="/notification/requests/:token" component={NotificationRequest} />
+
       </Switch>
     </Router>
+
   );
 }
 

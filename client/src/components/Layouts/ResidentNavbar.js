@@ -13,13 +13,13 @@ function ResidentNavbar() {
   return (
     <>
       {location.pathname === "/" ? null : (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
             <Link className="navbar-brand" to="/home">
               <span className="homyTextNavbar">homy</span>
             </Link>
             <button
-              className="navbar-toggler"
+              className="navbar-toggler btn-outline-warning"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarText"

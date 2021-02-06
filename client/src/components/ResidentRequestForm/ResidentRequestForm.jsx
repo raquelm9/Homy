@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { residentRequestValidationSchema } from "./validations/resident_request_validations";
 import HttpService from "../../services/http-service";
@@ -15,6 +15,8 @@ function ResidentRequestForm() {
   const unit_num = useSelector((state) => state.userReducer.user.unit_num);
   const name = useSelector((state) => state.userReducer.user.name);
 
+  const [notification, setNotification] = useState('none');
+
   const queryString = location.search;
   const urlParams = new URLSearchParams(queryString);
   const typeRequest = urlParams.get("type");
@@ -23,6 +25,7 @@ function ResidentRequestForm() {
     const newHttpRequest = new HttpService();
     data.unit_num = unit_num;
     data.resident_name = name;
+    data.notification = notification;
 
     return newHttpRequest.addServiceRequest(data).finally(() => {
       history.push("/resident-list-request");
@@ -48,9 +51,11 @@ function ResidentRequestForm() {
           subject: "",
           description: "",
           image: "",
+          notification: notification
         }}
         validationSchema={residentRequestValidationSchema}
         onSubmit={(data, { setSubmitting, resetForm }) => {
+
           setSubmitting(true);
           // make async call
           submitServiceRequest(data).then(() => {
@@ -150,7 +155,45 @@ function ResidentRequestForm() {
                     }}
                   />
                 </div>
+                {/* Notification type */}
+                <div className="form-group row input-margin">
+                  <label htmlFor="" className="col-sm-2 col-form-label">
+                    Notification
+                  </label>
+                  <div className="col-sm-10 col-md-8 " role="group" aria-label="Basic radio toggle button group">
+                    <input
+                      className="radio"
+                      id="notification-none"
+                      type="radio"
+                      name="notification"
+                      value="none"
+                      onChange={e => setNotification(e.target.value)}
+                      checked={notification === 'none'}
+                    />
+                    <label htmlFor="notification-none" className="btn radio-label">None</label>
+                    <input
+                      className="radio"
+                      id="notification-email"
+                      type="radio"
+                      name="notification"
+                      value="email"
+                      onChange={e => setNotification(e.target.value)}
+                      checked={notification === 'email'}
+                    />
+                    <label htmlFor="notification-email" className="btn radio-label">Email</label>
+                    <input
+                      className="radio"
+                      id="notification-phone"
+                      type="radio"
+                      name="notification"
+                      value="phone"
+                      onChange={e => setNotification(e.target.value)}
+                      checked={notification === 'phone'}
+                    />
+                    <label htmlFor="notification-sms" className="btn radio-label">Phone Message</label>
+                  </div>
 
+                </div>
                 {/* Submit */}
                 <div className="row">
                   <div className="col-12 text-center space-button-form">
@@ -169,7 +212,7 @@ function ResidentRequestForm() {
           </Form>
         )}
       </Formik>
-    </div>
+    </div >
   );
 }
 

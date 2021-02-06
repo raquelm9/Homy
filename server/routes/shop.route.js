@@ -22,5 +22,6 @@ module.exports = (app) => {
     router.post('/products', upload.single("image"), shop.createProduct)
     router.get('/products', auth, shop.getProducts)
     router.get('/orders', [auth, manager], shop.getOrders);
+    router.delete('/orders/:id', shop.deleteOrder)
     app.use("/api/shop", router);
 };

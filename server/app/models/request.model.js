@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+
 const { Comment } = require("./comments.schema");
+
 
 const schema = mongoose.Schema({
   date: {
@@ -10,16 +12,21 @@ const schema = mongoose.Schema({
   type: String,
   subject: String,
   description: String,
-  status: Boolean,
+  status: { type: Number, default: 0 },
   image: String,
   request_number: Number,
   unit_num: String,
   resident_name: String,
   user_id: String,
   comments: [{ type: Comment }],
+  notification: String
 });
 
-const Request = mongoose.model("request", schema);
+
+
+
+
+exports.Request = mongoose.model("request", schema);
 
 function validateRequest(request) {
   const schema = Joi.object({
@@ -33,9 +40,13 @@ function validateRequest(request) {
     unit_num: Joi.string(),
     resident_name: Joi.string(),
     user_id: Joi.string(),
+    notification: Joi.string()
   });
 
   return schema.validate(request);
 }
-exports.Request = Request;
+
+
+
+
 exports.validate = validateRequest;

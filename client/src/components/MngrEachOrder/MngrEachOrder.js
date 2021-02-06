@@ -1,30 +1,36 @@
 import React from "react";
 // import DetailModal from "../DetailModal/DetailModal";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function ResidentEachService(props) {
     // const modalId = `request-${props.id}`;
-    // const history = useHistory();
-    // const handleOnClick = () => {
-    //     fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
-    //         method: "DELETE",
-    //         headers: {
-    //             "x-auth-token": `${localStorage.getItem("token")}`,
-    //         },
-    //     });
-    //     history.go(0);
-    // };
+    const history = useHistory();
+    const handleOnClick = () => {
+        fetch(`http://localhost:3008/api/shop/orders/${props.id}`, {
+            method: "DELETE",
+            headers: {
+                "x-auth-token": `${localStorage.getItem("token")}`,
+            },
+        });
+        history.go(0);
+    };
 
     const handleDate = () => {
 
         let dateObject = new Date(props.date).toLocaleDateString("en-CA", {
-            month: 'long',
+            month: 'short',
             day: 'numeric',
-            hour: 'numeric'
+            hour: 'numeric',
+            minute: 'numeric'
         });
         return dateObject;
     };
 
+    const styleButton = {
+        'fontWeight': 'bold', 
+        // "color" : "#eaff00"
+        "color" : "white"
+    }
     return (
         <>
             <tr>
@@ -32,6 +38,14 @@ function ResidentEachService(props) {
                 <td>{props.type}</td>
                 <td>{props.name}</td>
                 <td>{props.unit}</td>
+                <td style={{verticalAlign:'middle'}}>
+                    <button
+                        onClick={handleOnClick}
+                        type="button"
+                        className="btn btn-dark btn-outline-success"
+                    >
+                        <span style={styleButton}>Fulfilled</span>
+                        </button></td>
                 {/* <td>
                     <button
                         type="button"

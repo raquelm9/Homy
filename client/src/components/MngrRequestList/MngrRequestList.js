@@ -38,6 +38,7 @@ function MngrRequestList() {
         requestNumber={i}
         type={service.type}
         subject={service.subject}
+        status={service.status}
         date={service.date}
         image={service.image}
         unit_num={service.unit_num}
@@ -59,8 +60,9 @@ function MngrRequestList() {
               <th scope="col">Date</th>
               <th scope="col">Type</th>
               <th scope="col">Subject</th>
-              <th scope="col">Details</th>
-              <th scope="col">Delete</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>{allRequests.map(listOfServices)}</tbody>
