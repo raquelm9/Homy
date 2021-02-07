@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
-const { config } = require("../config");
+const config = require("../config");
 
 exports.createNotificationObject = (
   residentEmail,
@@ -25,12 +25,14 @@ exports.createNotificationObject = (
 };
 
 exports.sendEmailNotification = async (mailOptions) => {
+
   // Creating oauth2 access object from googleapis module class
   const oAuth2Client = new google.auth.OAuth2(
     config.GOOGLE.CLIENT_ID,
     config.GOOGLE.CLIENT_SECRET,
     config.GOOGLE.REDIRECT_URI
   );
+
   // Setting the refresh token credentials for the oauth2 access object
   oAuth2Client.setCredentials({ refresh_token: config.GOOGLE.REFRESH_TOKEN });
 

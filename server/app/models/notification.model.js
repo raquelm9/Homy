@@ -14,6 +14,10 @@ const schema = mongoose.Schema(
         status: {
             type: String,
             required: true
+        },
+        notification_type: {
+            type: String,
+            required: true
         }
     },
     { timestamps: true }

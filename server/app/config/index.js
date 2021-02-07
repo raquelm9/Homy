@@ -1,4 +1,5 @@
 module.exports = {
+  
   GOOGLE: {
     CLIENT_ID: process.env.GOOGLE_CLIENT_ID || "",
     CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || "",
@@ -22,7 +23,7 @@ module.exports = {
     PHONE: process.env.HOMY_DEV_PHONE,
   },
   TOGGLES: {
-    DISABLE_NOTIFICATION: process.env.HOMY_DISABLE_NOTIFICATION || true,
+    DISABLE_NOTIFICATION: process.env.HOMY_DISABLE_NOTIFICATION || false,
   },
   JWT: {
     SECRET_KEY: process.env.JWT_SECRET_KEY || 'jwtPrivateKey',
