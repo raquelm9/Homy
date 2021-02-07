@@ -1,23 +1,20 @@
 const { Request, validate } = require("../models/request.model");
-const { User } = require('../models/user.model');
+const { User } = require("../models/user.model");
 const { Comment, validateComment } = require("../models/comments.schema");
-const { Notification } = require('../models/notification.model');
+const { Notification } = require("../models/notification.model");
 const Counter = require("../models/counter.model");
-const { createNotificationObject, sendEmailNotification, sendSMSNotification } = require("../helpers/notification");
 const {
-  NEW,
-  INPROGRESS,
-  DONE,
-  statusTEXT
-} = require('../constants/status');
+  createNotificationObject,
+  sendEmailNotification,
+  sendSMSNotification,
+} = require("../helpers/notification");
+const { NEW, INPROGRESS, DONE, statusTEXT } = require("../constants/status");
 const EMAIL_SECRET = "abcdef";
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const _ = require('lodash');
+const _ = require("lodash");
 
 const fs = require("fs");
-// const { request } = require("http");
-
 
 exports.getRequest = (req, res) => {
   Request.find({ user_id: req.user._id }).then((data) => res.send(data));
@@ -30,7 +27,7 @@ exports.getAllServiceRequests = (req, res) => {
 exports.createRequest = async (req, res) => {
   const file = req.file;
   const path = file ? file.path : undefined;
-  console.log(req.body)
+  console.log(req.body);
   const result = validate(req.body);
   if (result.error) {
     return res.status(400).send(result.error.details[0].message);
@@ -60,14 +57,14 @@ exports.createRequest = async (req, res) => {
     unit_num: req.body.unit_num,
     resident_name: req.body.resident_name,
     user_id: req.user._id,
-    notification: req.body.notification
+    notification: req.body.notification,
   });
 
   request.save().then((data) => res.send(data));
 };
 
 exports.deleteRequest = async (req, res) => {
-  console.log(req.params.id)
+  console.log(req.params.id);
   const serviceRequestId = req.params.id;
   let request = await Request.findById(serviceRequestId);
 
@@ -110,7 +107,7 @@ exports.commentOnRequest = async (req, res) => {
   request.comments.push({
     name: req.body.name,
     comment: req.body.comment,
-    isManager: false
+    isManager: false,
   });
 
   await request.save();
@@ -140,7 +137,7 @@ exports.commentOnRequestAsManager = async (req, res) => {
   request.comments.push({
     name: req.body.name,
     comment: req.body.comment,
-    isManager: true
+    isManager: true,
   });
 
   await request.save();
@@ -148,15 +145,14 @@ exports.commentOnRequestAsManager = async (req, res) => {
   return res.status(200).send(request);
 };
 
-
 exports.updateStatusOnRequestAsManager = async (req, res) => {
   const serviceRequestId = req.params.requestId;
   console.log(req.body);
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-  console.log(req.body)
+  console.log(req.body);
   if (request.status === req.body.status) {
-    return res.send({ message: "Status has already been updated." })
+    return res.send({ message: "Status has already been updated." });
   }
 
   const user = await User.findById(request.user_id);
@@ -164,35 +160,39 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   const notification = new Notification({
     type: request.type,
     description: request.description,
-    status: req.body.status
-  })
+    status: req.body.status,
+  });
   await notification.save();
-  if (!process.env.HOMY_DISABLE_NOTIFICATION) {
+  if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
-
-      const residentEmail = process.env.HOMY_DEV_EMAIL || user.email;
-      const emailSubject = "Status of request changed"
-      const emailTextBody = emailSubject
-      const emailHtmlBody = emailSubject
+      const residentEmail = config.SERVER.EMAIL || user.email;
+      const emailSubject = "Status of request changed";
+      const emailTextBody = emailSubject;
+      const emailHtmlBody = emailSubject;
       // + statusTEXT[req.body.status]
       const token = notification.generateNotificationToken();
 
-      const residentNotificationEmailDetails = createNotificationObject(residentEmail, emailSubject, emailTextBody, emailHtmlBody, token)
+      const residentNotificationEmailDetails = createNotificationObject(
+        residentEmail,
+        emailSubject,
+        emailTextBody,
+        emailHtmlBody,
+        token
+      );
 
-      const responseNotification = await sendEmailNotification(residentNotificationEmailDetails)
+      const responseNotification = await sendEmailNotification(
+        residentNotificationEmailDetails
+      );
       console.log(responseNotification);
-
     }
     if (request.notification === "phone") {
+      const residentPhone = config.SERVER.PHONE || residentEmail.phone;
 
-      const residentPhone = process.env.HOMY_DEV_PHONE || residentEmail.phone;
-
-      const responseSMS = await sendSMSNotification(resident.phone, emailSubject);
-
+      const responseSMS = await sendSMSNotification(
+        resident.phone,
+        emailSubject
+      );
     }
-
-
-
   }
   // return res.status(200).send(request);
   request.status = req.body.status;
@@ -207,7 +207,6 @@ exports.authNotification = async (req, res) => {
 
   const notification = await Notification.findById(decoded._id);
 
-  console.log(notification)
-  res.send(notification)
-
-}
+  console.log(notification);
+  res.send(notification);
+};

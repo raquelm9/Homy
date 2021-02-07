@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { Resident, validate } = require("../models/resident.model");
 
 exports.createAccount = (req, res) => {
@@ -13,7 +12,7 @@ exports.createAccount = (req, res) => {
     name: req.body.name,
     email: req.body.email,
     user_id: req.body.user_id,
-    phone: req.body.phone
+    phone: req.body.phone,
   });
 
   resident.save().then((data) => res.send(data));

@@ -1,12 +1,11 @@
 const { User } = require("../models/user.model");
 const { Resident } = require("../models/resident.model");
-const { Manager } = require('../models/manager.model');
+const { Manager } = require("../models/manager.model");
 
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
-const { findById } = require("../models/user.model");
 
 exports.login = async (req, res) => {
   const schema = Joi.object({
@@ -28,7 +27,7 @@ exports.login = async (req, res) => {
   if (!validPassword) return res.status(400).send("Invalid email or password.");
 
   if (user.isManager) {
-    let manager = await Manager.findOne({ user_id: user._id })
+    let manager = await Manager.findOne({ user_id: user._id });
 
     if (!manager)
       return res.status(400).send("This manager doesn't have an account yet.");
@@ -40,14 +39,12 @@ exports.login = async (req, res) => {
     return res
       .header("x-auth-token", token)
       .send(_.pick(user, ["_id", "email", "name", "building_id", "isManager"]));
-
-
   }
-
 
   let resident = await Resident.findOne({ user_id: user._id }); //
 
-  if (!resident) return res.status(400).send("This user don't have an account yet.");
+  if (!resident)
+    return res.status(400).send("This user don't have an account yet.");
 
   user.unit_num = resident.unit_num;
   user.name = resident.name;
@@ -67,7 +64,6 @@ exports.verifyUser = async (req, res) => {
   let user = await User.findById(decoded._id);
 
   if (!user.isManager) {
-
     let resident = await Resident.findOne({ user_id: user._id });
     if (!resident)
       return res.status(400).send("This user don't have an account yet.");
@@ -78,9 +74,7 @@ exports.verifyUser = async (req, res) => {
     res
       .header("x-auth-token", token)
       .send(_.pick(user, ["_id", "email", "unit_num", "name"]));
-
   } else {
-
     let manager = await Manager.findOne({ user_id: user._id });
 
     if (!manager) {
@@ -93,11 +87,7 @@ exports.verifyUser = async (req, res) => {
     res
       .header("x-auth-token", token)
       .send(_.pick(user, ["_id", "isManager", "name", "building_id"]));
-
   }
-
-
-
 };
 
 exports.loginAsManager = async (req, res) => {
@@ -115,7 +105,7 @@ exports.loginAsManager = async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
 
   if (!user) return res.status(400).send("Invalid email or password.");
-  if (!user.isManager) return res.status(403).send('Forbidden')
+  if (!user.isManager) return res.status(403).send("Forbidden");
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send("Invalid email or password.");
