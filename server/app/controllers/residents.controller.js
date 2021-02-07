@@ -4,7 +4,7 @@ exports.createAccount = (req, res) => {
   const result = validate(req.body);
 
   if (result.error) {
-    return res.status(400).send(result.error.details[0].message);
+    return res.status(400).send({ error: "Failed validation" });
   }
 
   const resident = new Resident({

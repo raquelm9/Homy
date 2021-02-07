@@ -65,6 +65,7 @@ exports.createRequest = async (req, res) => {
 };
 
 exports.deleteRequest = async (req, res) => {
+
   console.log(req.params.id);
   const serviceRequestId = req.params.id;
   let request = await Request.findById(serviceRequestId);
@@ -165,6 +166,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   });
 
   await notification.save();
+  console.log(notification)
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
       const residentEmail = config.SERVER.EMAIL || user.email;
