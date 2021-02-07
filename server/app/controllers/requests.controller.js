@@ -162,6 +162,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     description: request.description,
     status: req.body.status,
   });
+
   await notification.save();
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
