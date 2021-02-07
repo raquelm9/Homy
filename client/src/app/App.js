@@ -13,6 +13,7 @@ import Login from "../pages/Auth/Login";
 import { autoLogin } from "../actions/userActions";
 import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
 
+
 import ResidentShopPage from "../pages/Residents/ResidentShopPage/ResidentShopPage";
 import CheckoutForm from "../pages/Residents/CheckoutForm/CheckoutForm";
 
@@ -22,6 +23,7 @@ import Unauthorized from "../components/Unauthorized/Unauthorized";
 import { AppHeader } from "./AppHeader";
 
 import NotificationRequest from '../components/Notification/NotificationRequest';
+import CommunityPage from "../pages/Residents/CommunityPage/CommunityPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +39,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/home" component={HomePage} />
+        <Route exact path="/community" component={CommunityPage} />
         <Route exact path="/resident-request" component={ResidentRequest} />
         <Route
           exact

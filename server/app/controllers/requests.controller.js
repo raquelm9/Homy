@@ -164,7 +164,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   const notification = new Notification({
     type: request.type,
     description: request.description,
-    status: req.body.status
+    status: req.body.status        
   })
   await notification.save();
   if (!process.env.HOMY_DISABLE_NOTIFICATION) {

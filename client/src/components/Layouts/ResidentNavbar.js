@@ -41,6 +41,11 @@ function ResidentNavbar() {
                   </Link> */}
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/community">
+                    Community
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to="/resident-request">
                     New Request
                   </Link>
