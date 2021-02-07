@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import HttpService from "../../../services/http-service";
 import swal from "sweetalert";
 import "./CheckoutForm.css";
+import { config } from "../../../config/config";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -124,7 +125,7 @@ const CheckoutForm = (props) => {
               <img
                 className="img-fluid image-adjustment"
                 alt="product"
-                src={`http://localhost:3008/${state.product.imagePath}`}
+                src={`${config.SERVER_URL}/${state.product.imagePath}`}
               />
             </div>
             <div className="col"></div>

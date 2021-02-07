@@ -2,18 +2,25 @@ import React, { useState } from "react";
 import DetailModal from "../DetailModal/DetailModal";
 import { useHistory, useLocation } from "react-router-dom";
 import HttpService from "../../services/http-service";
-import { NEW, VIEWED, INPROGRESS, DONE, VERIFIED, ARCHIVED, statusTEXT } from "../../constants/status"
+import {
+  NEW,
+  VIEWED,
+  INPROGRESS,
+  DONE,
+  VERIFIED,
+  ARCHIVED,
+  statusTEXT,
+} from "../../constants/status";
+import { config } from "../../config/config";
 
 function MngrEachService(props) {
   const modalId = `request-${props.id}`;
   const history = useHistory();
   const location = useLocation();
   const [status, setStatus] = useState(props.status);
-  const [request, setRequest] = useState(props)
+  const [request, setRequest] = useState(props);
   const handleOnClick = () => {
-
-
-    fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
+    fetch(`${config.SERVER_URL}/api/service-requests/${props.id}`, {
       method: "DELETE",
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,
@@ -21,8 +28,6 @@ function MngrEachService(props) {
     });
     history.go(0);
   };
-
-
 
   const handleDate = () => {
     let dateObject = new Date(props.date);
@@ -36,14 +41,15 @@ function MngrEachService(props) {
 
   const handleOnClickStatus = () => {
     if (status === NEW) {
-      console.log("Was 0 changed to 1")
-      new HttpService().updateStatusOnRequestAsManager(props.id, VIEWED).then((data) => {
-        console.log(data)
-        setStatus(data.status)
-      })
+      console.log("Was 0 changed to 1");
+      new HttpService()
+        .updateStatusOnRequestAsManager(props.id, VIEWED)
+        .then((data) => {
+          console.log(data);
+          setStatus(data.status);
+        });
     }
-  }
-
+  };
 
   // const handleOnClickStatusFlow = () => {
   //   if (status === VIEWED) {
@@ -85,18 +91,17 @@ function MngrEachService(props) {
   // };
 
   const styleButton = {
-    'fontWeight': 'bold',
+    fontWeight: "bold",
     // "color" : "white"
-  }
+  };
   const styleButtonRemove = {
-    'fontWeight': 'bold',
+    fontWeight: "bold",
     // "color" :   "#fe7369"
-
-  }
+  };
 
   const ShowBadgeStatus = () => {
-    return "Hello"
-  }
+    return "Hello";
+  };
 
   return (
     <>
@@ -106,7 +111,7 @@ function MngrEachService(props) {
         <td>{props.type}</td>
         <td>{props.subject}</td>
         {/* <td>{showButtonImage()}</td> */}
-        <td style={{ verticalAlign: 'middle' }}>
+        <td style={{ verticalAlign: "middle" }}>
           <button
             style={styleButton}
             type="button"
@@ -128,11 +133,15 @@ function MngrEachService(props) {
             resident_name={props.resident_name}
             comments={props.comments}
             status={status}
-            onChangeStatus={status => setStatus(status)}
+            onChangeStatus={(status) => setStatus(status)}
           />
         </td>
-        <td style={{ verticalAlign: 'middle' }}>
-          <i className="fas fa-trash-alt fa-lg" onClick={handleOnClick} id="trashIcon"></i>
+        <td style={{ verticalAlign: "middle" }}>
+          <i
+            className="fas fa-trash-alt fa-lg"
+            onClick={handleOnClick}
+            id="trashIcon"
+          ></i>
           {/* <button style = {styleButtonRemove} className="btn btn-dark btn-outline-danger" onClick={handleOnClick}>
             Remove
           </button> */}

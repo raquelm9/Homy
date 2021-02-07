@@ -1,21 +1,23 @@
 import React from "react";
 import DetailModal from "../DetailModal/DetailModal";
 import { useHistory } from "react-router-dom";
-import {NEW, 
-    VIEWED, 
-    INPROGRESS,
-    DONE,
-    ARCHIVED,
-    VERIFIED, 
-    statusTEXT
-    } from '../../constants/status';
+import {
+  NEW,
+  VIEWED,
+  INPROGRESS,
+  DONE,
+  ARCHIVED,
+  VERIFIED,
+  statusTEXT,
+} from "../../constants/status";
+import { config } from "../../config/config";
 
 function ResidentEachService(props) {
   const modalId = `request-${props.id}`;
   const history = useHistory();
   const handleOnClick = async () => {
-    console.log(props.id)
-    await fetch(`http://localhost:3008/api/service-requests/${props.id}`, {
+    console.log(props.id);
+    await fetch(`${config.SERVER_URL}/api/service-requests/${props.id}`, {
       method: "DELETE",
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,
@@ -63,7 +65,7 @@ function ResidentEachService(props) {
           />
         </td>
 
-        <td>{props.status ? statusTEXT[props.status] : null }</td>
+        <td>{props.status ? statusTEXT[props.status] : null}</td>
       </tr>
     </>
   );
