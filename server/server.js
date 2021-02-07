@@ -6,17 +6,18 @@ const config = require("./app/config");
 const app = express();
 
 require("dotenv").config();
+
+app.use(cors({ exposedHeaders: ["x-auth-token"] }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 require("./routes/requests.route")(app);
 require("./routes/auth.route")(app);
 require("./routes/users.route")(app);
 require("./routes/residents.route")(app);
 require("./routes/shop.route")(app);
 require("./routes/managers.route")(app);
-
-app.use(cors({ exposedHeaders: ["x-auth-token"] }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 mongoose
   .connect(config.MONGO.URI, {
