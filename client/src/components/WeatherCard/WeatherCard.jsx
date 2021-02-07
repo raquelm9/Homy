@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./WeatherCard.css";
+import { config } from "../../config/config";
+
+const api = {
+  key: config.WEATHER_API_KEY,
+  base: "https://api.openweathermap.org/data/2.5/",
+};
 
 function WeatherCard() {
   const [cityc, setCityC] = useState("");
@@ -8,11 +14,6 @@ function WeatherCard() {
   const [tempMin, setTempMin] = useState("");
   const [tempMax, setTempMax] = useState("");
   const [daytime, setDayTime] = useState("");
-
-  const api = {
-    key: "db3f6ff73b4f0cdf3272eb723f1bf455",
-    base: "https://api.openweathermap.org/data/2.5/",
-  };
 
   useEffect(() => {
     fetch(`${api.base}weather?q=${"Calgary"}&units=metric&appid=${api.key}`)
