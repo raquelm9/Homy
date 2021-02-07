@@ -24,4 +24,8 @@ module.exports = {
   TOGGLES: {
     DISABLE_NOTIFICATION: process.env.HOMY_DISABLE_NOTIFICATION || true,
   },
+  JWT: {
+    SECRET_KEY: process.env.JWT_SECRET_KEY || 'jwtPrivateKey',
+    EMAIL_SECRET_KEY: process.env.JWT_EMAIL_SECRET_KEY || 'jwtPrivateKeyEmail'
+  }
 };

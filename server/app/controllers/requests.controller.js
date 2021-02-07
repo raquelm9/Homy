@@ -11,6 +11,7 @@ const {
 const { NEW, INPROGRESS, DONE, statusTEXT } = require("../constants/status");
 const EMAIL_SECRET = "abcdef";
 const jwt = require("jsonwebtoken");
+const config = require('../config');
 
 const _ = require("lodash");
 
@@ -204,7 +205,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 exports.authNotification = async (req, res) => {
   // console.log('authNotification', req.params.token)
 
-  const decoded = jwt.verify(req.params.token, "jwtPrivateKey");
+  const decoded = jwt.verify(req.params.token, config.JWT.EMAIL_SECRET_KEY);
 
   const notification = await Notification.findById(decoded._id);
 

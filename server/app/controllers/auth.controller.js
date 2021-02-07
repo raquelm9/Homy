@@ -6,6 +6,7 @@ const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
+const config = require('../config');
 
 exports.login = async (req, res) => {
   const schema = Joi.object({
@@ -59,7 +60,7 @@ exports.login = async (req, res) => {
 exports.verifyUser = async (req, res) => {
   const token = req.header("x-auth-token");
 
-  const decoded = jwt.verify(token, "jwtPrivateKey");
+  const decoded = jwt.verify(token, config.JWT.SECRET_KEY);
 
   let user = await User.findById(decoded._id);
 
