@@ -29,6 +29,7 @@ function CommunityPage() {
         <div className='community--page'>
 
             { mappingPosts(posts) }
+            {/* comment section  */}
             {/* Footer navbar */}
         </div>
     )
