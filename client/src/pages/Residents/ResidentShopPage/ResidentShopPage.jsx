@@ -12,6 +12,14 @@ const ResidentShopPage = () => {
     new HttpService().getProducts().then((data) => setProducts(data));
   }, []);
 
+  const getImagePath = (path = "") => {
+    if (path.includes("http")) {
+      return path;
+    }
+
+    return `${config.SERVER_URL}/${path}`;
+  };
+
   const getProducts = () => {
     return products.map((product) => {
       return (
@@ -20,10 +28,7 @@ const ResidentShopPage = () => {
           key={product._id}
           className="shopping-card"
         >
-          <Card.Img
-            variant="top"
-            src={`${config.SERVER_URL}/${product.imagePath}`}
-          />
+          <Card.Img variant="top" src={getImagePath(product.imagePath)} />
           <Card.Body>
             <Card.Title>{product.title}</Card.Title>
             <Card.Text>{product.price} CAD</Card.Text>

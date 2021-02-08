@@ -27,6 +27,7 @@ const CARD_OPTIONS = {
     },
   },
 };
+
 const Field = ({
   label,
   id,
@@ -95,6 +96,7 @@ const CheckoutForm = (props) => {
         .then((data) => handleMessageModal(data));
     }
   };
+
   const handleMessageModal = (msg) => {
     if (msg.success) {
       swal({
@@ -115,6 +117,14 @@ const CheckoutForm = (props) => {
     }
   };
 
+  const getImagePath = (path = "") => {
+    if (path.includes("http")) {
+      return path;
+    }
+
+    return `${config.SERVER_URL}/${path}`;
+  };
+
   return (
     <>
       {state ? (
@@ -125,7 +135,7 @@ const CheckoutForm = (props) => {
               <img
                 className="img-fluid image-adjustment"
                 alt="product"
-                src={`${config.SERVER_URL}/${state.product.imagePath}`}
+                src={getImagePath(state.product.imagePath)}
               />
             </div>
             <div className="col"></div>

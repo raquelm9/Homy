@@ -11,7 +11,7 @@ const {
 const { NEW, INPROGRESS, DONE, statusTEXT } = require("../constants/status");
 const EMAIL_SECRET = "abcdef";
 const jwt = require("jsonwebtoken");
-const config = require('../config');
+const config = require("../config");
 
 const _ = require("lodash");
 
@@ -28,8 +28,8 @@ exports.getAllServiceRequests = (req, res) => {
 exports.createRequest = async (req, res) => {
   const file = req.file;
   const path = file ? file.path : undefined;
-  console.log(req.body);
   const result = validate(req.body);
+
   if (result.error) {
     return res.status(400).send(result.error.details[0].message);
   }
@@ -65,7 +65,6 @@ exports.createRequest = async (req, res) => {
 };
 
 exports.deleteRequest = async (req, res) => {
-
   console.log(req.params.id);
   const serviceRequestId = req.params.id;
   let request = await Request.findById(serviceRequestId);
@@ -163,14 +162,14 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     type: request.type,
     description: request.description,
     status: req.body.status,
-    notification_type: request.notification
+    notification_type: request.notification,
   });
 
   await notification.save();
-  console.log(notification)
+  console.log(notification);
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
-      console.log('dkkdkdkd:', config)
+      console.log("dkkdkdkd:", config);
       const residentEmail = config.SERVER.EMAIL || user.email;
       const emailSubject = "Status of request changed";
       const emailTextBody = emailSubject;
@@ -185,7 +184,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
         emailHtmlBody,
         token
       );
-      console.log(residentNotificationEmailDetails)
+      console.log(residentNotificationEmailDetails);
       const responseNotification = await sendEmailNotification(
         residentNotificationEmailDetails
       );
@@ -207,8 +206,6 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 };
 
 exports.authNotification = async (req, res) => {
-  // console.log('authNotification', req.params.token)
-
   const decoded = jwt.verify(req.params.token, config.JWT.EMAIL_SECRET_KEY);
 
   const notification = await Notification.findById(decoded._id);

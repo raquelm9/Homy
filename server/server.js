@@ -29,5 +29,6 @@ mongoose
   .catch((err) => console.error("Could not connect to MongoDb...", err));
 
 app.listen(config.SERVER.PORT, function () {
+  console.log("Environment", process.env.NODE_ENV);
   console.log(`API running on port ${config.SERVER.PORT}`);
 });
