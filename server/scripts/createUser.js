@@ -5,6 +5,7 @@ const fetch = require('node-fetch');
 const urlRegister = 'http://localhost:3008/api/users';
 const urlResident = 'http://localhost:3008/api/residents';
 const urlManager = 'http://localhost:3008/api/managers';
+
 console.log();
 console.log('You"re going to create a resident account!')
 console.log();
