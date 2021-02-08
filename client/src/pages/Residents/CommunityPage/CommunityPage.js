@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import ResidentPost from '../../../components/ResidentPost/ResidentPost'
+import './CommunityPage.css'
 
 function CommunityPage() {
     const [posts, setPosts] = useState([
@@ -26,11 +27,14 @@ function CommunityPage() {
     }
 
     return (
-        <div className='community--page'>
+        <div className="community__page">
+            <div className="community__page__posts">
 
+            
             { mappingPosts(posts) }
             {/* comment section  */}
             {/* Footer navbar */}
+            </div>
         </div>
     )
 }
