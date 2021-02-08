@@ -1,4 +1,9 @@
 module.exports = {
+  CLOUDINARY: {
+    CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+    API_KEY: process.env.CLOUDINARY_API_KEY,
+    API_SECRET: process.env.CLOUDINARY_API_SECRET,
+  },
   GOOGLE: {
     CLIENT_ID: process.env.GOOGLE_CLIENT_ID || "",
     CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || "",
@@ -22,6 +27,10 @@ module.exports = {
     PHONE: process.env.HOMY_DEV_PHONE,
   },
   TOGGLES: {
-    DISABLE_NOTIFICATION: process.env.HOMY_DISABLE_NOTIFICATION || true,
+    DISABLE_NOTIFICATION: process.env.HOMY_DISABLE_NOTIFICATION || false,
+  },
+  JWT: {
+    SECRET_KEY: process.env.JWT_SECRET_KEY || "jwtPrivateKey",
+    EMAIL_SECRET_KEY: process.env.JWT_EMAIL_SECRET_KEY || "jwtPrivateKeyEmail",
   },
 };

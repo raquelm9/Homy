@@ -3,6 +3,7 @@ const { User, validate } = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
 exports.register = async (req, res) => {
+
   const result = validate(req.body);
 
   if (result.error) {
@@ -10,7 +11,7 @@ exports.register = async (req, res) => {
   }
 
   let user = await User.findOne({ email: req.body.email });
-  if (user) return res.status(400).send("User already registered.");
+  if (user) return res.status(400).send({ error: "User already registered." });
 
   const isManager = req.body.isManager || false
 

@@ -19,8 +19,8 @@ function MngrEachService(props) {
   const location = useLocation();
   const [status, setStatus] = useState(props.status);
   const [request, setRequest] = useState(props);
-  const handleOnClick = () => {
-    fetch(`${config.SERVER_URL}/api/service-requests/${props.id}`, {
+  const handleOnClick = async () => {
+    await fetch(`${config.SERVER_URL}/api/service-requests/${props.id}`, {
       method: "DELETE",
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,

@@ -2,10 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+require("dotenv").config();
 const config = require("./app/config");
 const app = express();
-
-require("dotenv").config();
 
 app.use(cors({ exposedHeaders: ["x-auth-token"] }));
 app.use(express.json());
@@ -30,5 +29,6 @@ mongoose
   .catch((err) => console.error("Could not connect to MongoDb...", err));
 
 app.listen(config.SERVER.PORT, function () {
+  console.log("Environment", process.env.NODE_ENV);
   console.log(`API running on port ${config.SERVER.PORT}`);
 });

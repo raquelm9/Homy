@@ -2,31 +2,34 @@ import React, { useState, useEffect } from "react";
 import { config } from "../../config/config";
 import MessageSection from "../MessageSection/MessageSection";
 import "./DetailModal.css";
-import { VIEWED, INPROGRESS, DONE, statusTEXT } from '../../constants/status';
-import { useSelector } from 'react-redux';
-import HttpService from '../../services/http-service';
+import { VIEWED, INPROGRESS, DONE, statusTEXT } from "../../constants/status";
+import { useSelector } from "react-redux";
+import HttpService from "../../services/http-service";
 
 function DetailModal(props) {
-  const currentUser = useSelector(state => state.userReducer.user)
+  const currentUser = useSelector((state) => state.userReducer.user);
 
   const handleClickChangeStatus = () => {
     switch (props.status) {
       case VIEWED:
-        new HttpService().updateStatusOnRequestAsManager(props.request.id, INPROGRESS).then((data) => {
-          props.onChangeStatus(data.status)
-          console.log(data)
-        })
+        new HttpService()
+          .updateStatusOnRequestAsManager(props.request.id, INPROGRESS)
+          .then((data) => {
+            props.onChangeStatus(data.status);
+            console.log(data);
+          });
         break;
       case INPROGRESS:
-        new HttpService().updateStatusOnRequestAsManager(props.request.id, DONE).then((data) => {
-          props.onChangeStatus(data.status)
-        })
+        new HttpService()
+          .updateStatusOnRequestAsManager(props.request.id, DONE)
+          .then((data) => {
+            props.onChangeStatus(data.status);
+          });
         break;
       default:
         break;
     }
-
-  }
+  };
 
   const CheckUnitAndName = () => {
     if (props.unit_num) {
@@ -42,6 +45,14 @@ function DetailModal(props) {
     } else {
       return null;
     }
+  };
+
+  const getImagePath = () => {
+    if (props.image.includes("http")) {
+      return props.image;
+    }
+
+    return `${config.SERVER_URL}/${props.image}`;
   };
 
   return (
@@ -68,18 +79,20 @@ function DetailModal(props) {
           <div className="modal-body">
             <p className="titles-modal">Status:</p>
             <p> {statusTEXT[props.status]}</p>
-            {currentUser.isManager && (props.status === VIEWED || props.status === INPROGRESS) &&
-              <>
-                <p className="titles-modal">Change Status To:</p>
-                <button
-                  type="button"
-                  className="btn-dark btn-sm"
-                  // 
-                  onClick={() => handleClickChangeStatus()}
-                >{statusTEXT[props.status + 1]}</button>
-              </>
-            }
-
+            {currentUser.isManager &&
+              (props.status === VIEWED || props.status === INPROGRESS) && (
+                <>
+                  <p className="titles-modal">Change Status To:</p>
+                  <button
+                    type="button"
+                    className="btn-dark btn-sm"
+                    //
+                    onClick={() => handleClickChangeStatus()}
+                  >
+                    {statusTEXT[props.status + 1]}
+                  </button>
+                </>
+              )}
             <p className="titles-modal">Subject:</p>
             <p> {props.subject}</p>
             <CheckUnitAndName />{" "}
@@ -97,11 +110,7 @@ function DetailModal(props) {
             ></MessageSection>
             <br></br>
             {props.image ? (
-              <img
-                src={`${config.SERVER_URL}/${props.image}`}
-                className="img-fluid"
-                alt="images"
-              />
+              <img src={getImagePath()} className="img-fluid" alt="images" />
             ) : null}
           </div>
           <div className="modal-footer">
@@ -115,7 +124,7 @@ function DetailModal(props) {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 
