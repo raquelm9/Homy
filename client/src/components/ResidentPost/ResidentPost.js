@@ -38,7 +38,6 @@ function ResidentPost({ username, caption, imageUrl, userAvatarUrl }) {
                     type="text"
                     value={comment}
                     onChange={handleChange}
-                
                 />
                 <button
                     disabled={!comment}
