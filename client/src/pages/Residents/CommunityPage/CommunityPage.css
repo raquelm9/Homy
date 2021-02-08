@@ -1,5 +1,13 @@
-.community__page {
+.community--page {
     display:flex;
+    flex-direction: column;
     justify-content: center;
     padding:20px;
+}
+
+.community--page__bottom {
+    bottom: 0;
+    position: sticky;
+
+    /* align-self: flex-end; */
 }
