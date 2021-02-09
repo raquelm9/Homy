@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 mongoose.connect(
-    config.MONGO.URI_TEST, {
+    config.MONGO.URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

@@ -1,19 +1,50 @@
 const { register } = require('../app/controllers/users.controller');
-const mongoose = require('mongoose');
 const { User } = require('../app/models/user.model');
-const db = require('../app/models/db');
+const mongoose = require('mongoose');
+const app = require('./app')
+const db = require('./db');
+const request = require("supertest");
 
 describe('User controller', () => {
+    beforeAll(async () => await db.connect());
 
-    afterEach(() => mongoose.connection.close())
+    /**
+     * Clear all test data after every test.
+     */
+    afterEach(async () => await db.clearDatabase());
 
-    describe('Find a user', () => {
-        it('should find a record', async () => {
-            const user = await User.find()
-            // const user = { email: "johnsmith@email.com" }
+    /**
+     * Remove and close the db and server.
+     */
+    afterAll(async () => await db.closeDatabase());
 
-            return expect(user.email).toBeDefined()
+    describe('User', () => {
+        it('should create a user resident', async () => {
+            const res = await request(app)
+                .post('/api/users')
+                .send({
+                    email: "johnsmith@email.com",
+                    password: "123456789"
+                })
 
+            expect(res).toBeDefined();
+            expect(res.status).toBe(200);
+            expect(res.body.email).toBe('johnsmith@email.com')
+            expect(res.body.isManager).toBe(false)
+        })
+        it('should create a user resident', async () => {
+            const res = await request(app)
+                .post('/api/users')
+                .send({
+                    email: "manager@email.com",
+                    password: "123456789",
+                    isManager: true
+                })
+
+            expect(res).toBeDefined();
+            expect(res.status).toBe(200);
+            expect(res.body.email).toBe('manager@email.com')
+            expect(res.body.isManager).toBe(true)
         })
     })
 })

@@ -17,6 +17,7 @@ module.exports = {
   },
   MONGO: {
     URI: process.env.MONGODB_URI || "mongodb://localhost/homy",
+    URI_TEST: process.env.MONGODB_URI_TEST || "mongodb://localhost/homy_test"
   },
   STRIPE: {
     SECRET_KEY: process.env.HOMY_STRIPE_SECRET_KEY,
