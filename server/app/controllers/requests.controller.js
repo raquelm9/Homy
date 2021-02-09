@@ -166,10 +166,10 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   });
 
   await notification.save();
-  console.log(notification);
+
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
-      console.log("dkkdkdkd:", config);
+
       const residentEmail = config.SERVER.EMAIL || user.email;
       const emailSubject = "Status of request changed";
       const emailTextBody = emailSubject;
@@ -184,11 +184,10 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
         emailHtmlBody,
         token
       );
-      console.log(residentNotificationEmailDetails);
       const responseNotification = await sendEmailNotification(
         residentNotificationEmailDetails
       );
-      console.log(responseNotification);
+
     }
     if (request.notification === "phone") {
       const residentPhone = config.SERVER.PHONE || residentEmail.phone;
