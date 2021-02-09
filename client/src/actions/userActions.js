@@ -18,7 +18,8 @@ export const fetchUser = (userInfo) => (dispatch) => {
     })
     .then((data) => {
       if (data.isManager) localStorage.setItem("isManager", true);
-      if (!data.error) dispatch(setUser(data));
+      if (!data.error) dispatch(setUser(data))
+      else loginErrorMsg();
     })
     .catch((err) => {
       dispatch(logUserOut());
@@ -78,7 +79,7 @@ export const autoLogin = () => (dispatch) => {
       })
       .then((data) => {
         if (data.isManager) localStorage.setItem("isManager", true);
-        if (!data.error) dispatch(setUser(data));
+        if (!data.error) dispatch(setUser(data))
       })
       .catch((err) => {
         dispatch(logUserOut());
