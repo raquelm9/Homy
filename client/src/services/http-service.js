@@ -10,7 +10,7 @@ const endPointsOrders = `${config.SERVER_URL}/api/shop/orders`
 const endPointsPosts = `${config.SERVER_URL}/api/post/`
 
 class HttpService {
-  
+
   commentOnRequest = (requestId, name, comment) => {
     const commentUrl = `${endPoints}/${requestId}/comment`;
 
@@ -52,6 +52,25 @@ class HttpService {
     });
     return promise;
   };
+  updateStatusOnRequest = (requestId, status) => {
+    const commentUrl = `${endPoints}/${requestId}/status`;
+
+    var promise = new Promise((resolve, reject) => {
+      fetch(commentUrl, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          status,
+        }),
+      }).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
 
 
   updateStatusOnRequestAsManager = (requestId, status) => {
@@ -74,15 +93,28 @@ class HttpService {
     return promise;
   };
 
+  getRequestsById = (requestId) => {
+    let promise = new Promise((resolve, reject) => {
+      fetch(`${endPoints}/${requestId}`, {
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`
+        }
+      }).then(resp => {
+        resolve(resp.json())
+      })
+    })
+    return promise;
+  }
+
   /**
    * Get all posts
    */
   getAllPosts = () => {
     let promise = new Promise((resolve, reject) => {
       fetch(endPointsPosts)
-      .then((response) => {
-        resolve(response.json())
-      })
+        .then((response) => {
+          resolve(response.json())
+        })
     })
     return promise;
   }
@@ -95,10 +127,10 @@ class HttpService {
       fetch(endPointsPosts, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
-        }, 
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
-          "username": "Arni", 
+          "username": "Arni",
           "avatarUrl": "",
           "imageUrl": "",
           "caption": "I'll be back, homy...",
@@ -106,8 +138,9 @@ class HttpService {
           "isManager": false
         })
       })
-      
+
     })
+    return promise;
   }
 
   getRequests = () => {

@@ -13,13 +13,18 @@ module.exports = (app) => {
     [auth, manager],
     request.commentOnRequestAsManager
   );
-
+  // router.get()
   router.put(
     "/:requestId/status/manager",
     [auth, manager],
     request.updateStatusOnRequestAsManager
   );
-
+  router.put(
+    "/:requestId/status",
+    auth,
+    request.updateStatusOnRequest
+  );
+  router.get('/:id', auth, request.getRequestById)
   router.get("/", auth, request.getRequest);
 
   router.get(

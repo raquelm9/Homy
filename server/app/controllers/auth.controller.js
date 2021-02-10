@@ -49,12 +49,14 @@ exports.login = async (req, res) => {
 
   user.unit_num = resident.unit_num;
   user.name = resident.name;
+  user.notification_active = resident.notification_active
+  user.notification_req_id = resident.notification_req_id
 
   const token = user.generateAuthToken();
 
   res
     .header("x-auth-token", token)
-    .send(_.pick(user, ["_id", "email", "name", "unit_num"]));
+    .send(_.pick(user, ["_id", "email", "name", "unit_num", "notification_active", "notification_req_id"]));
 };
 
 exports.verifyUser = async (req, res) => {
@@ -64,18 +66,20 @@ exports.verifyUser = async (req, res) => {
 
   let user = await User.findById(decoded._id);
 
-  if (!user.isManager) {
+  if (!user.isManager) {//login as resident
     let resident = await Resident.findOne({ user_id: user._id });
     if (!resident)
       return res.status(400).send("This user don't have an account yet.");
 
     user.unit_num = resident.unit_num;
     user.name = resident.name;
+    user.notification_active = resident.notification_active
+    user.notification_req_id = resident.notification_req_id
 
     res
       .header("x-auth-token", token)
-      .send(_.pick(user, ["_id", "email", "unit_num", "name"]));
-  } else {
+      .send(_.pick(user, ["_id", "email", "unit_num", "name", "notification_active", , "notification_req_id"]));
+  } else {//login as manager
     let manager = await Manager.findOne({ user_id: user._id });
 
     if (!manager) {
