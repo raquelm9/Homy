@@ -2,15 +2,7 @@ import React, { useState, useEffect } from "react";
 import { config } from "../../config/config";
 import { Link } from "react-router-dom";
 import "./NotificationRequest.css";
-const {
-  NEW,
-  VIEWED,
-  INPROGRESS,
-  DONE,
-  VERIFIED,
-  ARCHIVED,
-  statusTEXT,
-} = require("../../constants/status");
+const { statusTEXT } = require("../../constants/status");
 
 function NotificationRequest({ match }) {
   const [notification, setNotification] = useState({
@@ -32,7 +24,7 @@ function NotificationRequest({ match }) {
     )
       .then((resp) => resp.json())
       .then((data) => setNotification(data));
-  }, []);
+  }, [match.params.token]);
   return (
     <div className="notification">
       <div>
