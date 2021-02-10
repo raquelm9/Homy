@@ -2,14 +2,14 @@ const { Request, validate } = require("../models/request.model");
 const { User } = require("../models/user.model");
 const { Comment, validateComment } = require("../models/comments.schema");
 const { Notification } = require("../models/notification.model");
+const { Resident } = require('../models/resident.model')
 const Counter = require("../models/counter.model");
 const {
   createNotificationObject,
   sendEmailNotification,
   sendSMSNotification,
 } = require("../helpers/notification");
-const { NEW, INPROGRESS, DONE, statusTEXT } = require("../constants/status");
-const EMAIL_SECRET = "abcdef";
+const { NEW, INPROGRESS, DONE, statusTEXT, ARCHIVED } = require("../constants/status");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 
@@ -18,11 +18,16 @@ const _ = require("lodash");
 const fs = require("fs");
 
 exports.getRequest = (req, res) => {
-  Request.find({ user_id: req.user._id }).then((data) => res.send(data));
+  Request.find({ user_id: req.user._id, status: { $ne: ARCHIVED } }).then((data) => res.send(data));
 };
+exports.getRequestById = (req, res) => {
+  Request.findById(req.params.id)
+    .then(data => res.send(data))
+    .catch(err => { error: "Wrong request id" })
+}
 
-exports.getAllServiceRequests = (req, res) => {
-  Request.find().then((data) => res.send(data));
+exports.getAllServiceRequests = (req, res) => {//send back all request not archived
+  Request.find({ status: { $ne: ARCHIVED } }).then((data) => res.send(data));
 };
 
 exports.createRequest = async (req, res) => {
@@ -147,8 +152,9 @@ exports.commentOnRequestAsManager = async (req, res) => {
 };
 
 exports.updateStatusOnRequestAsManager = async (req, res) => {
+
   const serviceRequestId = req.params.requestId;
-  console.log(req.body);
+  // console.log(req.body);
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
   console.log(req.body);
@@ -167,6 +173,12 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 
   await notification.save();
 
+  if (req.body.status === DONE) {
+    await Resident.findOneAndUpdate(
+      { user_id: request.user_id },
+      { $set: { notification_active: true, notification_req_id: request._id } }
+    )
+  }
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
 
@@ -174,7 +186,6 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
       const emailSubject = "Status of request changed";
       const emailTextBody = emailSubject;
       const emailHtmlBody = emailSubject;
-      // + statusTEXT[req.body.status]
       const token = notification.generateNotificationToken();
 
       const residentNotificationEmailDetails = createNotificationObject(
@@ -199,6 +210,29 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     }
   }
   // return res.status(200).send(request);
+  request.status = req.body.status;
+  await request.save();
+  return res.status(200).send(request);
+};
+
+exports.updateStatusOnRequest = async (req, res) => {
+
+  const serviceRequestId = req.params.requestId;
+  // console.log(req.body);
+  const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
+
+  if (request.status === req.body.status) {
+    return res.send({ message: "Status has already been updated." });
+  }
+
+  // const user = await User.findById(request.user_id);
+
+  await Resident.findOneAndUpdate(
+    { user_id: request.user_id },
+    { $set: { notification_active: false, notification_req_id: "" } }
+  )
+
+
   request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);

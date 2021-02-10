@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectIsLoggedIn,
@@ -8,7 +8,7 @@ import {
 } from "../../selectors/userSelectors";
 import "./auth.css";
 
-import { fetchUser, fetchUserAsManager } from "../../actions/userActions";
+import { fetchUser } from "../../actions/userActions";
 
 const loginOptions = {
   resident: "RESIDENT",
@@ -16,14 +16,14 @@ const loginOptions = {
 };
 
 function Login(props) {
-  const [whoAmI, setWhoAmI] = useState(loginOptions.resident);
+  // const [whoAmI, setWhoAmI] = useState(loginOptions.resident);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const isManager = useSelector(selectIsManager);
+  // const isManager = useSelector(selectIsManager);
   const currentUser = useSelector(state => state.userReducer.user)
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [checkIfManager, setCheckIfManager] = useState(false);
+  // const [checkIfManager, setCheckIfManager] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn) {

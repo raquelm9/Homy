@@ -50,6 +50,25 @@ class HttpService {
     });
     return promise;
   };
+  updateStatusOnRequest = (requestId, status) => {
+    const commentUrl = `${endPoints}/${requestId}/status`;
+
+    var promise = new Promise((resolve, reject) => {
+      fetch(commentUrl, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          status,
+        }),
+      }).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
 
 
   updateStatusOnRequestAsManager = (requestId, status) => {
@@ -72,7 +91,18 @@ class HttpService {
     return promise;
   };
 
-
+  getRequestsById = (requestId) => {
+    let promise = new Promise((resolve, reject) => {
+      fetch(`${endPoints}/${requestId}`, {
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`
+        }
+      }).then(resp => {
+        resolve(resp.json())
+      })
+    })
+    return promise;
+  }
   getRequests = () => {
     var promise = new Promise((resolve, reject) => {
       fetch(endPoints, {

@@ -1,4 +1,4 @@
-import { SET_USER, LOG_OUT } from "../actions/types";
+import { SET_USER, LOG_OUT, SET_USER_NOTIFICATION } from "../actions/types";
 
 const defaultState = {
   loggedIn: false,
@@ -20,6 +20,14 @@ const userReducer = (state = defaultState, action) => {
         user: {},
 
       };
+    case SET_USER_NOTIFICATION:
+      return {
+        ...state,
+        user: {
+          notification_active: action.payload,
+          notification_req_id: ""
+        }
+      }
     default:
       return state;
   }

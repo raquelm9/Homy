@@ -1,8 +1,10 @@
-import { SET_USER, LOG_OUT } from "./types";
+import { SET_USER, LOG_OUT, SET_USER_NOTIFICATION } from "./types";
 import { config } from "../config/config";
 import swal from "sweetalert";
 
 const setUser = (payload) => ({ type: SET_USER, payload });
+
+export const setUserNotification = (payload) => ({ type: SET_USER_NOTIFICATION, payload });
 
 export const logUserOut = () => ({ type: LOG_OUT });
 
@@ -18,7 +20,8 @@ export const fetchUser = (userInfo) => (dispatch) => {
     })
     .then((data) => {
       if (data.isManager) localStorage.setItem("isManager", true);
-      if (!data.error) dispatch(setUser(data));
+      if (!data.error) dispatch(setUser(data))
+      else loginErrorMsg();
     })
     .catch((err) => {
       dispatch(logUserOut());
@@ -78,7 +81,7 @@ export const autoLogin = () => (dispatch) => {
       })
       .then((data) => {
         if (data.isManager) localStorage.setItem("isManager", true);
-        if (!data.error) dispatch(setUser(data));
+        if (!data.error) dispatch(setUser(data))
       })
       .catch((err) => {
         dispatch(logUserOut());

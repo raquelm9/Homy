@@ -45,7 +45,6 @@ function MngrEachService(props) {
       new HttpService()
         .updateStatusOnRequestAsManager(props.id, VIEWED)
         .then((data) => {
-          console.log(data);
           setStatus(data.status);
         });
     }
