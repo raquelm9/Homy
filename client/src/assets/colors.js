@@ -1,0 +1,1 @@
+export const COLOR_RED = "#9c27b0"

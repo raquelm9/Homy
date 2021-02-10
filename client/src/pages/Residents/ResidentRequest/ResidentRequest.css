@@ -1,7 +1,13 @@
+@font-face {
+  font-family: comfortaa;
+  src: url(../../../assets/fonts/ComfortaaBold.ttf);
+}
+
 .resident-request-title {
   text-align: center;
   padding: 40px;
   font-size: 2rem;
+  font-family: comfortaa;
 }
 
 .icon-size {

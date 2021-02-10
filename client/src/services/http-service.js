@@ -7,8 +7,10 @@ const endPointsPayment = `${config.SERVER_URL}/api/shop/pay`;
 const endPointsProducts = `${config.SERVER_URL}/api/shop/products`;
 const endPointsAllServiceRequests = `${config.SERVER_URL}/api/service-requests/manager/all-service-requests`;
 const endPointsOrders = `${config.SERVER_URL}/api/shop/orders`
+const endPointsPosts = `${config.SERVER_URL}/api/post/`
 
 class HttpService {
+
   commentOnRequest = (requestId, name, comment) => {
     const commentUrl = `${endPoints}/${requestId}/comment`;
 
@@ -50,6 +52,25 @@ class HttpService {
     });
     return promise;
   };
+  updateStatusOnRequest = (requestId, status) => {
+    const commentUrl = `${endPoints}/${requestId}/status`;
+
+    var promise = new Promise((resolve, reject) => {
+      fetch(commentUrl, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          status,
+        }),
+      }).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
 
 
   updateStatusOnRequestAsManager = (requestId, status) => {
@@ -72,6 +93,55 @@ class HttpService {
     return promise;
   };
 
+  getRequestsById = (requestId) => {
+    let promise = new Promise((resolve, reject) => {
+      fetch(`${endPoints}/${requestId}`, {
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`
+        }
+      }).then(resp => {
+        resolve(resp.json())
+      })
+    })
+    return promise;
+  }
+
+  /**
+   * Get all posts
+   */
+  getAllPosts = () => {
+    let promise = new Promise((resolve, reject) => {
+      fetch(endPointsPosts)
+        .then((response) => {
+          resolve(response.json())
+        })
+    })
+    return promise;
+  }
+
+  /**
+   * Creates a post
+   */
+  createPost = () => {
+    let promise = new Promise((resolve, reject) => {
+      fetch(endPointsPosts, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "username": "Arni",
+          "avatarUrl": "",
+          "imageUrl": "",
+          "caption": "I'll be back, homy...",
+          "comments": [],
+          "isManager": false
+        })
+      })
+
+    })
+    return promise;
+  }
 
   getRequests = () => {
     var promise = new Promise((resolve, reject) => {

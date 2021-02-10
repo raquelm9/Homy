@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 //Pages
@@ -23,20 +23,26 @@ import Unauthorized from "../components/Unauthorized/Unauthorized";
 import { AppHeader } from "./AppHeader";
 
 import NotificationRequest from '../components/Notification/NotificationRequest';
+import NotificationModal from "../components/NotificationModal/NotificationModal";
 import CommunityPage from "../pages/Residents/CommunityPage/CommunityPage";
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.userReducer.user);
 
   useEffect(() => {
     dispatch(autoLogin());
   }, [dispatch]);
 
+
+
   return (
 
     <Router>
       <AppHeader />
+      <NotificationModal open={user && user.notification_active} />
       <Switch>
+
         <Route exact path="/" component={MainPage} />
         <Route exact path="/home" component={HomePage} />
         <Route exact path="/community" component={CommunityPage} />
@@ -51,9 +57,9 @@ function App() {
           path="/resident-list-request"
           component={ResidentListRequest}
         />
-        <Route exact path="/register" component={Register} />
+        <Route path="/register" component={Register} />
         {/* <Route exact path="/mainlogin" component={MainLogin} /> */}
-        <Route exact path="/login" component={Login} />
+        <Route path="/login" component={Login} />
 
         <ProtectedRoute path="/manager" component={MngrMainPage} />
 

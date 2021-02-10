@@ -7,7 +7,9 @@ const schema = mongoose.Schema(
         email: String,
         name: String,
         user_id: String,
-        phone: String
+        phone: String,
+        notification_active: { type: Boolean, default: false },
+        notification_req_id: { type: String, default: null }
     }
 )
 

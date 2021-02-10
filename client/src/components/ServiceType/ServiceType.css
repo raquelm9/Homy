@@ -1,18 +1,37 @@
+@font-face {
+  font-family: roboto;
+  src: url(../../assets/fonts/RobotoBlack.ttf);
+}
+
+@font-face {
+  font-family: comfortaa;
+  src: url(../../assets/fonts/ComfortaaBold.ttf);
+}
+
 .size-type {
   margin: 10px 0px;
   text-align: center;
   color: black;
   padding: 25px;
   cursor: pointer;
-  border-color: #b12cc979;
 }
 
 .icon-adjust-size {
   font-size: 25px;
-  color: #a50171;
+  color: #9c27b0;
 }
 
-.buttonService {
-  border-radius: 30px;
+.button__service {
+  border-radius: 40px;
+  max-width: 70%;
+  height: 100px;
+}
 
+.button__service__inside {
+  color: #9c27b0;
+  background-color: #fafafa;
+  font-family: comfortaa, roboto;
+  height: 80px;
+  align-items: center;
+  
 }

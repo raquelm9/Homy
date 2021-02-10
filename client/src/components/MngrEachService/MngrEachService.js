@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import DetailModal from "../DetailModal/DetailModal";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import HttpService from "../../services/http-service";
 import {
   NEW,
   VIEWED,
-  INPROGRESS,
-  DONE,
-  VERIFIED,
-  ARCHIVED,
   statusTEXT,
 } from "../../constants/status";
 import { config } from "../../config/config";
@@ -16,7 +12,6 @@ import { config } from "../../config/config";
 function MngrEachService(props) {
   const modalId = `request-${props.id}`;
   const history = useHistory();
-  const location = useLocation();
   const [status, setStatus] = useState(props.status);
   const [request, setRequest] = useState(props);
   const handleOnClick = async () => {
@@ -45,7 +40,6 @@ function MngrEachService(props) {
       new HttpService()
         .updateStatusOnRequestAsManager(props.id, VIEWED)
         .then((data) => {
-          console.log(data);
           setStatus(data.status);
         });
     }
