@@ -110,7 +110,7 @@ function NotificationModal({ open }) {
                                     />
                                     <ErrorMessage
                                         name="comment"
-                                        render={(msg) => <span>{msg}</span>}// className="error-msg"
+                                        render={(msg) => <span style={ERROR_MSG_STYLE}>{msg}</span>}// className="error-msg"
                                     />
 
                                 </div>
@@ -195,3 +195,6 @@ const BUTTON_STYLE = {
 
 }
 
+const ERROR_MSG_STYLE = {
+    color: 'red'
+}
