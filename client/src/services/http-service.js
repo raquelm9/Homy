@@ -7,8 +7,10 @@ const endPointsPayment = `${config.SERVER_URL}/api/shop/pay`;
 const endPointsProducts = `${config.SERVER_URL}/api/shop/products`;
 const endPointsAllServiceRequests = `${config.SERVER_URL}/api/service-requests/manager/all-service-requests`;
 const endPointsOrders = `${config.SERVER_URL}/api/shop/orders`
+const endPointsPosts = `${config.SERVER_URL}/api/post/`
 
 class HttpService {
+  
   commentOnRequest = (requestId, name, comment) => {
     const commentUrl = `${endPoints}/${requestId}/comment`;
 
@@ -72,6 +74,41 @@ class HttpService {
     return promise;
   };
 
+  /**
+   * Get all posts
+   */
+  getAllPosts = () => {
+    let promise = new Promise((resolve, reject) => {
+      fetch(endPointsPosts)
+      .then((response) => {
+        resolve(response.json())
+      })
+    })
+    return promise;
+  }
+
+  /**
+   * Creates a post
+   */
+  createPost = () => {
+    let promise = new Promise((resolve, reject) => {
+      fetch(endPointsPosts, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify({
+          "username": "Arni", 
+          "avatarUrl": "",
+          "imageUrl": "",
+          "caption": "I'll be back, homy...",
+          "comments": [],
+          "isManager": false
+        })
+      })
+      
+    })
+  }
 
   getRequests = () => {
     var promise = new Promise((resolve, reject) => {

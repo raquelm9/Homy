@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import './ResidentPost.css'
+import ResidentPostComment from './ResidentPostComment';
 
 
 
-function ResidentPost({ username, caption, imageUrl, userAvatarUrl }) {
+function ResidentPost({ username, caption, imageUrl, userAvatarUrl, comments }) {
+    const [allPosts, setAllPosts] = useState([])
     const [comment, setComment] =useState('');
 
     const handleChange = (event) => {
@@ -15,9 +17,19 @@ function ResidentPost({ username, caption, imageUrl, userAvatarUrl }) {
 
     const postComment = (event) => {
         event.preventDefault();
-        console.log(comment)
+        console.log(comment);
 
     };
+
+
+    const allComments = (comments) => {
+        return (
+        comments.map((comment, key) => (
+            <ResidentPostComment username={comment.name} comment={comment.comment} key={key}/>
+        ))
+        )
+    }
+    
 
     return (
         <div className="post">
@@ -31,6 +43,7 @@ function ResidentPost({ username, caption, imageUrl, userAvatarUrl }) {
             </div>
             <img className="post__image" src={imageUrl} alt="username"/>
             <h4 className="post__text"><strong>{username}</strong> {caption}</h4>
+            <div>{allComments(comments)}</div>
             <form className="post__commentBox">
                 <input
                     className="post__comment"
