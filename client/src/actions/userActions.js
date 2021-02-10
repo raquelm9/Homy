@@ -1,8 +1,10 @@
-import { SET_USER, LOG_OUT } from "./types";
+import { SET_USER, LOG_OUT, SET_USER_NOTIFICATION } from "./types";
 import { config } from "../config/config";
 import swal from "sweetalert";
 
 const setUser = (payload) => ({ type: SET_USER, payload });
+
+export const setUserNotification = (payload) => ({ type: SET_USER_NOTIFICATION, payload });
 
 export const logUserOut = () => ({ type: LOG_OUT });
 

@@ -7,7 +7,7 @@ import NotificationModal from "../../../components/NotificationModal/Notificatio
 import "./HomePage.css";
 
 function HomePage() {
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const userName = useSelector((state) => state.userReducer.user.name);
   const [notificationToReview, setNotificationToReview] = useState(false)
   const history = useHistory();
