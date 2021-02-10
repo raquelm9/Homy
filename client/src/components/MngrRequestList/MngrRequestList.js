@@ -24,11 +24,17 @@ function MngrRequestList() {
   const loadAllData = () => {
     new HttpService().getAllServiceRequests().then(
       (data) => {
-        setAllRequests(data);
+        // setAllRequests(data);
+        sortManagerList(data)
       },
       (err) => {}
     );
   };
+  function sortManagerList(data){ 
+    data.sort((a, b) => (a.status > b.status) ? 1 : -1)
+    console.log(data)
+   setAllRequests(data);  
+  }
 
   const listOfServices = (service, i) => {
     return (
