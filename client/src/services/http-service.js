@@ -140,6 +140,7 @@ class HttpService {
       })
 
     })
+    return promise;
   }
 
   getRequests = () => {

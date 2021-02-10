@@ -164,6 +164,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 
   const user = await User.findById(request.user_id);
 
+
   const notification = new Notification({
     type: request.type,
     description: request.description,

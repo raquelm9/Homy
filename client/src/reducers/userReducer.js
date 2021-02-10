@@ -17,16 +17,13 @@ const userReducer = (state = defaultState, action) => {
       localStorage.clear();
       return {
         loggedIn: false,
-        user: {},
+        user: {}
 
       };
     case SET_USER_NOTIFICATION:
       return {
         ...state,
-        user: {
-          notification_active: action.payload,
-          notification_req_id: ""
-        }
+        user: { ...state.user, notification_active: false, notification_req_id: '' }
       }
     default:
       return state;
@@ -34,3 +31,7 @@ const userReducer = (state = defaultState, action) => {
 };
 
 export default userReducer;
+// user: {
+//   notification_active: action.payload,
+//     notification_req_id: ""
+// }
