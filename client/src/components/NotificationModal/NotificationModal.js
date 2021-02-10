@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import HttpService from '../../services/http-service';
 import { INPROGRESS, ARCHIVED } from '../../constants/status';
 import { setUserNotification } from '../../actions/userActions';
+import { Formik, Form, Field, ErrorMessage } from "formik";
 function NotificationModal({ open }) {
 
     const [request, setRequest] = useState({});
@@ -15,10 +16,6 @@ function NotificationModal({ open }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(comment)
-    }, [comment])
-
-    useEffect(() => {
         if (isLoggedIn) {
             new HttpService()
                 .getRequestsById(user.notification_req_id)
@@ -27,20 +24,21 @@ function NotificationModal({ open }) {
     }, [isLoggedIn, user])
 
     const onClickHandle = (toBeArchived) => {
-        console.log('onClickHandle', toBeArchived)
-        console.log(user.notification_req_id)
         if (toBeArchived) {
             new HttpService()
                 .updateStatusOnRequest(user.notification_req_id, ARCHIVED)
                 .then((data) => dispatch(setUserNotification(false)))
         } else {
-            new HttpService()
-                .updateStatusOnRequest(user.notification_req_id, INPROGRESS)
-                .then((data) => {
-                    new HttpService()
-                        .commentOnRequest(user.notification_req_id, user.name, comment)
-                        .then(data => dispatch(setUserNotification(false)))
-                })
+            if (comment.length) {
+                new HttpService()
+                    .updateStatusOnRequest(user.notification_req_id, INPROGRESS)
+                    .then((data) => {
+                        new HttpService()
+                            .commentOnRequest(user.notification_req_id, user.name, comment)
+                            .then(data => dispatch(setUserNotification(false)))
+                    })
+            }
+
         }
     }
 
@@ -85,23 +83,51 @@ function NotificationModal({ open }) {
 
                     </div>
                     <hr />
-                    <div style={TEXT_AREA_STYLE}>
+                    <div >
+                        <Formik
+                            initialValues={{ comment: comment }}
+                            onSubmit={(data) => {
+                                onClickHandle(false);
+                            }}
+                            validate={(values) => {
+                                const errors = {};
+                                if (!comment) {
+                                    errors.comment = "Required";
+                                }
 
-                        <p>Please add a comment if your are not happy about your experience</p>
-                        <textarea
-                            onChange={(e) => setComment(e.target.value)}
-                            value={comment}
-                        />
-                    </div>
-                    <div style={BUTTON_STYLE}>
-                        <button
-                            className="btn btn-light"
-                            onClick={() => onClickHandle(false)}>Refused</button>
-                        <button
-                            className="btn btn-light"
-                            onClick={() => onClickHandle(true)}>Verified</button>
+                                return errors;
+                            }}
+                        >
+                            <Form>
+                                <div style={TEXT_AREA_STYLE}>
+                                    <p>Please add a comment if your are not happy about your experience</p>
+                                    <Field
+                                        id="comment"
+                                        name="comment"
+                                        as="textarea"
+                                        onChange={(e) => setComment(e.target.value)}
+                                        value={comment}
+                                    />
+                                    <ErrorMessage
+                                        name="comment"
+                                        render={(msg) => <span>{msg}</span>}// className="error-msg"
+                                    />
+
+                                </div>
+                                <div style={BUTTON_STYLE}>
+                                    <button
+                                        className="btn btn-light"
+                                        type="submit" >Refused</button>
+                                    <button
+                                        className="btn btn-light"
+                                        onClick={() => onClickHandle(true)}>Verified</button>
+
+                                </div>
+                            </Form>
+                        </Formik>
 
                     </div>
+
 
                 </div>
             </div>
