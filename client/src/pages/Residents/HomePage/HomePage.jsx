@@ -12,6 +12,7 @@ function HomePage() {
   const history = useHistory();
 
   const serviceOptions = [
+    "GO TO COMMUNITY",
     "REQUEST A SERVICE",
     "CHECK REQUEST HISTORY",
     "GO TO SHOP",
@@ -24,6 +25,8 @@ function HomePage() {
       history.push("/resident-list-request");
     } else if (serviceOption === "GO TO SHOP") {
       history.push("/shop");
+    } else if (serviceOption === "GO TO COMMUNITY") {
+      history.push("/community");
     }
   };
 
@@ -53,21 +56,27 @@ function HomePage() {
 
         <div className="row">
           <div className="col-12 center-service-title">
-            <h1 className="greeting-info">Welcome, {userName}!</h1>
+            <h1 className="resident-request-title home-page">
+              Welcome, {userName}!
+            </h1>
           </div>
         </div>
 
         <div className="row">
           <div className="col-12 center-service-title">
-            <p className="greeting-second">WHAT IS ON YOUR MIND TODAY?</p>
+            <p className="resident-request-title home-page-second">
+              WHAT IS ON YOUR MIND TODAY?
+            </p>
           </div>
         </div>
 
         {serviceOptions.map((serviceOption, index) =>
           cardHistory(serviceOption, index)
         )}
-        <NotificationModal open={modalIsOpen} onClose={() => setModalIsOpen(false)} />
-
+        <NotificationModal
+          open={modalIsOpen}
+          onClose={() => setModalIsOpen(false)}
+        />
       </div>
     </>
   );

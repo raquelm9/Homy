@@ -77,6 +77,8 @@ function DetailModal(props) {
             ></button>
           </div>
           <div className="modal-body">
+            <p className="titles-modal">Date:</p>
+            <p> {props.date}</p>
             <p className="titles-modal">Status:</p>
             <p> {statusTEXT[props.status]}</p>
             {currentUser.isManager &&

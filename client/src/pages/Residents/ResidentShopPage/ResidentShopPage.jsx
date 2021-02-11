@@ -54,7 +54,16 @@ const ResidentShopPage = () => {
   };
 
   return (
-    <div className="shopping-container">{products ? getProducts() : null}</div>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-12">
+          <h1 className="resident-request-title">SHOP</h1>
+        </div>
+      </div>
+      <div className="shopping-container">
+        {products ? getProducts() : null}
+      </div>
+    </div>
   );
 };
 
