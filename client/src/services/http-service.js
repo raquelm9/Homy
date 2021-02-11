@@ -122,7 +122,7 @@ class HttpService {
   /**
    * Creates a post
    */
-  createPost = () => {
+  createPost = (username, caption, isManager) => {
     let promise = new Promise((resolve, reject) => {
       fetch(endPointsPosts, {
         method: 'POST',
@@ -130,12 +130,12 @@ class HttpService {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          "username": "Arni",
-          "avatarUrl": "",
-          "imageUrl": "",
-          "caption": "I'll be back, homy...",
+          "username": username,
+          "avatarUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg/220px-Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg",
+          "imageUrl": "https://miro.medium.com/max/700/1*WNr4o3XKVcb556Al3beWAQ.jpeg",
+          "caption": caption,
           "comments": [],
-          "isManager": false
+          "isManager": isManager
         })
       })
 
