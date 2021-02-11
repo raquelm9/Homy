@@ -70,7 +70,7 @@ exports.createRequest = async (req, res) => {
 };
 
 exports.deleteRequest = async (req, res) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
   const serviceRequestId = req.params.id;
   let request = await Request.findById(serviceRequestId);
 
@@ -157,12 +157,13 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   // console.log(req.body);
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-  console.log(req.body);
+  // console.log(req.body);
   if (request.status === req.body.status) {
     return res.send({ message: "Status has already been updated." });
   }
 
   const user = await User.findById(request.user_id);
+
 
   const notification = new Notification({
     type: request.type,
@@ -243,6 +244,6 @@ exports.authNotification = async (req, res) => {
 
   const notification = await Notification.findById(decoded._id);
 
-  console.log(notification);
+  // console.log(notification);
   res.send(notification);
 };

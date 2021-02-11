@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectIsLoggedIn,
-  selectIsManager,
-} from "../../selectors/userSelectors";
+import { selectIsLoggedIn } from "../../selectors/userSelectors";
 import "./auth.css";
 
 import { fetchUser } from "../../actions/userActions";
 
-const loginOptions = {
-  resident: "RESIDENT",
-  manager: "MANAGER",
-};
+// const loginOptions = {
+//   resident: "RESIDENT",
+//   manager: "MANAGER",
+// };
 
 function Login(props) {
   // const [whoAmI, setWhoAmI] = useState(loginOptions.resident);
@@ -27,17 +24,22 @@ function Login(props) {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigateToDashboard();
+      // navigateToDashboard();
+      if (currentUser.isManager) {
+        history.push("/manager");
+      } else {
+        history.push("/home");
+      }
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, currentUser.isManager, history]);
 
-  const navigateToDashboard = () => {
-    if (currentUser.isManager) {
-      history.push("/manager");
-    } else {
-      history.push("/home");
-    }
-  };
+  // const navigateToDashboard = () => {
+  //   if (currentUser.isManager) {
+  //     history.push("/manager");
+  //   } else {
+  //     history.push("/home");
+  //   }
+  // };
 
   const login = (email, password) => {
 

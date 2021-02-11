@@ -4,7 +4,7 @@ import swal from "sweetalert";
 
 const setUser = (payload) => ({ type: SET_USER, payload });
 
-export const setUserNotification = (payload) => ({ type: SET_USER_NOTIFICATION, payload });
+export const setUserNotification = (payload) => ({ type: SET_USER_NOTIFICATION });
 
 export const logUserOut = () => ({ type: LOG_OUT });
 

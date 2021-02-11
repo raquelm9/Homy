@@ -1,15 +1,7 @@
 import React from "react";
 import DetailModal from "../DetailModal/DetailModal";
 import { useHistory } from "react-router-dom";
-import {
-  NEW,
-  VIEWED,
-  INPROGRESS,
-  DONE,
-  ARCHIVED,
-  VERIFIED,
-  statusTEXT,
-} from "../../constants/status";
+import { statusTEXT } from "../../constants/status";
 import { config } from "../../config/config";
 
 function ResidentEachService(props) {
