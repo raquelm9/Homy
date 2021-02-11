@@ -3,12 +3,12 @@ import DetailModal from "../DetailModal/DetailModal";
 import { useHistory } from "react-router-dom";
 import { statusTEXT } from "../../constants/status";
 import { config } from "../../config/config";
+import "./ResidentEachService.css";
 
 function ResidentEachService(props) {
   const modalId = `request-${props.id}`;
   const history = useHistory();
   const handleOnClick = async () => {
-    console.log(props.id);
     await fetch(`${config.SERVER_URL}/api/service-requests/${props.id}`, {
       method: "DELETE",
       headers: {
@@ -31,12 +31,14 @@ function ResidentEachService(props) {
   return (
     <>
       <tr>
-        <td>{handleDate()}</td>
-        <td>{props.type}</td>
+        <td className="font-adjustment">{props.type}</td>
+        <td className="font-adjustment">
+          {props.status ? statusTEXT[props.status] : null}
+        </td>
         <td>
           <button
             type="button"
-            className="btn btn-dark"
+            className="btn btn-dark btn-sm"
             data-bs-toggle="modal"
             data-bs-target={`#${modalId}`}
           >
@@ -54,10 +56,9 @@ function ResidentEachService(props) {
             description={props.description}
             comments={props.comments}
             status={props.status}
+            date={handleDate()}
           />
         </td>
-
-        <td>{props.status ? statusTEXT[props.status] : null}</td>
       </tr>
     </>
   );

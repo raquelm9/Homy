@@ -47,7 +47,8 @@ function WeatherCard() {
 
                     <div className="current">
                       <div className="hi-low">
-                        {tempMax} {!!tempMax && <span>°C / </span>} {tempMin}
+                        {Math.round(tempMax)} {!!tempMax && <span>°C / </span>}{" "}
+                        {Math.round(tempMin)}
                         {!!tempMin && <span>°C</span>}
                       </div>
                     </div>
@@ -55,7 +56,7 @@ function WeatherCard() {
                 </div>
                 <div className="col-6 center-temp">
                   <div className="temp">
-                    {temperature} {!!temperature && <span>°C</span>}
+                    {Math.round(temperature)} {!!temperature && <span>°C</span>}
                   </div>
                 </div>
               </div>

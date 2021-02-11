@@ -44,11 +44,10 @@ function ResidentRequestList() {
         <table className="table table-hover margin-table">
           <thead>
             <tr>
-              <th scope="col">Date</th>
               <th scope="col">Type</th>
+              <th scope="col">Status</th>
               <th scope="col">Details</th>
               <th scope="col"></th>
-              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>{request.map(listOfServices)}</tbody>
