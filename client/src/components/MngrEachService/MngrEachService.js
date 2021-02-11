@@ -124,7 +124,7 @@ function MngrEachService(props) {
             subject={props.subject}
             description={props.description}
             unit_num={props.unit_num}
-            resident_name={props.resident_name}
+            resident_name={props.resident_01072name}
             comments={props.comments}
             status={status}
             onChangeStatus={(status) => setStatus(status)}
