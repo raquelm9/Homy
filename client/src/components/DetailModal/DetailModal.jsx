@@ -16,7 +16,6 @@ function DetailModal(props) {
           .updateStatusOnRequestAsManager(props.request.id, INPROGRESS)
           .then((data) => {
             props.onChangeStatus(data.status);
-            console.log(data);
           });
         break;
       case INPROGRESS:
