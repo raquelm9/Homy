@@ -1,6 +1,6 @@
-import { Modal, Form, Button } from 'react-bootstrap';
+// import { Modal, Form, Button } from 'react-bootstrap';
 
-const PostModal= (props) => {
+const PostModal= () => {
     
     // const [showPostModal, setShowPostModal] = useState(false);
     // const handleClose = () => (console.log("close"))
