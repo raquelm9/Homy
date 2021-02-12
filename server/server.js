@@ -7,7 +7,6 @@ const config = require("./app/config");
 const app = express();
 const mongoose = require('./app/models/db');//mongodb
 
-
 app.use(cors({ exposedHeaders: ["x-auth-token"] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

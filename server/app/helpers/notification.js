@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const config = require("../config");
+const saveLog = require('./saveLog');
+const { encrypt, decrypt } = require('../helpers/cipher');
 
 exports.createNotificationObject = (
   residentEmail,
@@ -36,12 +38,24 @@ exports.sendEmailNotification = async (mailOptions) => {
   // Setting the refresh token credentials for the oauth2 access object
   oAuth2Client.setCredentials({ refresh_token: config.GOOGLE.REFRESH_TOKEN });
 
+
+
+
+  // oauth2Client.on('tokens', (tokens) => {
+  //     if (tokens.refresh_token) {
+  //         // store the refresh_token in my database!
+  //         console.log(tokens.refresh_token);
+  //     }
+  // });
   async function sendMail(mailOptions) {
     try {
       // getting access token from google with oauth2 object through getAccessToken method. FYI, the accessToken has expiry of 1 hour
       // That is why it is always needed to get new access token before sending the mail
       const accessToken = await oAuth2Client.getAccessToken();
+      if (config.ENV.NODE_ENV === 'dev') {
 
+        saveLog(accessToken, 'email')
+      }
       // Creating transport object for sending email using the nodemailer class
       const transport = nodemailer.createTransport({
         service: "gmail",

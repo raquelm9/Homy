@@ -9,6 +9,9 @@ module.exports = {
     CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || "",
     REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI || "",
     REFRESH_TOKEN: process.env.GOOGLE_REFRESH_TOKEN || "",
+    CIPHER_SECRET_KEY: process.env.HOMY_CIPHER_SECRET_KEY || 'abcde',
+    CIPHER_ALGORITHM: process.env.HOMY_CIPHER_ALGORITHM || 'aes-256-ctr',
+    CIPHER_IV: process.env.HOMY_CIPHER_IV || '16'
   },
   TWILIO: {
     ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID || "",
@@ -34,4 +37,7 @@ module.exports = {
     SECRET_KEY: process.env.JWT_SECRET_KEY || "jwtPrivateKey",
     EMAIL_SECRET_KEY: process.env.JWT_EMAIL_SECRET_KEY || "jwtPrivateKeyEmail",
   },
+  ENV: {
+    NODE_ENV: process.env.NODE_ENV || false
+  }
 };

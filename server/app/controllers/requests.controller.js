@@ -9,15 +9,20 @@ const {
   sendEmailNotification,
   sendSMSNotification,
 } = require("../helpers/notification");
+const saveLog = require('../helpers/saveLog')
 const { NEW, INPROGRESS, DONE, statusTEXT, ARCHIVED } = require("../constants/status");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
+const { encrypt, decrypt } = require('../helpers/cipher');
+
 
 const _ = require("lodash");
 
 const fs = require("fs");
 
 exports.getRequest = (req, res) => {
+
+  decrypt(encrypt("This is a secret message!"))
   Request.find({ user_id: req.user._id, status: { $ne: ARCHIVED } }).then((data) => res.send(data));
 };
 exports.getRequestById = (req, res) => {
@@ -154,10 +159,10 @@ exports.commentOnRequestAsManager = async (req, res) => {
 exports.updateStatusOnRequestAsManager = async (req, res) => {
 
   const serviceRequestId = req.params.requestId;
-  // console.log(req.body);
+  console.log(req.body);
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-  // console.log(req.body);
+
   if (request.status === req.body.status) {
     return res.send({ message: "Status has already been updated." });
   }
@@ -171,7 +176,11 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     status: req.body.status,
     notification_type: request.notification,
   });
-
+  console.log(request);
+  console.log(notification);
+  console.log(user)
+  console.log(config.SERVER.EMAIL)
+  console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
   await notification.save();
 
   if (req.body.status === DONE) {
@@ -180,10 +189,13 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
       { $set: { notification_active: true, notification_req_id: request._id } }
     )
   }
+
+
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
-
+      console.log('in email')
       const residentEmail = config.SERVER.EMAIL || user.email;
+      console.log(residentEmail)
       const emailSubject = "Status of request changed";
       const emailTextBody = emailSubject;
       const emailHtmlBody = emailSubject;
@@ -199,10 +211,16 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
       const responseNotification = await sendEmailNotification(
         residentNotificationEmailDetails
       );
+      console.log(responseNotification)
+      if (config.ENV.NODE_ENV === 'dev') {
+
+        saveLog(responseNotification, 'email')
+      }
+
 
     }
     if (request.notification === "phone") {
-      const residentPhone = config.SERVER.PHONE || residentEmail.phone;
+      const residentPhone = config.SERVER.PHONE || resident.phone;
 
       const responseSMS = await sendSMSNotification(
         resident.phone,
@@ -210,7 +228,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
       );
     }
   }
-  // return res.status(200).send(request);
+  return res.status(200).send(request);
   request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);
