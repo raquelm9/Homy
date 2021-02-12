@@ -3,6 +3,7 @@ const { google } = require("googleapis");
 const config = require("../config");
 const saveLog = require('./saveLog');
 const { encrypt, decrypt } = require('../helpers/cipher');
+const { Token } = require('../models/token.schema');
 
 exports.createNotificationObject = (
   residentEmail,
@@ -41,12 +42,21 @@ exports.sendEmailNotification = async (mailOptions) => {
 
 
 
-  // oauth2Client.on('tokens', (tokens) => {
-  //     if (tokens.refresh_token) {
-  //         // store the refresh_token in my database!
-  //         console.log(tokens.refresh_token);
-  //     }
-  // });
+
+  oauth2Client.on('tokens', async (tokens) => {
+    if (tokens.refresh_token) {
+      // store the refresh_token in my database!
+      const encrypted = encrypt(tokens.refresh_token)
+      const token = new Token({
+        iv: encrypted.iv,
+        content: encrypted.content
+      })
+
+      await token.save();
+      console.log(tokens.refresh_token);
+    }
+  });
+
   async function sendMail(mailOptions) {
     try {
       // getting access token from google with oauth2 object through getAccessToken method. FYI, the accessToken has expiry of 1 hour
@@ -56,6 +66,8 @@ exports.sendEmailNotification = async (mailOptions) => {
 
         saveLog(accessToken, 'email')
       }
+      const lastToken = await Token.findOne().sort({ 'created_at': 1 })
+      console.log('lastToken', lastToken)
       // Creating transport object for sending email using the nodemailer class
       const transport = nodemailer.createTransport({
         service: "gmail",

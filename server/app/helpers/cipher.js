@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const algorithm = config.GOOGLE.CIPHER_ALGORITHM;
 const secretKey = config.GOOGLE.CIPHER_SECRET_KEY;
 const iv = crypto.randomBytes(parseInt(config.GOOGLE.CIPHER_IV));
-// const iv = crypto.randomBytes(16);
+
 
 exports.encrypt = (text) => {
 

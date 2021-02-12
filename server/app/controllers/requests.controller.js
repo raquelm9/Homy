@@ -3,6 +3,7 @@ const { User } = require("../models/user.model");
 const { Comment, validateComment } = require("../models/comments.schema");
 const { Notification } = require("../models/notification.model");
 const { Resident } = require('../models/resident.model')
+
 const Counter = require("../models/counter.model");
 const {
   createNotificationObject,
@@ -10,19 +11,19 @@ const {
   sendSMSNotification,
 } = require("../helpers/notification");
 const saveLog = require('../helpers/saveLog')
-const { NEW, INPROGRESS, DONE, statusTEXT, ARCHIVED } = require("../constants/status");
+const { DONE, ARCHIVED } = require("../constants/status");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
-const { encrypt, decrypt } = require('../helpers/cipher');
 
 
 const _ = require("lodash");
 
 const fs = require("fs");
 
-exports.getRequest = (req, res) => {
+exports.getRequest = async (req, res) => {
 
-  decrypt(encrypt("This is a secret message!"))
+ 
+
   Request.find({ user_id: req.user._id, status: { $ne: ARCHIVED } }).then((data) => res.send(data));
 };
 exports.getRequestById = (req, res) => {
@@ -176,11 +177,11 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     status: req.body.status,
     notification_type: request.notification,
   });
-  console.log(request);
-  console.log(notification);
-  console.log(user)
-  console.log(config.SERVER.EMAIL)
-  console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
+  // console.log(request);
+  // console.log(notification);
+  // console.log(user)
+  // console.log(config.SERVER.EMAIL)
+  // console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
   await notification.save();
 
   if (req.body.status === DONE) {
