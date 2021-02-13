@@ -43,7 +43,7 @@ exports.sendEmailNotification = async (mailOptions) => {
 
 
 
-  oauth2Client.on('tokens', async (tokens) => {
+  oAuth2Client.on('tokens', async (tokens) => {
     if (tokens.refresh_token) {
       // store the refresh_token in my database!
       const encrypted = encrypt(tokens.refresh_token)
@@ -66,8 +66,8 @@ exports.sendEmailNotification = async (mailOptions) => {
 
         saveLog(accessToken, 'email')
       }
-      const lastToken = await Token.findOne().sort({ 'created_at': 1 })
-      console.log('lastToken', lastToken)
+      // const lastToken = await Token.findOne().sort({ 'created_at': 1 })
+      // console.log('lastToken', lastToken)
       // Creating transport object for sending email using the nodemailer class
       const transport = nodemailer.createTransport({
         service: "gmail",
@@ -106,7 +106,7 @@ exports.sendSMSNotification = async (residentPhoneNumber, residentMessage) => {
 
   return await client.messages.create({
     to: residentPhoneNumber,
-    from: config.TWILIO.TWILIO_PRIMARY_PHONE_NUMBER,
+    from: config.TWILIO.PRIMARY_PHONE_NUMBER,
     body: residentMessage,
   });
 };

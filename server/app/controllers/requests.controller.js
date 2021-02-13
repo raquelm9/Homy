@@ -22,7 +22,7 @@ const fs = require("fs");
 
 exports.getRequest = async (req, res) => {
 
- 
+
 
   Request.find({ user_id: req.user._id, status: { $ne: ARCHIVED } }).then((data) => res.send(data));
 };
@@ -170,18 +170,17 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 
   const user = await User.findById(request.user_id);
 
-
   const notification = new Notification({
     type: request.type,
     description: request.description,
     status: req.body.status,
     notification_type: request.notification,
   });
-  // console.log(request);
-  // console.log(notification);
-  // console.log(user)
-  // console.log(config.SERVER.EMAIL)
-  // console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
+  console.log('request:', request);
+  console.log('notification:', notification);
+  console.log('user:', user)
+  console.log(config.SERVER.EMAIL)
+  console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
   await notification.save();
 
   if (req.body.status === DONE) {
@@ -191,12 +190,11 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     )
   }
 
-
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
-      console.log('in email')
+      // console.log('in email')
       const residentEmail = config.SERVER.EMAIL || user.email;
-      console.log(residentEmail)
+      // console.log(residentEmail)
       const emailSubject = "Status of request changed";
       const emailTextBody = emailSubject;
       const emailHtmlBody = emailSubject;
@@ -212,24 +210,25 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
       const responseNotification = await sendEmailNotification(
         residentNotificationEmailDetails
       );
-      console.log(responseNotification)
-      if (config.ENV.NODE_ENV === 'dev') {
 
+      // console.log(responseNotification)
+      if (config.ENV.NODE_ENV === 'dev') {
         saveLog(responseNotification, 'email')
       }
 
-
     }
     if (request.notification === "phone") {
+      const messageSubject = "Status of request changed";
+      const resident = Resident.findById(request.user_id)
       const residentPhone = config.SERVER.PHONE || resident.phone;
 
       const responseSMS = await sendSMSNotification(
-        resident.phone,
-        emailSubject
+        residentPhone,
+        messageSubject
       );
     }
   }
-  return res.status(200).send(request);
+  // return res.status(200).send(request);
   request.status = req.body.status;
   await request.save();
   return res.status(200).send(request);
