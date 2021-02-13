@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DetailModal from "../DetailModal/DetailModal";
 import { useHistory } from "react-router-dom";
 import HttpService from "../../services/http-service";
-import {
-  NEW,
-  VIEWED,
-  statusTEXT,
-} from "../../constants/status";
+import { NEW, VIEWED, statusTEXT } from "../../constants/status";
 import { config } from "../../config/config";
 
 function MngrEachService(props) {
@@ -14,6 +10,11 @@ function MngrEachService(props) {
   const history = useHistory();
   const [status, setStatus] = useState(props.status);
   const [request, setRequest] = useState(props);
+
+  useEffect(() => {
+    props.onItemStatusChange(status);
+  }, [status]);
+
   const handleOnClick = async () => {
     await fetch(`${config.SERVER_URL}/api/service-requests/${props.id}`, {
       method: "DELETE",
@@ -124,7 +125,7 @@ function MngrEachService(props) {
             subject={props.subject}
             description={props.description}
             unit_num={props.unit_num}
-            resident_name={props.resident_name}
+            resident_name={props.resident_01072name}
             comments={props.comments}
             status={status}
             onChangeStatus={(status) => setStatus(status)}
