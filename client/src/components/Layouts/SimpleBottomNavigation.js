@@ -21,17 +21,7 @@ export default function SimpleBottomNavigation() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const submitPost = (username, caption, isManager) => {
-    const newHttpRequest = new HttpService();
-    // username = username;
-    // caption = caption;
-    // isManager = isManager;
-
-    return newHttpRequest.createPost(username, caption, isManager);
-    // .finally(() => {
-    //history.push("/post");
-    // });
-  };
+  
 
   const CreatePost = () => {
     console.log("button worked");

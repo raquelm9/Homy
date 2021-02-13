@@ -14,8 +14,9 @@ exports.createPost = async (req, res) => {
       date: req.body.date,
       // user_id: req.user._id,
       username: req.body.username, 
-      avatarUrl: req.body.avatarUrl, 
-      imageUrl: req.body.imageUrl,
+      avatarUrl: req.body.avatarUrl,
+      image: path, 
+      // imageUrl: req.body.imageUrl,
       caption: req.body.caption,
       comment: req.body.comment, 
       isManager: req.body.isManager
