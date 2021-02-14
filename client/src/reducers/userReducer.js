@@ -30,8 +30,10 @@ const userReducer = (state = defaultState, action) => {
       };
     case REMOVE_USER_NOTIFICATION:
       let notificationActive = true;
-      let notificationReqId = state.user.notification_req_id;
-      notificationReqId.unshift();
+      let notificationReqId = [...state.user.notification_req_id];
+
+      notificationReqId.shift();
+
       if (state.user.notification_req_id.length <= 1) {
         notificationActive = false
       }

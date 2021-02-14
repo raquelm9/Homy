@@ -16,9 +16,9 @@ function NotificationModal({ open }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (isLoggedIn) {
+        if (isLoggedIn && open) {
             new HttpService()
-                .getRequestsById(user.notification_req_id)
+                .getRequestsById(user.notification_req_id[0])
                 .then((data) => setRequest(data));
         }
     }, [isLoggedIn, user])
