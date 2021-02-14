@@ -21,7 +21,7 @@ exports.validate = function validateResident(resident) {
         unit_num: Joi.string().required(),
         email: Joi.string().required(),
         name: Joi.string().required(),
-        user_id: Joi.string(),
+        user_id: Joi.string().required(),
         phone: Joi.string()
     })
     return schema.validate(resident);

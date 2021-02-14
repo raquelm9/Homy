@@ -7,7 +7,7 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "test": "NODE_ENV=test jest --runInBand ",
+    "test": "NODE_ENV=test jest --runInBand --watchAll ",
     "start": "NODE_ENV=prod node server.js",
     "start:dev": "NODE_ENV=dev nodemon server.js",
     "dev": "NODE_ENV=dev nodemon server.js"
