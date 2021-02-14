@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import './ResidentPost.css'
 import ResidentPostComment from './ResidentPostComment';
+import { useHistory } from "react-router-dom";
+import HttpService from "../../services/http-service";
 
 
 
 function ResidentPost({ username, caption, imageUrl, userAvatarUrl, comments }) {
     const [allPosts, setAllPosts] = useState([])
     const [comment, setComment] =useState('');
+
+    const history = useHistory();
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -18,8 +22,14 @@ function ResidentPost({ username, caption, imageUrl, userAvatarUrl, comments }) 
     const postComment = (event) => {
         event.preventDefault();
         console.log(comment);
+        const newHttpRequest = new HttpService();
 
-    };
+        return newHttpRequest.postComment(comment)
+        .finally(() => {
+        history.push("/post");
+
+
+    })}
 
 
     const allComments = (comments) => {

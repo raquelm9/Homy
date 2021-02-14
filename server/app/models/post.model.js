@@ -12,7 +12,8 @@ const schema = mongoose.Schema({
 //   user_id: String,
   username: String, 
   avatarUrl: String,
-  imageUrl: String,
+  // imageUrl: String,
+  image: String,
   caption: String,
   comments: [{ type: PostComment }],
   isManager: Boolean
