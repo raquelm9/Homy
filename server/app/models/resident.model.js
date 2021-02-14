@@ -9,7 +9,7 @@ const schema = mongoose.Schema(
         user_id: String,
         phone: String,
         notification_active: { type: Boolean, default: false },
-        notification_req_id: { type: String, default: null }
+        notification_req_id: { type: Array, default: null }
     }
 )
 

@@ -24,7 +24,9 @@ exports.getRequest = async (req, res) => {
 
 
 
-  Request.find({ user_id: req.user._id, status: { $ne: ARCHIVED } }).then((data) => res.send(data));
+  Request
+    .find({ user_id: req.user._id, status: { $ne: ARCHIVED } })
+    .then((data) => res.send(data));
 };
 exports.getRequestById = (req, res) => {
   Request.findById(req.params.id)
@@ -176,19 +178,15 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     status: req.body.status,
     notification_type: request.notification,
   });
-  console.log('request:', request);
-  console.log('notification:', notification);
-  console.log('user:', user)
-  console.log(config.SERVER.EMAIL)
-  console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
+  // console.log('request:', request);
+  // console.log('notification:', notification);
+  // console.log('user:', user)
+  // console.log(config.SERVER.EMAIL)
+  // console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
+
   await notification.save();
 
-  if (req.body.status === DONE) {
-    await Resident.findOneAndUpdate(
-      { user_id: request.user_id },
-      { $set: { notification_active: true, notification_req_id: request._id } }
-    )
-  }
+
 
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {

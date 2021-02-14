@@ -1,6 +1,7 @@
 
 const auth = require("../app/middleware/auth");
 const manager = require("../app/middleware/manager");
+const setNotification = require('../app/middleware/setNotification');
 const request = require("../app/controllers/requests.controller");
 const router = require("express").Router();
 const upload = require("../app/helpers/images");
@@ -26,7 +27,7 @@ module.exports = (app) => {
     request.updateStatusOnRequest
   );
   router.get('/:id', auth, request.getRequestById)
-  router.get("/", auth, request.getRequest);
+  router.get("/", [auth, setNotification], request.getRequest);
 
   router.get(
     "/manager/all-service-requests",
