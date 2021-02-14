@@ -1,5 +1,3 @@
-const { register } = require('../app/controllers/users.controller');
-const { User } = require('../app/models/user.model');
 const mongoose = require('mongoose');
 const app = require('./app')
 const db = require('./db');
@@ -9,9 +7,7 @@ describe('User controller', () => {
 
     beforeAll(async () => await db.connect());
 
-    /**
-     * Remove and close the db and server.
-     */
+    /**Remove and close the db and server.*/
     afterAll(async () => await db.closeDatabase());
 
     describe('User is a resident', () => {
@@ -36,6 +32,20 @@ describe('User controller', () => {
             expect(resUser.status).toBe(200);
             expect(resUser.body.email).toBe(residentEmail)
             expect(resUser.body.isManager).toBe(false)
+        })
+
+        it('should not register a resident if email exist', async () => {
+            const resUser = await request(app)
+                .post('/api/users')
+                .send({
+                    email: residentEmail,
+                    password: residentPassword
+                })
+
+
+
+            expect(resUser).toBeDefined();
+            expect(resUser.status).toBe(400);
         })
 
         it('should create an account resident', async () => {
@@ -72,6 +82,20 @@ describe('User controller', () => {
             expect(resLoginResident.body.name).toBe(residentName);
             expect(resLoginResident.body.email).toBe(residentEmail);
             expect(resLoginResident.body._id).toBe(userId);
+            expect(resLoginResident.header['x-auth-token']).toBeDefined();
+        })
+        it('should not login a resident if password is wrong', async () => {
+
+            const resLoginResident = await request(app)
+                .post('/api/login')
+                .send({
+                    email: residentEmail,
+                    password: 'residentPassword'
+                })
+
+            expect(resLoginResident).toBeDefined();
+            expect(resLoginResident.status).toBe(400);
+            expect(resLoginResident.body).toStrictEqual({});
         })
     })
 
@@ -125,9 +149,24 @@ describe('User controller', () => {
 
             expect(resLoginManager).toBeDefined();
             expect(resLoginManager.status).toBe(200);
+            expect(resLoginManager.body.isManager).toBe(true);
             expect(resLoginManager.body.name).toBe(managerName);
             expect(resLoginManager.body.email).toBe(managerEmail);
             expect(resLoginManager.body._id).toBe(userId);
+            expect(resLoginManager.header['x-auth-token']).toBeDefined();
+        })
+        it('should not login a manager if password is wrong', async () => {
+
+            const resLoginManager = await request(app)
+                .post('/api/login')
+                .send({
+                    email: managerEmail,
+                    password: 'managerPassword'
+                })
+
+            expect(resLoginManager).toBeDefined();
+            expect(resLoginManager.status).toBe(400);
+            expect(resLoginManager.body).toStrictEqual({});
         })
     })
 })
