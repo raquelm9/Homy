@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { useSelector, useDispatch } from "react-redux";
 import HttpService from '../../services/http-service';
 import { INPROGRESS, ARCHIVED } from '../../constants/status';
-import { setUserNotification } from '../../actions/userActions';
+import { removeUserNotification } from '../../actions/userActions';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 function NotificationModal({ open }) {
 
@@ -16,9 +16,9 @@ function NotificationModal({ open }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (isLoggedIn) {
+        if (isLoggedIn && open) {
             new HttpService()
-                .getRequestsById(user.notification_req_id)
+                .getRequestsById(user.notification_req_id[0])
                 .then((data) => setRequest(data));
         }
     }, [isLoggedIn, user])
@@ -26,16 +26,16 @@ function NotificationModal({ open }) {
     const onClickHandle = (toBeArchived) => {
         if (toBeArchived) {
             new HttpService()
-                .updateStatusOnRequest(user.notification_req_id, ARCHIVED)
-                .then((data) => dispatch(setUserNotification(false)))
+                .updateStatusOnRequest(user.notification_req_id[0], ARCHIVED)
+                .then((data) => dispatch(removeUserNotification()))
         } else {
             if (comment.length) {
                 new HttpService()
-                    .updateStatusOnRequest(user.notification_req_id, INPROGRESS)
+                    .updateStatusOnRequest(user.notification_req_id[0], INPROGRESS)
                     .then((data) => {
                         new HttpService()
-                            .commentOnRequest(user.notification_req_id, user.name, comment)
-                            .then(data => dispatch(setUserNotification(false)))
+                            .commentOnRequest(user.notification_req_id[0], user.name, comment)
+                            .then(data => dispatch(removeUserNotification()))
                     })
             }
 
@@ -120,6 +120,7 @@ function NotificationModal({ open }) {
                                         type="submit" >Refused</button>
                                     <button
                                         className="btn btn-light"
+                                        type="button"
                                         onClick={() => onClickHandle(true)}>Verified</button>
 
                                 </div>

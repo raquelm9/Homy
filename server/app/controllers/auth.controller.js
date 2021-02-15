@@ -49,14 +49,14 @@ exports.login = async (req, res) => {
 
   user.unit_num = resident.unit_num;
   user.name = resident.name;
-  user.notification_active = resident.notification_active
-  user.notification_req_id = resident.notification_req_id
+  user.notification_active = resident.notification_active;
+  user.notification_req_id = resident.notification_req_id;
 
   const token = user.generateAuthToken();
 
   res
     .header("x-auth-token", token)
-    .send(_.pick(user, ["_id", "email", "name", "unit_num", "notification_active", "notification_req_id"]));
+    .send(_.pick(user, ["_id", "email", "name", "unit_num", "notification_active", , "notification_req_id"]));
 };
 
 exports.verifyUser = async (req, res) => {
@@ -73,9 +73,8 @@ exports.verifyUser = async (req, res) => {
 
     user.unit_num = resident.unit_num;
     user.name = resident.name;
-    user.notification_active = resident.notification_active
-    user.notification_req_id = resident.notification_req_id
-
+    user.notification_active = resident.notification_active;
+    user.notification_req_id = resident.notification_req_id;
     res
       .header("x-auth-token", token)
       .send(_.pick(user, ["_id", "email", "unit_num", "name", "notification_active", , "notification_req_id"]));
@@ -95,37 +94,37 @@ exports.verifyUser = async (req, res) => {
   }
 };
 
-exports.loginAsManager = async (req, res) => {
-  const schema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(5),
-  });
+// exports.loginAsManager = async (req, res) => {
+//   const schema = Joi.object({
+//     email: Joi.string().email().required(),
+//     password: Joi.string().min(5),
+//   });
 
-  const result = schema.validate(req.body);
+//   const result = schema.validate(req.body);
 
-  if (result.error) {
-    return res.status(400).send(result.error.details[0].message);
-  }
+//   if (result.error) {
+//     return res.status(400).send(result.error.details[0].message);
+//   }
 
-  let user = await User.findOne({ email: req.body.email });
+//   let user = await User.findOne({ email: req.body.email });
 
-  if (!user) return res.status(400).send("Invalid email or password.");
-  if (!user.isManager) return res.status(403).send("Forbidden");
+//   if (!user) return res.status(400).send("Invalid email or password.");
+//   if (!user.isManager) return res.status(403).send("Forbidden");
 
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).send("Invalid email or password.");
+//   const validPassword = await bcrypt.compare(req.body.password, user.password);
+//   if (!validPassword) return res.status(400).send("Invalid email or password.");
 
-  let manager = await Manager.findOne({ user_id: user._id }); //
+//   let manager = await Manager.findOne({ user_id: user._id }); //
 
-  if (!manager)
-    return res.status(400).send("This user don't have an account yet.");
+//   if (!manager)
+//     return res.status(400).send("This user don't have an account yet.");
 
-  user.building_id = manager.building_id;
-  user.name = manager.name;
+//   user.building_id = manager.building_id;
+//   user.name = manager.name;
 
-  const token = user.generateAuthToken();
+//   const token = user.generateAuthToken();
 
-  res
-    .header("x-auth-token", token)
-    .send(_.pick(user, ["_id", "isManager", "name", "building_id"]));
-};
+//   res
+//     .header("x-auth-token", token)
+//     .send(_.pick(user, ["_id", "isManager", "name", "building_id"]));
+// };

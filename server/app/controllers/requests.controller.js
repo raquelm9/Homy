@@ -3,22 +3,30 @@ const { User } = require("../models/user.model");
 const { Comment, validateComment } = require("../models/comments.schema");
 const { Notification } = require("../models/notification.model");
 const { Resident } = require('../models/resident.model')
+
 const Counter = require("../models/counter.model");
 const {
   createNotificationObject,
   sendEmailNotification,
   sendSMSNotification,
 } = require("../helpers/notification");
-const { NEW, INPROGRESS, DONE, statusTEXT, ARCHIVED } = require("../constants/status");
+const saveLog = require('../helpers/saveLog')
+const { DONE, ARCHIVED } = require("../constants/status");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
+
 
 const _ = require("lodash");
 
 const fs = require("fs");
 
-exports.getRequest = (req, res) => {
-  Request.find({ user_id: req.user._id, status: { $ne: ARCHIVED } }).then((data) => res.send(data));
+exports.getRequest = async (req, res) => {
+
+
+
+  Request
+    .find({ user_id: req.user._id, status: { $ne: ARCHIVED } })
+    .then((data) => res.send(data));
 };
 exports.getRequestById = (req, res) => {
   Request.findById(req.params.id)
@@ -154,16 +162,15 @@ exports.commentOnRequestAsManager = async (req, res) => {
 exports.updateStatusOnRequestAsManager = async (req, res) => {
 
   const serviceRequestId = req.params.requestId;
-  // console.log(req.body);
+  console.log(req.body);
   const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-  // console.log(req.body);
+
   if (request.status === req.body.status) {
     return res.send({ message: "Status has already been updated." });
   }
 
   const user = await User.findById(request.user_id);
-
 
   const notification = new Notification({
     type: request.type,
@@ -171,19 +178,21 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     status: req.body.status,
     notification_type: request.notification,
   });
+  // console.log('request:', request);
+  // console.log('notification:', notification);
+  // console.log('user:', user)
+  // console.log(config.SERVER.EMAIL)
+  // console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
 
   await notification.save();
 
-  if (req.body.status === DONE) {
-    await Resident.findOneAndUpdate(
-      { user_id: request.user_id },
-      { $set: { notification_active: true, notification_req_id: request._id } }
-    )
-  }
+
+
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
-
+      // console.log('in email')
       const residentEmail = config.SERVER.EMAIL || user.email;
+      // console.log(residentEmail)
       const emailSubject = "Status of request changed";
       const emailTextBody = emailSubject;
       const emailHtmlBody = emailSubject;
@@ -196,23 +205,33 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
         emailHtmlBody,
         token
       );
+
       const responseNotification = await sendEmailNotification(
         residentNotificationEmailDetails
       );
 
+      console.log(responseNotification)
+      // if (config.ENV.NODE_ENV === 'dev') {
+      //   saveLog(responseNotification, 'email')
+      // }
+
     }
     if (request.notification === "phone") {
-      const residentPhone = config.SERVER.PHONE || residentEmail.phone;
+      const messageSubject = "Status of request changed";
+      const resident = Resident.findById(request.user_id)
+      const residentPhone = config.SERVER.PHONE || resident.phone;
 
       const responseSMS = await sendSMSNotification(
-        resident.phone,
-        emailSubject
+        residentPhone,
+        messageSubject
       );
     }
   }
   // return res.status(200).send(request);
+
   request.status = req.body.status;
   await request.save();
+  console.log('request-atatus')
   return res.status(200).send(request);
 };
 
