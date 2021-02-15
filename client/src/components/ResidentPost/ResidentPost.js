@@ -5,13 +5,15 @@ import ResidentPostComment from './ResidentPostComment';
 import { useHistory } from "react-router-dom";
 import HttpService from "../../services/http-service";
 import { config } from "../../config/config";
-//import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
+import {selectUser} from "../../selectors/userSelectors";
 
 
 
 function ResidentPost({ username, caption, image, userAvatarUrl, comments }) {
     const [allPosts, setAllPosts] = useState([])
-    const [comment, setComment] =useState([]);
+    const [newComment, setNewComment] =useState([]);
+
     const history = useHistory();
      //const loggedIn = useSelector((state) => state.userReducer.loggedIn);
 
@@ -25,12 +27,21 @@ function ResidentPost({ username, caption, image, userAvatarUrl, comments }) {
 // useEffect(() => {
 //     postComment();
 //   }, []);
+
+const currentUser = useSelector(selectUser);
+  const name = currentUser.name;
   
   const postComment = (event) => {
       event.preventDefault();
-    new HttpService().getComments().then(
+      const newComment = {
+          name,
+          comment: newComment,
+      };
+
+    new HttpService().getComments( name, newComment)
+    .then(
       (data) => {
-        setComment(data);
+        setNewComment(data);
       },
       (err) => {}
     );
@@ -74,7 +85,7 @@ function ResidentPost({ username, caption, image, userAvatarUrl, comments }) {
     const handleChange = (event) => {
         event.preventDefault();
         console.log(event.target.value);
-        setComment(event.target.value);
+        setNewComment(event.target.value);
     };
     
     // const postComments = (event) => {
@@ -126,11 +137,11 @@ function ResidentPost({ username, caption, image, userAvatarUrl, comments }) {
                     className="post__comment"
                     placeholder="add a comment..."
                     type="text"
-                    value={comment}
+                    value={newComment}
                     onChange={handleChange}
                 />
                 <button
-                    disabled={!comment}
+                    disabled={!newComment}
                     className="post__button"
                     type="submit"
                     onClick={postComment}
