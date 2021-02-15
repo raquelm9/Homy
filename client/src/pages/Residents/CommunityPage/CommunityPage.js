@@ -21,11 +21,13 @@ function CommunityPage() {
   };
 
   const mappingPosts = (posts) => {
+    console.log(posts)
     return posts.map((post, key) => (
       <ResidentPost
         username={post.username}
         caption={post.caption}
-        imageUrl={post.imageUrl}
+        // imageUrl={post.imageUrl}
+        image={post.image}
         userAvatarUrl={post.avatarUrl}
         key={key}
         comments={post.comments}
