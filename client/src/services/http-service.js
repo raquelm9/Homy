@@ -168,6 +168,14 @@ class HttpService {
     return promise;
   };
 
+  getComments = () => {
+    let promise = new Promise((resolve, reject) => {
+      fetch(endPointsPosts).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
 
 
    
