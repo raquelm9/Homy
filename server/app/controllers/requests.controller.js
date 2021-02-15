@@ -205,14 +205,15 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
         emailHtmlBody,
         token
       );
+
       const responseNotification = await sendEmailNotification(
         residentNotificationEmailDetails
       );
 
-      // console.log(responseNotification)
-      if (config.ENV.NODE_ENV === 'dev') {
-        saveLog(responseNotification, 'email')
-      }
+      console.log(responseNotification)
+      // if (config.ENV.NODE_ENV === 'dev') {
+      //   saveLog(responseNotification, 'email')
+      // }
 
     }
     if (request.notification === "phone") {
@@ -227,8 +228,10 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     }
   }
   // return res.status(200).send(request);
+
   request.status = req.body.status;
   await request.save();
+  console.log('request-atatus')
   return res.status(200).send(request);
 };
 

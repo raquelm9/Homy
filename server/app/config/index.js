@@ -39,5 +39,8 @@ module.exports = {
   },
   ENV: {
     NODE_ENV: process.env.NODE_ENV || false
+  },
+  FRONTEND: {
+    URI: process.env.FRONTEND_URI || 'http://localhost:3000'
   }
 };
