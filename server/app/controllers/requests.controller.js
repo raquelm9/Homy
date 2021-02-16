@@ -178,12 +178,12 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     status: req.body.status,
     notification_type: request.notification,
   });
-  // console.log('request:', request);
-  // console.log('notification:', notification);
-  // console.log('user:', user)
-  // console.log(config.SERVER.EMAIL)
-  // console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
-
+  console.log('request:', request);
+  console.log('notification:', notification);
+  console.log('user:', user)
+  // console.log('server.email',config.SERVER.EMAIL)
+  console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
+  console.log('request.notification', request.notification)
   await notification.save();
 
 
@@ -225,6 +225,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
         residentPhone,
         messageSubject
       );
+      console.log(responseSMS)
     }
   }
   // return res.status(200).send(request);
