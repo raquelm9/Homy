@@ -10,7 +10,7 @@ import {selectUser} from "../../selectors/userSelectors";
 
 
 
-function ResidentPost({ username, caption, imageUrl, userAvatarUrl, comments }) {
+function ResidentPost({ username, caption, image, userAvatarUrl, comments }) {
     const [allPosts, setAllPosts] = useState([])
     const [newComment, setNewComment] =useState([]);
 
@@ -105,6 +105,14 @@ const currentUser = useSelector(selectUser);
         )
     }
     
+    const getImagePath = () => {
+        if (image.includes("http")) {
+          return image;
+        }
+    
+        return `${config.SERVER_URL}/${image}`;
+      };
+
 
     return (
         <div className="post">
@@ -116,7 +124,12 @@ const currentUser = useSelector(selectUser);
                 />
                 <h4>{username}</h4>
             </div>
-            <img className="post__image" src={imageUrl} alt="username"/>
+
+            {image ? (
+              <img src={getImagePath()} className="img-fluid" alt="images" />
+            ) : null}
+
+            {/* <img className="post__image" src={`/${image}`} alt="username"/> */}
             <h4 className="post__text"><strong>{username}</strong> {caption}</h4>
             <div>{allComments(comments)}</div>
             <form className="post__commentBox">

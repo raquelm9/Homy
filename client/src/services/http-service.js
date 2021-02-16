@@ -120,20 +120,22 @@ class HttpService {
   /**
    * Creates a post
    */
-  // createPost = ({ username, caption, file}) => {
+  // createPost = ({ username, caption }) => {
   //   let promise = new Promise((resolve, reject) => {
   //     fetch(endPointsPosts, {
   //       method: "POST",
   //       headers: {
   //         "Content-Type": "application/json",
+  //         "x-auth-token": `${localStorage.getItem("token")}`
   //       },
   //       body: JSON.stringify({
   //         username: username,
   //         avatarUrl:
   //           "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg/220px-Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg",
-  //         imageUrl: file,
+  //         imageUrl: 
+          // file,
             
-  //         // "https://miro.medium.com/max/700/1*WNr4o3XKVcb556Al3beWAQ.jpeg",
+  //         "https://miro.medium.com/max/700/1*WNr4o3XKVcb556Al3beWAQ.jpeg",
   //         caption: caption,
   //         comments: [],
   //         isManager: false,
@@ -222,14 +224,15 @@ class HttpService {
     let promise = new Promise((resolve, reject) => {
     
       const data = new FormData();
-      data.append("type", value.username);
+      data.append("username", value.username);
       data.append("caption", value.caption);
       data.append("image", value.image);
       
       fetch(endPointsPosts, {
-        method: "POST",
+        method: "post",
         headers: {
-          "Content-Type": "application/json",
+          // "Content-Type": "application/json",
+          "x-auth-token": `${localStorage.getItem("token")}`,
         },
         body: data,})
         .then((res) => {
