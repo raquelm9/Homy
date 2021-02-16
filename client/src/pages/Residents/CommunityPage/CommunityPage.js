@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SimpleBottomNavigation from "../../../components/Layouts/SimpleBottomNavigation";
 import ResidentPost from "../../../components/ResidentPost/ResidentPost";
+import Announcements from '../CommunityPage/Announcements';
 import "./CommunityPage.css";
 import HttpService from "../../../services/http-service";
 
@@ -35,6 +36,7 @@ function CommunityPage() {
 
   return (
     <div className="community--page">
+      <Announcements />
       <div className="community--page__posts">
         {mappingPosts(allPosts)}
         {/* comment section  */}
