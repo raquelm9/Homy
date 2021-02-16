@@ -8,9 +8,49 @@ const endPointsProducts = `${config.SERVER_URL}/api/shop/products`;
 const endPointsAllServiceRequests = `${config.SERVER_URL}/api/service-requests/manager/all-service-requests`;
 const endPointsOrders = `${config.SERVER_URL}/api/shop/orders`;
 const endPointsPosts = `${config.SERVER_URL}/api/post/`;
+const endPointsAnnouncements = `${config.SERVER_URL}/api/announcement/`;
 // const endPointsPosts = `${config.SERVER_URL}/api/post/:postId/comment`;
 
 class HttpService {
+
+  /**
+   * Announcement
+   */
+  getAllAnnouncements = () => {
+    let promise = new Promise((resolve, reject) => {
+      fetch(endPointsAnnouncements).then((response) => {
+        resolve(response.json());
+      });
+    });
+    return promise;
+  };
+
+  createAnnouncement = (value) => {
+    let promise = new Promise((resolve, reject) => {
+    
+      const data = new FormData();
+      data.append("username", value.username);
+      data.append("title", value.title);
+      data.append("image", value.image);
+      data.append("announcement", value.announcement);
+      
+      fetch(endPointsAnnouncements, {
+        method: "post",
+        headers: {
+          // "Content-Type": "application/json",
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        },
+        body: data,})
+        .then((res) => {
+          resolve(res.json());
+      });
+    });
+    return promise;
+  };
+
+
+
+
   commentOnRequest = (requestId, name, comment) => {
     const commentUrl = `${endPoints}/${requestId}/comment`;
 

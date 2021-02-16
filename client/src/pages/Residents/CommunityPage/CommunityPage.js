@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import {Card} from 'react-bootstrap';
+
 import SimpleBottomNavigation from "../../../components/Layouts/SimpleBottomNavigation";
 import ResidentPost from "../../../components/ResidentPost/ResidentPost";
 import Announcements from '../CommunityPage/Announcements';
@@ -7,15 +9,27 @@ import HttpService from "../../../services/http-service";
 
 function CommunityPage() {
   const [allPosts, setAllPosts] = useState([]);
+  const [allAnnouncements, setAllAnnouncements] = useState([]);
 
   useEffect(() => {
     loadAllPosts();
+    loadAllAnnouncements();
   }, []);
 
   const loadAllPosts = () => {
     new HttpService().getAllPosts().then(
       (data) => {
-        setAllPosts(data);
+        const newData = [...data].reverse()
+        setAllPosts(newData);
+      },
+      (err) => {}
+    );
+  };
+
+  const loadAllAnnouncements = () => {
+    new HttpService().getAllAnnouncements().then(
+      (data) => {
+        setAllAnnouncements(data);
       },
       (err) => {}
     );
@@ -36,9 +50,32 @@ function CommunityPage() {
     ));
   };
 
+
+  const mappingAnnouncements = (announcements) => {
+    console.log(announcements)
+    return announcements.map((announcement, key) => (
+      <Announcements
+      username={announcement.username}
+      image={announcement.image}
+      title={announcement.title}
+      announcement={announcement.announcement}
+      key={key}
+      />
+    ));
+  };
+
+  // const wrapAnnoucements = () => (
+  //   <Card>
+  //   <Card.Header as="h2">Announcements</Card.Header>
+  //   {mappingAnnouncements(allAnnouncements)}
+  //   </Card>
+  // )
+
+
   return (
     <div className="community--page">
-      <Announcements />
+      {/* {allAnnouncements && wrapAnnoucements} */}
+      {mappingAnnouncements(allAnnouncements)}
       <div className="community--page__posts">
         {mappingPosts(allPosts)}
         {/* comment section  */}

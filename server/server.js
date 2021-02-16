@@ -19,6 +19,7 @@ require("./routes/residents.route")(app);
 require("./routes/shop.route")(app);
 require("./routes/managers.route")(app);
 require("./routes/posts.route")(app);
+require("./routes/announcements.route")(app);
 
 app.listen(config.SERVER.PORT, function () {
   console.log("Environment", process.env.NODE_ENV);

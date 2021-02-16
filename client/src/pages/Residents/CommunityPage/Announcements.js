@@ -1,24 +1,21 @@
 import React from 'react';
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Image} from 'react-bootstrap';
+import './Annoucements.css'
 
 
-const Announcements = () => {
+const Announcements = ({username, image, title, announcement}) => {
     return ( 
  <Card>
     <Card.Header as="h2">Announcements</Card.Header>
+
     <Card.Body>
-    <Card.Title>Parking lot cleaning</Card.Title>
+    <Image className="announcement__image" src={image} fluid />
+    <Card.Title>{title}</Card.Title>
     <Card.Text>
-        The parking lot will be cleaned on the 20th of March. All residents are advised to park on the side of the road 
+        {announcement} 
     </Card.Text>
     </Card.Body>
-    <Card.Body>
-    <Card.Title>Fire Alarm Warning</Card.Title>
-    <Card.Text>
-        Reminder to all residents that the fire alarm drill will be done today around 2pm.
-    </Card.Text>
-    </Card.Body>
-    <Button variant="dark">Got it</Button>
+    {/* <Button variant="dark">Got it</Button> */}
 </Card>
      );
 }
