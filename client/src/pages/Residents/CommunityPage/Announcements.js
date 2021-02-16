@@ -13,12 +13,12 @@ const Announcements = () => {
     </Card.Text>
     </Card.Body>
     <Card.Body>
-    <Card.Title>Parking lot cleaning</Card.Title>
+    <Card.Title>Fire Alarm Warning</Card.Title>
     <Card.Text>
-        The parking lot will be cleaned on the 20th of March. All residents are advised to park on the side of the road 
+        Reminder to all residents that the fire alarm drill will be done today around 2pm.
     </Card.Text>
     </Card.Body>
-    <Button variant="primary">Go somewhere</Button>
+    <Button variant="dark">Got it</Button>
 </Card>
      );
 }
