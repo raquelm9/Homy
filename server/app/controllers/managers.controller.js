@@ -6,7 +6,7 @@ exports.createAccount = async (req, res) => {
     if (result.error) {
         return res.status(400).send(result.error.details[0].message);
     }
-    console.log(req.body)
+    // console.log(req.body)
     let manager = new Manager({
         name: req.body.name,
         user_id: req.body.user_id,

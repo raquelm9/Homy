@@ -40,7 +40,7 @@ function App() {
 
     <Router>
       <AppHeader />
-      <NotificationModal open={user && user.notification_active} />
+      <NotificationModal open={user && !user.isManager && user.notification_active} />
       <Switch>
 
         <Route exact path="/" component={MainPage} />

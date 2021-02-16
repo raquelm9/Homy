@@ -20,18 +20,11 @@ function ResidentPostForm() {
     data.username = name;
     // data.isManager = isManager;
     
-    console.log(data)
+
     return newHttpRequest.createPost(data)
-      .then(() => {
-        console.log("history is " + history)
-      history.push("/");
-    })
-    .finally(() => {
-      console.log("history is " + history)
-    history.push("/community");
-  })
-    
-    
+      .finally(() => {
+      history.push("/community");
+    });
   };
 
   // const submitPost = (username, caption, isManager) => {
@@ -48,8 +41,7 @@ function ResidentPostForm() {
 
   const initialValues = {
     caption: "",
-    image:""
-    // file: "",
+    file: "",
   };
 
   return (
@@ -57,7 +49,7 @@ function ResidentPostForm() {
       <Formik
         initialValues={initialValues}
         onSubmit={(data, { setSubmitting, resetForm }) => {
-          console.log("this is data " + data.caption);
+          console.log(data);
 
           setSubmitting(true);
           // make async call
@@ -84,7 +76,6 @@ function ResidentPostForm() {
               type="file"
               onChange={(event) => {
                 setFieldValue("image", event.currentTarget.files[0]);
-                console.log(event.currentTarget.files[0].path)
               }}
             />
             <div className="col-12 text-center space-button-form">

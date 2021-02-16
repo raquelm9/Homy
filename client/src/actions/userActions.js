@@ -1,10 +1,12 @@
-import { SET_USER, LOG_OUT, SET_USER_NOTIFICATION } from "./types";
+import { SET_USER, LOG_OUT, SET_USER_NOTIFICATION, REMOVE_USER_NOTIFICATION } from "./types";
 import { config } from "../config/config";
 import swal from "sweetalert";
 
 const setUser = (payload) => ({ type: SET_USER, payload });
 
 export const setUserNotification = (payload) => ({ type: SET_USER_NOTIFICATION });
+
+export const removeUserNotification = () => ({ type: REMOVE_USER_NOTIFICATION })
 
 export const logUserOut = () => ({ type: LOG_OUT });
 
@@ -28,26 +30,26 @@ export const fetchUser = (userInfo) => (dispatch) => {
       loginErrorMsg();
     });
 };
-export const fetchUserAsManager = (userInfo) => (dispatch) => {
-  fetch(`${config.SERVER_URL}/api/login/manager`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(userInfo),
-  })
-    .then((res) => {
-      localStorage.setItem("token", res.headers.get("x-auth-token"));
-      return res.json();
-    })
-    .then((data) => {
-      localStorage.setItem("isManager", true);
+// export const fetchUserAsManager = (userInfo) => (dispatch) => {
+//   fetch(`${config.SERVER_URL}/api/login/manager`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(userInfo),
+//   })
+//     .then((res) => {
+//       localStorage.setItem("token", res.headers.get("x-auth-token"));
+//       return res.json();
+//     })
+//     .then((data) => {
+//       localStorage.setItem("isManager", true);
 
-      dispatch(setUser(data));
-    })
-    .catch((err) => {
-      dispatch(logUserOut());
-      loginErrorMsg();
-    });
-};
+//       dispatch(setUser(data));
+//     })
+//     .catch((err) => {
+//       dispatch(logUserOut());
+//       loginErrorMsg();
+//     });
+// };
 
 export const register = (userInfo) => (dispatch) => {
   fetch(`${config.SERVER_URL}/api/users`, {

@@ -9,7 +9,7 @@ const schema = mongoose.Schema(
         user_id: String,
         phone: String,
         notification_active: { type: Boolean, default: false },
-        notification_req_id: { type: String, default: null }
+        notification_req_id: { type: Array, default: null }
     }
 )
 
@@ -21,7 +21,7 @@ exports.validate = function validateResident(resident) {
         unit_num: Joi.string().required(),
         email: Joi.string().required(),
         name: Joi.string().required(),
-        user_id: Joi.string(),
+        user_id: Joi.string().required(),
         phone: Joi.string()
     })
     return schema.validate(resident);

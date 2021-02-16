@@ -1,6 +1,9 @@
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const config = require("../config");
+const saveLog = require('./saveLog');
+const { encrypt, decrypt } = require('../helpers/cipher');
+const { Token } = require('../models/token.schema');
 
 exports.createNotificationObject = (
   residentEmail,
@@ -16,7 +19,7 @@ exports.createNotificationObject = (
     text: textBody,
     html: ` <p>${htmlBody}</p>
             <br /> 
-            <a href="http://localhost:3000/notification/requests/${token}">Click here to see more</a>
+            <a href="${config.FRONTEND.URI}/notification/requests/${token}">Click here to see more</a>
             <h4> 'We got you, Homy!!'</h4>
             `,
   };
@@ -36,12 +39,37 @@ exports.sendEmailNotification = async (mailOptions) => {
   // Setting the refresh token credentials for the oauth2 access object
   oAuth2Client.setCredentials({ refresh_token: config.GOOGLE.REFRESH_TOKEN });
 
+
   async function sendMail(mailOptions) {
     try {
+      let accessToken = '';
+      oAuth2Client.on('tokens', async (tokens) => {
+        if (tokens.refresh_token) {
+          // store the refresh_token in my database!
+          const encrypted = encrypt(tokens.refresh_token)
+          const token = new Token({
+            iv: encrypted.iv,
+            content: encrypted.content
+          })
+
+          await token.save();
+          console.log('refresh_tokens', tokens.refresh_token);
+        }
+        if (tokens.access_token) {
+          accessToken = tokens.access_token
+          // console.log('access token', tokens.access_token)
+        }
+      });
       // getting access token from google with oauth2 object through getAccessToken method. FYI, the accessToken has expiry of 1 hour
       // That is why it is always needed to get new access token before sending the mail
-      const accessToken = await oAuth2Client.getAccessToken();
+      if (!accessToken) accessToken = await oAuth2Client.getAccessToken();
+      // if (config.ENV.NODE_ENV === 'dev') {
 
+      //   saveLog({ accessToken: accessToken }, 'email')
+      // }
+
+      // const lastToken = await Token.findOne().sort({ 'created_at': 1 })
+      // console.log('lastToken', lastToken)
       // Creating transport object for sending email using the nodemailer class
       const transport = nodemailer.createTransport({
         service: "gmail",
@@ -59,12 +87,19 @@ exports.sendEmailNotification = async (mailOptions) => {
 
       // Creating the mail options object to be passed on when sending the mail
       // This is where we create the email itself for the header and body of the email.
-
+      // console.log(config.GOOGLE.CLIENT_ID)
+      // console.log(config.GOOGLE.CLIENT_SECRET)
+      // console.log(config.GOOGLE.REFRESH_TOKEN)
+      // console.log('access token', accessToken.token)
+      console.log(mailOptions)
+      console.log(transport)
       // Sending the email, transport class has sendMail method for sending the email. It is an async function and return a promise
       // therefore put the await when calling
       const result = await transport.sendMail(mailOptions);
+      console.log(result)
       return result; // Getting return value from transport.sendMail which contains the confirmation and other information
     } catch (error) {
+      console.log('error', error)
       return error;
     }
   }
@@ -80,7 +115,7 @@ exports.sendSMSNotification = async (residentPhoneNumber, residentMessage) => {
 
   return await client.messages.create({
     to: residentPhoneNumber,
-    from: config.TWILIO.TWILIO_PRIMARY_PHONE_NUMBER,
+    from: config.TWILIO.PRIMARY_PHONE_NUMBER,
     body: residentMessage,
   });
 };

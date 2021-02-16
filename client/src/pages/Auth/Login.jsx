@@ -28,7 +28,7 @@ function Login(props) {
       if (currentUser.isManager) {
         history.push("/manager");
       } else {
-        history.push("/home");
+        history.push("/community");
       }
     }
   }, [isLoggedIn, currentUser.isManager, history]);
