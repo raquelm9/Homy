@@ -178,12 +178,12 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     status: req.body.status,
     notification_type: request.notification,
   });
-  console.log('request:', request);
-  console.log('notification:', notification);
-  console.log('user:', user)
-  // console.log('server.email',config.SERVER.EMAIL)
-  console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
-  console.log('request.notification', request.notification)
+  // console.log('request:', request);
+  // console.log('notification:', notification);
+  // console.log('user:', user)
+  // // console.log('server.email',config.SERVER.EMAIL)
+  // console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
+  // console.log('request.notification', request.notification)
   await notification.save();
 
 
@@ -218,14 +218,17 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     }
     if (request.notification === "phone") {
       const messageSubject = "Status of request changed";
-      const resident = Resident.findById(request.user_id)
-      const residentPhone = config.SERVER.PHONE || resident.phone;
+      const resident = await Resident.findOne({ user_id: request.user_id })
+      if (resident.phone) {
+        const residentPhone = config.SERVER.PHONE || resident.phone;
+        // console.log(resident)
+        const responseSMS = await sendSMSNotification(
+          residentPhone,
+          messageSubject
+        );
+        // console.log(responseSMS)
+      }
 
-      const responseSMS = await sendSMSNotification(
-        residentPhone,
-        messageSubject
-      );
-      console.log(responseSMS)
     }
   }
   // return res.status(200).send(request);
