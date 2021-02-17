@@ -107,15 +107,23 @@ exports.sendEmailNotification = async (mailOptions) => {
   return await sendMail(mailOptions);
 };
 
-exports.sendSMSNotification = async (residentPhoneNumber, residentMessage) => {
+exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, token) => {
   const client = require("twilio")(
     config.TWILIO.ACCOUNT_SID,
     config.TWILIO.AUTH_TOKEN
   );
-  // <a href="${config.FRONTEND.URI}/notification/requests/${token}">Click here to see more</a>
+
+
+  residentMessage = residentMessage + `
+      Click on the link to see this more details
+      ${config.FRONTEND.URI}/notification/requests/${token}"
+      'We got you, Homy!!'
+  `
+
   return await client.messages.create({
     to: residentPhoneNumber,
     from: config.TWILIO.PRIMARY_PHONE_NUMBER,
     body: residentMessage,
   });
+
 };

@@ -186,8 +186,8 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
   // console.log('request.notification', request.notification)
   await notification.save();
 
-
-
+  console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
+  console.log(request.notification)
   if (!config.TOGGLES.DISABLE_NOTIFICATION) {
     if (request.notification === "email") {
       // console.log('in email')
@@ -219,12 +219,14 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     if (request.notification === "phone") {
       const messageSubject = "Status of request changed";
       const resident = await Resident.findOne({ user_id: request.user_id })
-      if (resident.phone) {
-        const residentPhone = config.SERVER.PHONE || resident.phone;
-        // console.log(resident)
+      const residentPhone = config.SERVER.PHONE || resident.phone;
+      console.log(residentPhone)
+      if (residentPhone) {
+        const token = notification.generateNotificationToken();
         const responseSMS = await sendSMSNotification(
           residentPhone,
-          messageSubject
+          messageSubject,
+          token
         );
         // console.log(responseSMS)
       }
@@ -235,7 +237,6 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
 
   request.status = req.body.status;
   await request.save();
-  console.log('request-atatus')
   return res.status(200).send(request);
 };
 
@@ -251,10 +252,10 @@ exports.updateStatusOnRequest = async (req, res) => {
 
   // const user = await User.findById(request.user_id);
 
-  await Resident.findOneAndUpdate(
-    { user_id: request.user_id },
-    { $set: { notification_active: false, notification_req_id: "" } }
-  )
+  // await Resident.findOneAndUpdate(
+  //   { user_id: request.user_id },
+  //   { $set: { notification_active: false, notification_req_id: "" } }
+  // )
 
 
   request.status = req.body.status;
@@ -264,7 +265,7 @@ exports.updateStatusOnRequest = async (req, res) => {
 
 
 exports.getNotificationsDone = async (req, res) => {
-  console.log('checkIfNotificationActive');
+
 
   const requests = await Request.find({
     user_id: req.user._id,
