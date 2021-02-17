@@ -1,5 +1,4 @@
 const users = require("../app/controllers/auth.controller");
-const notification = require('../app/middleware/setNotification');
 const router = require("express").Router();
 
 module.exports = (app) => {

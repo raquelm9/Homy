@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { config } from "../../config/config";
 import MessageSection from "../MessageSection/MessageSection";
 import "./DetailModal.css";
@@ -8,6 +8,7 @@ import HttpService from "../../services/http-service";
 
 function DetailModal(props) {
   const currentUser = useSelector((state) => state.userReducer.user);
+
 
   const handleClickChangeStatus = () => {
     switch (props.status) {
@@ -45,6 +46,7 @@ function DetailModal(props) {
       return null;
     }
   };
+
 
   const getImagePath = () => {
     if (props.image.includes("http")) {
@@ -102,8 +104,8 @@ function DetailModal(props) {
             <p>{props.props.}</p> */}
             <p className="titles-modal">Description:</p>
             <p>{props.description}</p>
-            <p className="titles-modal">Reference Number:</p>
-            <p>{props.id}</p>
+            {/* <p className="titles-modal">Reference Number:</p>
+            <p>{props.id}</p> */}
             <hr></hr>
             <MessageSection
               comments={props.comments}
