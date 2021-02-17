@@ -8,8 +8,6 @@ export const setUserNotification = (payload) => ({ type: SET_USER_NOTIFICATION, 
 
 export const removeUserNotification = () => ({ type: REMOVE_USER_NOTIFICATION })
 
-
-
 export const logUserOut = () => ({ type: LOG_OUT });
 
 export const fetchUser = (userInfo) => (dispatch) => {
