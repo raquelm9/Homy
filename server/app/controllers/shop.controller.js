@@ -86,17 +86,41 @@ exports.createProduct = (req, res) => {
     imagePath: path,
   });
 
-  product.save().then((data) => res.send(data));
+  product
+    .save()
+    .then((data) => res.send(data))
+    .catch(err => {
+      console.log(err)
+      return res.sendStatus(500)
+    })
 };
 
 exports.getProducts = (req, res) => {
-  Product.find().then((data) => res.send(data));
+  Product
+    .find()
+    .then((data) => res.send(data))
+    .catch(err => {
+      console.log(err)
+      return res.sendStatus(500)
+    })
 };
 exports.getOrders = (req, res) => {
-  Order.find().then((data) => res.send(data));
+  Order
+    .find()
+    .then((data) => res.send(data))
+    .catch(err => {
+      console.log(err)
+      return res.sendStatus(500)
+    })
 };
 exports.deleteOrder = (req, res) => {
   const orderId = req.params.id;
 
-  Order.deleteOne({ _id: orderId }).then((data) => res.send(data));
+  Order
+    .deleteOne({ _id: orderId })
+    .then((data) => res.send(data))
+    .catch(err => {
+      console.log(err)
+      return res.sendStatus(500)
+    })
 };

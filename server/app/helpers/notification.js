@@ -108,22 +108,28 @@ exports.sendEmailNotification = async (mailOptions) => {
 };
 
 exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, token) => {
-  const client = require("twilio")(
-    config.TWILIO.ACCOUNT_SID,
-    config.TWILIO.AUTH_TOKEN
-  );
+  try {
+    const client = require("twilio")(
+      config.TWILIO.ACCOUNT_SID,
+      config.TWILIO.AUTH_TOKEN
+    );
 
 
-  residentMessage = residentMessage + `
+    residentMessage = residentMessage + `
       Click on the link to see this more details
       ${config.FRONTEND.URI}/notification/requests/${token}"
       'We got you, Homy!!'
   `
 
-  return await client.messages.create({
-    to: residentPhoneNumber,
-    from: config.TWILIO.PRIMARY_PHONE_NUMBER,
-    body: residentMessage,
-  });
+    return await client.messages.create({
+      to: residentPhoneNumber,
+      from: config.TWILIO.PRIMARY_PHONE_NUMBER,
+      body: residentMessage,
+    });
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
+  }
+
 
 };

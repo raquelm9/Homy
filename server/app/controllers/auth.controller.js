@@ -9,65 +9,43 @@ const jwt = require("jsonwebtoken");
 const config = require('../config');
 
 exports.login = async (req, res) => {
-  const schema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(5),
-  });
 
-  const result = schema.validate(req.body);
+  try {
+    const schema = Joi.object({
+      email: Joi.string().email().required(),
+      password: Joi.string().min(5),
+    });
 
-  if (result.error) {
-    return res.status(400).send(result.error.details[0].message);
-  }
+    const result = schema.validate(req.body);
 
-  let user = await User.findOne({ email: req.body.email });
+    if (result.error) {
+      return res.status(400).send(result.error.details[0].message);
+    }
 
-  if (!user) return res.status(400).send({ error: "Invalid email or password." });
+    let user = await User.findOne({ email: req.body.email });
 
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).send("Invalid email or password.");
+    if (!user) return res.status(400).send({ error: "Invalid email or password." });
 
-  if (user.isManager) {
-    let manager = await Manager.findOne({ user_id: user._id });
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!validPassword) return res.status(400).send("Invalid email or password.");
 
-    if (!manager)
-      return res.status(400).send("This manager doesn't have an account yet.");
-    user.name = manager.name;
-    user.building_id = manager.building_id;
+    if (user.isManager) {
+      let manager = await Manager.findOne({ user_id: user._id });
 
-    const token = user.generateAuthToken();
+      if (!manager)
+        return res.status(400).send("This manager doesn't have an account yet.");
+      user.name = manager.name;
+      user.building_id = manager.building_id;
 
-    return res
-      .header("x-auth-token", token)
-      .send(_.pick(user, ["_id", "email", "name", "building_id", "isManager"]));
-  }
+      const token = user.generateAuthToken();
 
-  let resident = await Resident.findOne({ user_id: user._id }); //
+      return res
+        .header("x-auth-token", token)
+        .send(_.pick(user, ["_id", "email", "name", "building_id", "isManager"]));
+    }
 
-  if (!resident)
-    return res.status(400).send("This user don't have an account yet.");
+    let resident = await Resident.findOne({ user_id: user._id }); //
 
-  user.unit_num = resident.unit_num;
-  user.name = resident.name;
-  user.notification_active = resident.notification_active;
-  user.notification_req_id = resident.notification_req_id;
-
-  const token = user.generateAuthToken();
-
-  res
-    .header("x-auth-token", token)
-    .send(_.pick(user, ["_id", "email", "name", "unit_num", "notification_active", , "notification_req_id"]));
-};
-
-exports.verifyUser = async (req, res) => {
-  const token = req.header("x-auth-token");
-
-  const decoded = jwt.verify(token, config.JWT.SECRET_KEY);
-
-  let user = await User.findById(decoded._id);
-
-  if (!user.isManager) {//login as resident
-    let resident = await Resident.findOne({ user_id: user._id });
     if (!resident)
       return res.status(400).send("This user don't have an account yet.");
 
@@ -75,23 +53,58 @@ exports.verifyUser = async (req, res) => {
     user.name = resident.name;
     user.notification_active = resident.notification_active;
     user.notification_req_id = resident.notification_req_id;
-    res
-      .header("x-auth-token", token)
-      .send(_.pick(user, ["_id", "email", "unit_num", "name", "notification_active", , "notification_req_id"]));
-  } else {//login as manager
-    let manager = await Manager.findOne({ user_id: user._id });
 
-    if (!manager) {
-      return res.status(400).send("This user don't have an account yet.");
-    }
-
-    user.building_id = manager.building_id;
-    user.name = manager.name;
+    const token = user.generateAuthToken();
 
     res
       .header("x-auth-token", token)
-      .send(_.pick(user, ["_id", "isManager", "name", "building_id"]));
+      .send(_.pick(user, ["_id", "email", "name", "unit_num", "notification_active", , "notification_req_id"]));
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
   }
+
+};
+
+exports.verifyUser = async (req, res) => {
+  try {
+    const token = req.header("x-auth-token");
+
+    const decoded = jwt.verify(token, config.JWT.SECRET_KEY);
+
+    let user = await User.findById(decoded._id);
+
+    if (!user.isManager) {//login as resident
+      let resident = await Resident.findOne({ user_id: user._id });
+      if (!resident)
+        return res.status(400).send("This user don't have an account yet.");
+
+      user.unit_num = resident.unit_num;
+      user.name = resident.name;
+      user.notification_active = resident.notification_active;
+      user.notification_req_id = resident.notification_req_id;
+      res
+        .header("x-auth-token", token)
+        .send(_.pick(user, ["_id", "email", "unit_num", "name", "notification_active", , "notification_req_id"]));
+    } else {//login as manager
+      let manager = await Manager.findOne({ user_id: user._id });
+
+      if (!manager) {
+        return res.status(400).send("This user don't have an account yet.");
+      }
+
+      user.building_id = manager.building_id;
+      user.name = manager.name;
+
+      res
+        .header("x-auth-token", token)
+        .send(_.pick(user, ["_id", "isManager", "name", "building_id"]));
+    }
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
+  }
+
 };
 
 // exports.loginAsManager = async (req, res) => {

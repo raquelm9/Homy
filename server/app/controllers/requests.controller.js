@@ -10,7 +10,6 @@ const {
   sendEmailNotification,
   sendSMSNotification,
 } = require("../helpers/notification");
-const saveLog = require('../helpers/saveLog')
 const { DONE, ARCHIVED } = require("../constants/status");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
@@ -22,20 +21,32 @@ const fs = require("fs");
 
 exports.getRequest = async (req, res) => {
 
-
-
   Request
     .find({ user_id: req.user._id, status: { $ne: ARCHIVED } })
-    .then((data) => res.send(data));
+    .then((data) => res.send(data))
+    .catch(err => {
+      console.log(err)
+      return res.sendStatus(500)
+    })
 };
 exports.getRequestById = (req, res) => {
-  Request.findById(req.params.id)
+  Request
+    .findById(req.params.id)
     .then(data => res.send(data))
-    .catch(err => { error: "Wrong request id" })
+    .catch(err => {
+      console.log(err)
+      return res.sendStatus(500)
+    })
 }
 
 exports.getAllServiceRequests = (req, res) => {//send back all request not archived
-  Request.find({ status: { $ne: ARCHIVED } }).then((data) => res.send(data));
+  Request
+    .find({ status: { $ne: ARCHIVED } })
+    .then((data) => res.send(data))
+    .catch(err => {
+      console.log(err)
+      return res.sendStatus(500)
+    })
 };
 
 exports.createRequest = async (req, res) => {
@@ -74,59 +85,90 @@ exports.createRequest = async (req, res) => {
     notification: req.body.notification,
   });
 
-  request.save().then((data) => res.send(data));
+  request
+    .save()
+    .then((data) => res.status(200).send(data))
+    .catch(err => {
+      console.log(err)
+      return res.sendStatus(500)
+    })
 };
 
 exports.deleteRequest = async (req, res) => {
-  // console.log(req.params.id);
-  const serviceRequestId = req.params.id;
-  let request = await Request.findById(serviceRequestId);
+  try {
+    // console.log(req.params.id);
+    const serviceRequestId = req.params.id;
+    let request = await Request.findById(serviceRequestId);
 
-  if (!request) return res.status(404).send("The request was not found");
+    if (!request) return res.status(404).send("The request was not found");
 
-  // if (request.user_id !== req.user._id)
-  //   return res.status(401).send("Unauthorized");
+    // if (request.user_id !== req.user._id)
+    //   return res.status(401).send("Unauthorized");
 
-  //erase image on the server if one
-  if (request.image) {
-    fs.unlink(`./${request.image}`, (err) => {
-      if (err) console.log(err);
-    });
+    //erase image on the server if one
+    if (request.image) {
+      fs.unlink(`./${request.image}`, (err) => {
+        if (err) console.log(err);
+      });
+    }
+    request = await Request.deleteOne({ _id: serviceRequestId });
+    if (!request) return res.status(404).send("The request was not found");
+
+    return res
+      .status(200)
+      .send(request)
+      .catch(err => {
+        console.log(err)
+        return res.sendStatus(500)
+      })
+
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
   }
-  request = await Request.deleteOne({ _id: serviceRequestId });
-  if (!request) return res.status(404).send("The request was not found");
 
-  res.send(request);
 };
 
 exports.commentOnRequest = async (req, res) => {
-  const serviceRequestId = req.params.requestId;
-  const request = await Request.findById(serviceRequestId);
+  try {
+    const serviceRequestId = req.params.requestId;
+    const request = await Request.findById(serviceRequestId);
 
-  if (!request) return res.status(404).send("The request was not found");
+    if (!request) return res.status(404).send("The request was not found");
 
-  // if (request.user_id !== req.user._id)
-  //   return res.status(401).send("Unauthorized");
+    // if (request.user_id !== req.user._id)
+    //   return res.status(401).send("Unauthorized");
 
-  const result = validateComment(req.body);
+    const result = validateComment(req.body);
 
-  if (result.error) {
-    return res.status(400).send(result.error.details[0].message);
+    if (result.error) {
+      return res.status(400).send(result.error.details[0].message);
+    }
+
+    if (!request.comments) {
+      request.comments = [];
+    }
+
+    request.comments.push({
+      name: req.body.name,
+      comment: req.body.comment,
+      isManager: false,
+    });
+
+    await request.save();
+
+    return res
+      .status(200)
+      .send(request)
+      .catch(err => {
+        console.log(err)
+        return res.sendStatus(500)
+      })
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
   }
 
-  if (!request.comments) {
-    request.comments = [];
-  }
-
-  request.comments.push({
-    name: req.body.name,
-    comment: req.body.comment,
-    isManager: false,
-  });
-
-  await request.save();
-
-  return res.status(200).send(request);
 };
 
 exports.commentOnRequestAsManager = async (req, res) => {
@@ -156,136 +198,187 @@ exports.commentOnRequestAsManager = async (req, res) => {
 
   await request.save();
 
-  return res.status(200).send(request);
+  return res
+    .status(200)
+    .send(request)
+    .catch(err => {
+      console.log(err)
+      return res.sendStatus(500)
+    })
 };
 
 exports.updateStatusOnRequestAsManager = async (req, res) => {
+  try {
+    const serviceRequestId = req.params.requestId;
+    console.log(req.body);
+    const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-  const serviceRequestId = req.params.requestId;
-  console.log(req.body);
-  const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-
-  if (request.status === req.body.status) {
-    return res.send({ message: "Status has already been updated." });
-  }
-
-  const user = await User.findById(request.user_id);
-
-  const notification = new Notification({
-    type: request.type,
-    description: request.description,
-    status: req.body.status,
-    notification_type: request.notification,
-  });
-  // console.log('request:', request);
-  // console.log('notification:', notification);
-  // console.log('user:', user)
-  // // console.log('server.email',config.SERVER.EMAIL)
-  // console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
-  // console.log('request.notification', request.notification)
-  await notification.save();
-
-  console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
-  console.log(request.notification)
-  if (!config.TOGGLES.DISABLE_NOTIFICATION) {
-    if (request.notification === "email") {
-      // console.log('in email')
-      const residentEmail = config.SERVER.EMAIL || user.email;
-      // console.log(residentEmail)
-      const emailSubject = "Status of request changed";
-      const emailTextBody = emailSubject;
-      const emailHtmlBody = emailSubject;
-      const token = notification.generateNotificationToken();
-
-      const residentNotificationEmailDetails = createNotificationObject(
-        residentEmail,
-        emailSubject,
-        emailTextBody,
-        emailHtmlBody,
-        token
-      );
-
-      const responseNotification = await sendEmailNotification(
-        residentNotificationEmailDetails
-      );
-
-      console.log(responseNotification)
-      // if (config.ENV.NODE_ENV === 'dev') {
-      //   saveLog(responseNotification, 'email')
-      // }
-
+    if (request.status === req.body.status) {
+      return res.send({ message: "Status has already been updated." });
     }
-    if (request.notification === "phone") {
-      const messageSubject = "Status of request changed";
-      const resident = await Resident.findOne({ user_id: request.user_id })
-      const residentPhone = config.SERVER.PHONE || resident.phone;
-      console.log(residentPhone)
-      if (residentPhone) {
+
+    const user = await User.findById(request.user_id);
+
+    const notification = new Notification({
+      type: request.type,
+      description: request.description,
+      status: req.body.status,
+      notification_type: request.notification,
+    });
+    // console.log('request:', request);
+    // console.log('notification:', notification);
+    // console.log('user:', user)
+    // // console.log('server.email',config.SERVER.EMAIL)
+    // console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
+    // console.log('request.notification', request.notification)
+    await notification.save();
+
+    console.log(!config.TOGGLES.DISABLE_NOTIFICATION)
+    console.log(request.notification)
+    if (!config.TOGGLES.DISABLE_NOTIFICATION) {
+      if (request.notification === "email") {
+        // console.log('in email')
+        const residentEmail = config.SERVER.EMAIL || user.email;
+        // console.log(residentEmail)
+        const emailSubject = "Status of request changed";
+        const emailTextBody = emailSubject;
+        const emailHtmlBody = emailSubject;
         const token = notification.generateNotificationToken();
-        const responseSMS = await sendSMSNotification(
-          residentPhone,
-          messageSubject,
+
+        const residentNotificationEmailDetails = createNotificationObject(
+          residentEmail,
+          emailSubject,
+          emailTextBody,
+          emailHtmlBody,
           token
         );
-        // console.log(responseSMS)
+
+        const responseNotification = await sendEmailNotification(
+          residentNotificationEmailDetails
+        );
+
+        console.log(responseNotification)
+        // if (config.ENV.NODE_ENV === 'dev') {
+        //   saveLog(responseNotification, 'email')
+        // }
+
       }
+      if (request.notification === "phone") {
+        const messageSubject = "Status of request changed";
+        const resident = await Resident.findOne({ user_id: request.user_id })
+        const residentPhone = config.SERVER.PHONE || resident.phone;
+        console.log(residentPhone)
+        if (residentPhone) {
+          const token = notification.generateNotificationToken();
+          const responseSMS = await sendSMSNotification(
+            residentPhone,
+            messageSubject,
+            token
+          );
+          // console.log(responseSMS)
+        }
 
+      }
     }
-  }
-  // return res.status(200).send(request);
+    // return res.status(200).send(request);
 
-  request.status = req.body.status;
-  await request.save();
-  return res.status(200).send(request);
+    request.status = req.body.status;
+    await request.save();
+    return res
+      .status(200)
+      .send(request)
+      .catch(err => {
+        console.log(err)
+        return res.sendStatus(500)
+      })
+
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
+  }
+
 };
 
 exports.updateStatusOnRequest = async (req, res) => {
+  try {
+    const serviceRequestId = req.params.requestId;
+    // console.log(req.body);
+    const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
-  const serviceRequestId = req.params.requestId;
-  // console.log(req.body);
-  const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
+    if (request.status === req.body.status) {
+      return res.send({ message: "Status has already been updated." });
+    }
 
-  if (request.status === req.body.status) {
-    return res.send({ message: "Status has already been updated." });
+    // const user = await User.findById(request.user_id);
+
+    // await Resident.findOneAndUpdate(
+    //   { user_id: request.user_id },
+    //   { $set: { notification_active: false, notification_req_id: "" } }
+    // )
+
+
+    request.status = req.body.status;
+    await request.save();
+    return res
+      .status(200)
+      .send(request)
+      .catch(err => {
+        console.log(err)
+        return res.sendStatus(500)
+      })
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
   }
 
-  // const user = await User.findById(request.user_id);
-
-  // await Resident.findOneAndUpdate(
-  //   { user_id: request.user_id },
-  //   { $set: { notification_active: false, notification_req_id: "" } }
-  // )
-
-
-  request.status = req.body.status;
-  await request.save();
-  return res.status(200).send(request);
 };
 
 
 exports.getNotificationsDone = async (req, res) => {
+  try {
+    const requests = await Request.find({
+      user_id: req.user._id,
+      status: DONE
+    })
+      .select('_id')
 
+    let requestIds = [];
+    for (let i = 0; i < requests.length; i++) {
+      requestIds.push(requests[i]._id);
+    }
 
-  const requests = await Request.find({
-    user_id: req.user._id,
-    status: DONE
-  })
-    .select('_id')
-
-  let requestIds = [];
-  for (let i = 0; i < requests.length; i++) {
-    requestIds.push(requests[i]._id);
+    return res
+      .status(200)
+      .send(requestIds)
+      .catch(err => {
+        console.log(err)
+        return res.sendStatus(500)
+      })
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
   }
 
-  return res.status(200).send(requestIds);
+
 }
 
 exports.authNotification = async (req, res) => {
-  const decoded = jwt.verify(req.params.token, config.JWT.EMAIL_SECRET_KEY);
+  try {
+    const decoded = jwt.verify(req.params.token, config.JWT.EMAIL_SECRET_KEY);
 
-  const notification = await Notification.findById(decoded._id);
+    const notification = await Notification.findById(decoded._id);
 
-  // console.log(notification);
-  return res.send(notification);
+    // console.log(notification);
+    return res
+      .send(notification)
+      .catch(err => {
+        console.log(err)
+        return res.sendStatus(500)
+      })
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
+  }
+
 };
