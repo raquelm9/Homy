@@ -100,7 +100,7 @@ const currentUser = useSelector(selectUser);
     const allComments = (comments) => {
         return (
         comments.map((comment, key) => (
-            <ResidentPostComment username={comment.name} comment={comment.comment} key={key}/>
+            <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
         ))
         )
     }

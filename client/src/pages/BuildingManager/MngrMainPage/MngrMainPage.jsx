@@ -9,6 +9,7 @@ import MngrRequestListOfResidents from '../../../components/MngrRequestListOfRes
 // import MngrNavbarBs from '../../../components/Layouts/MngrNavbarBs';
 import MngrHomeView from '../../../components/MngrHomeView/MngrHomeView';
 import MngrShowOrders from '../../../components/MngrShowOrders/MngrShowOrders';
+import MngrCommuneView from '../../../components/MngrCommuneView/MngrCommuneView';
 
 
 const MngrMainPage = () => {
@@ -23,6 +24,9 @@ const MngrMainPage = () => {
                         </Row> */}
                         <Row>
                             <Col sm={3} md={3} className="menu-window">
+                                <Link className="menu-link" to='/manager/commune' >
+                                    <h2>Commune</h2>
+                                </Link>
                                 <Link className="menu-link" to='/manager/request-list-of-services' >
                                     <h2>Requests  <span className="badge bg-secondary">New</span></h2>
                                 </Link>
@@ -39,6 +43,7 @@ const MngrMainPage = () => {
                             </Col>
                             <Col sm={9} md={9} className="service-window">
                                 <Route exact path='/manager' component={MngrHomeView}></Route>
+                                <Route exact path='/manager/commune' component={MngrCommuneView}></Route>
                                 <Route exact path="/manager/request-list-of-services" component={MngrRequestList} />
                                 <Route exact path="/manager/request-list-of-residents" component={MngrRequestListOfResidents} />
                                 <Route exact path="/manager/orders" component={MngrShowOrders} />
