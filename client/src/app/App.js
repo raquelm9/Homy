@@ -10,7 +10,7 @@ import ResidentRequest from "../pages/Residents/ResidentRequest/ResidentRequest"
 import ResidentListRequest from "../pages/Residents/ResidentListRequest/ResidentListRequest";
 import Register from "../pages/Auth/Register";
 import Login from "../pages/Auth/Login";
-import { autoLogin } from "../actions/userActions";
+import { autoLogin, fetchNotificationDone } from "../actions/userActions";
 import MngrMainPage from "../pages/BuildingManager/MngrMainPage/MngrMainPage";
 
 
@@ -29,10 +29,14 @@ import CommunityPage from "../pages/Residents/CommunityPage/CommunityPage";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.userReducer.user);
+  const loggedIn = useSelector(state => state.userReducer.loggedIn);
 
   useEffect(() => {
     dispatch(autoLogin());
-  }, [dispatch]);
+    if (loggedIn) {
+      dispatch(fetchNotificationDone());
+    }
+  }, [dispatch, loggedIn]);
 
 
 

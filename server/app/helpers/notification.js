@@ -112,7 +112,7 @@ exports.sendSMSNotification = async (residentPhoneNumber, residentMessage) => {
     config.TWILIO.ACCOUNT_SID,
     config.TWILIO.AUTH_TOKEN
   );
-
+  // <a href="${config.FRONTEND.URI}/notification/requests/${token}">Click here to see more</a>
   return await client.messages.create({
     to: residentPhoneNumber,
     from: config.TWILIO.PRIMARY_PHONE_NUMBER,

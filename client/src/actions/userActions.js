@@ -4,9 +4,11 @@ import swal from "sweetalert";
 
 const setUser = (payload) => ({ type: SET_USER, payload });
 
-export const setUserNotification = (payload) => ({ type: SET_USER_NOTIFICATION });
+export const setUserNotification = (payload) => ({ type: SET_USER_NOTIFICATION, payload });
 
 export const removeUserNotification = () => ({ type: REMOVE_USER_NOTIFICATION })
+
+
 
 export const logUserOut = () => ({ type: LOG_OUT });
 
@@ -89,6 +91,24 @@ export const autoLogin = () => (dispatch) => {
         dispatch(logUserOut());
       });
   }
+};
+
+export const fetchNotificationDone = () => (dispatch) => {
+
+  fetch(`${config.SERVER_URL}/api/service-requests/notifications/done`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "x-auth-token": `${localStorage.getItem("token")}`
+    }
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data) dispatch(setUserNotification(data))
+    })
+    .catch((err) => console.log('error', err));
+
 };
 
 const loginErrorMsg = () => {

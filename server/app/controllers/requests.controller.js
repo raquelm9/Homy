@@ -262,11 +262,29 @@ exports.updateStatusOnRequest = async (req, res) => {
   return res.status(200).send(request);
 };
 
+
+exports.getNotificationsDone = async (req, res) => {
+  console.log('checkIfNotificationActive');
+
+  const requests = await Request.find({
+    user_id: req.user._id,
+    status: DONE
+  })
+    .select('_id')
+
+  let requestIds = [];
+  for (let i = 0; i < requests.length; i++) {
+    requestIds.push(requests[i]._id);
+  }
+
+  return res.status(200).send(requestIds);
+}
+
 exports.authNotification = async (req, res) => {
   const decoded = jwt.verify(req.params.token, config.JWT.EMAIL_SECRET_KEY);
 
   const notification = await Notification.findById(decoded._id);
 
   // console.log(notification);
-  res.send(notification);
+  return res.send(notification);
 };

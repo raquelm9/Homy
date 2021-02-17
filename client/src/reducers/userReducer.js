@@ -2,7 +2,8 @@ import { SET_USER, LOG_OUT, SET_USER_NOTIFICATION, REMOVE_USER_NOTIFICATION } fr
 
 const defaultState = {
   loggedIn: false,
-  user: {},
+  user: {}
+
 };
 
 const userReducer = (state = defaultState, action) => {
@@ -11,7 +12,10 @@ const userReducer = (state = defaultState, action) => {
       return {
         ...state,
         loggedIn: true,
-        user: { ...action.payload }
+        user: {
+          ...state.user,
+          ...action.payload
+        }
       };
     case LOG_OUT:
       localStorage.clear();
@@ -25,6 +29,7 @@ const userReducer = (state = defaultState, action) => {
         ...state,
         user: {
           ...state.user,
+          notification_active: action.payload.length ? true : false,
           notification_req_id: [action.payload]
         }
       };

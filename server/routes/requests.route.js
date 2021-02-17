@@ -27,7 +27,7 @@ module.exports = (app) => {
     request.updateStatusOnRequest
   );
   router.get('/:id', auth, request.getRequestById)
-  router.get("/", [auth, setNotification], request.getRequest);
+  router.get("/", auth, request.getRequest);
 
   router.get(
     "/manager/all-service-requests",
@@ -35,6 +35,6 @@ module.exports = (app) => {
     request.getAllServiceRequests
   );
   router.get("/notification/:token", request.authNotification);
-
+  router.get('/notifications/done', auth, request.getNotificationsDone)
   app.use("/api/service-requests", router);
 };
