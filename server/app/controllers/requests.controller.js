@@ -117,10 +117,6 @@ exports.deleteRequest = async (req, res) => {
     return res
       .status(200)
       .send(request)
-      .catch(err => {
-        console.log(err)
-        return res.sendStatus(500)
-      })
 
   } catch (err) {
     console.log(err)
@@ -160,10 +156,7 @@ exports.commentOnRequest = async (req, res) => {
     return res
       .status(200)
       .send(request)
-      .catch(err => {
-        console.log(err)
-        return res.sendStatus(500)
-      })
+
   } catch (err) {
     console.log(err)
     return res.sendStatus(500)
@@ -201,10 +194,7 @@ exports.commentOnRequestAsManager = async (req, res) => {
   return res
     .status(200)
     .send(request)
-    .catch(err => {
-      console.log(err)
-      return res.sendStatus(500)
-    })
+
 };
 
 exports.updateStatusOnRequestAsManager = async (req, res) => {
@@ -288,10 +278,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
     return res
       .status(200)
       .send(request)
-      .catch(err => {
-        console.log(err)
-        return res.sendStatus(500)
-      })
+
 
   } catch (err) {
     console.log(err)
@@ -323,10 +310,7 @@ exports.updateStatusOnRequest = async (req, res) => {
     return res
       .status(200)
       .send(request)
-      .catch(err => {
-        console.log(err)
-        return res.sendStatus(500)
-      })
+
   } catch (err) {
     console.log(err)
     return res.sendStatus(500)
@@ -351,10 +335,8 @@ exports.getNotificationsDone = async (req, res) => {
     return res
       .status(200)
       .send(requestIds)
-      .catch(err => {
-        console.log(err)
-        return res.sendStatus(500)
-      })
+
+
   } catch (err) {
     console.log(err)
     return res.sendStatus(500)
@@ -371,11 +353,9 @@ exports.authNotification = async (req, res) => {
 
     // console.log(notification);
     return res
+      .status(200)
       .send(notification)
-      .catch(err => {
-        console.log(err)
-        return res.sendStatus(500)
-      })
+
   } catch (err) {
     console.log(err)
     return res.sendStatus(500)
