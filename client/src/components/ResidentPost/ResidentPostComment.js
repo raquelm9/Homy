@@ -3,7 +3,7 @@ import React from 'react'
 function ResidentPostComment({username, comment}) {
     return (
         <div>
-            <p>{username} : {comment}</p>
+            <p><strong>{username}</strong> {comment}</p>
         </div>
     )
 }
