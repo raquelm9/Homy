@@ -14,11 +14,16 @@ function CommunityPage() {
   useEffect(() => {
     loadAllPosts();
     loadAllAnnouncements();
+    console.log('this is new')
   }, []);
 
+
+
   const loadAllPosts = () => {
+    
     new HttpService().getAllPosts().then(
       (data) => {
+    
         const newData = [...data].reverse()
         setAllPosts(newData);
       },
