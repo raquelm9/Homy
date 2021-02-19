@@ -24,6 +24,7 @@ function NotificationModal({ open }) {
     }, [isLoggedIn, user])
 
     const onClickHandle = (toBeArchived) => {
+        console.log('temporary')
         if (toBeArchived) {
             new HttpService()
                 .updateStatusOnRequest(user.notification_req_id[0], ARCHIVED)
