@@ -8,7 +8,7 @@ import HttpService from "../../services/http-service";
 
 function DetailModal(props) {
   const currentUser = useSelector((state) => state.userReducer.user);
-
+  console.log("helow")
 
   const handleClickChangeStatus = () => {
     switch (props.status) {
