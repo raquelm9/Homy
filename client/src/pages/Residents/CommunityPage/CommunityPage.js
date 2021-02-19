@@ -14,8 +14,6 @@ function CommunityPage() {
   useEffect(() => {
     loadAllPosts();
     loadAllAnnouncements();
-    console.log('this is new')
-    console.log("Works for me")
   }, []);
 
 
