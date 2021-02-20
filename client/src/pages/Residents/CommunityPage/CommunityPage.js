@@ -14,8 +14,6 @@ function CommunityPage() {
   useEffect(() => {
     loadAllPosts();
     loadAllAnnouncements();
-    console.log('this is new')
-    console.log("Works for me")
   }, []);
 
 
@@ -45,6 +43,7 @@ function CommunityPage() {
     console.log(posts)
     return posts.map((post, key) => (
       <ResidentPost
+        postId={post._id}
         username={post.username}
         caption={post.caption}
         // imageUrl={post.imageUrl}

@@ -189,7 +189,7 @@ class HttpService {
    * Create a comment
    */
 
-  createComment = ({postId, name, comment}) => {
+  createComment = (postId, username, comment) => {
     const postCommentUrl = `${endPointsPosts}/${postId}/comment`;
 
     var promise = new Promise((resolve, reject) => {
@@ -200,7 +200,7 @@ class HttpService {
            "x-auth-token": `${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
-          name,
+          username,
           comment,
         }),
       }).then((response) => {

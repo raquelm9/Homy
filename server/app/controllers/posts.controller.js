@@ -46,13 +46,13 @@ exports.commentOnPost = async (req, res) => {
   }
 
   post.comments.push({
-    name: req.body.name,
+    username: req.body.username,
     comment: req.body.comment,
   });
 
   await post.save();
-
-  return res.status(200).send(post);
+  console.log("these are comments")
+  return res.status(200).send(post.comments);
 };
 
 // exports.deleteCommentOnPost = async (req, res) => {

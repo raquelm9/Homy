@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
   {
-    name: { type: String },
+    username: { type: String },
     comment: { type: String },
   },
   { timestamps: true }
