@@ -13,8 +13,8 @@ exports.urlShortener = async (url) => {
 
 
     res = await res.json();
-    console.log('res full object', res)
-    return res.shortLink
+    //handle error on status later
+    return res.url.shortLink
 
 
 }
