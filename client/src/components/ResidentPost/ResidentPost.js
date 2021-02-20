@@ -14,7 +14,7 @@ function ResidentPost({ postId,username, caption, image, userAvatarUrl, comments
     const [allPosts, setAllPosts] = useState([]);
     const [newComment, setNewComment] =useState([]);
 
-    const [alfaComments, setAlfaComments] = useState('');
+    const [commentsToDisplay, setCommentsToDisplay] = useState(null);
 
     const history = useHistory();
      //const loggedIn = useSelector((state) => state.userReducer.loggedIn);
@@ -37,17 +37,18 @@ const currentUser = useSelector(selectUser);
       console.log(event.target.value)
       console.log("comment is " + newComment)
       event.preventDefault();
-      // const newComment = {
-      //     name,
+      // const commentToPost = {
+      //     username: name,
       //     comment: newComment,
       // };
 
     new HttpService().createComment( postId, username, newComment )
     .then(
       (data) => {
-        console.log(data)
+        console.log(data.comments)
+        setCommentsToDisplay(data.comments)
         setNewComment('');
-        setAlfaComments('')
+        // setAlfaComments('')
       },
       (err) => {}
     );
@@ -90,7 +91,6 @@ const currentUser = useSelector(selectUser);
 
     const handleChange = (event) => {
         event.preventDefault();
-        console.log(event.target.value);
         setNewComment(event.target.value);
     };
     
@@ -104,11 +104,31 @@ const currentUser = useSelector(selectUser);
 
 
     const allComments = (comments) => {
-        return (
-        comments.map((comment, key) => (
-            <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
-        ))
-        )
+      // return (
+      //   comments.map((comment, key) => (
+      //       <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
+      //   ))
+      //   )
+      
+      
+      if (!commentsToDisplay) {
+          console.log("original")
+          return (
+            
+            comments.map((comment, key) => (
+                <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
+            ))
+            )
+        } else {
+          console.log("non-original")
+          return (
+            commentsToDisplay.map((comment, key) => (
+                <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
+            ))
+            )
+        }
+
+
     }
     
     const getImagePath = () => {

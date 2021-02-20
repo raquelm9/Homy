@@ -51,8 +51,8 @@ exports.commentOnPost = async (req, res) => {
   });
 
   await post.save();
-
-  return res.status(200).send(post);
+  console.log("these are comments")
+  return res.status(200).send(post.comments);
 };
 
 // exports.deleteCommentOnPost = async (req, res) => {

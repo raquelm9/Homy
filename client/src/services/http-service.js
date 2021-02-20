@@ -189,7 +189,7 @@ class HttpService {
    * Create a comment
    */
 
-  createComment = ({postId, username, comment}) => {
+  createComment = (postId, username, comment) => {
     const postCommentUrl = `${endPointsPosts}/${postId}/comment`;
 
     var promise = new Promise((resolve, reject) => {
