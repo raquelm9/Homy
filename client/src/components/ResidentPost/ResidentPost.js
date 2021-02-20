@@ -127,10 +127,24 @@ const currentUser = useSelector(selectUser);
             ))
             )
         }
-
-
     }
+
+    const displayComments = (comments) => {
+      if (comments.length > 0) {
+        if (comments.length >= 3) {
+          return <p>See More</p>
+        } else {
+          return <p>There are less than 3</p>
+        } 
+      }
     
+    }
+
+
+
+
+    
+
     const getImagePath = () => {
         if (image.includes("http")) {
           return image;
@@ -158,6 +172,7 @@ const currentUser = useSelector(selectUser);
             {/* <img className="post__image" src={`/${image}`} alt="username"/> */}
             <h4 className="post__text"><strong>{username}</strong> {caption}</h4>
             <div>{allComments(comments)}</div>
+            <div>{displayComments(comments)}</div>
             <form className="post__commentBox">
                 <input
                     className="post__comment"
