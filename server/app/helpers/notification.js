@@ -4,6 +4,7 @@ const config = require("../config");
 const saveLog = require('./saveLog');
 const { encrypt, decrypt } = require('../helpers/cipher');
 const { Token } = require('../models/token.schema');
+const { urlShortener } = require('../helpers/urlShortener');
 
 exports.createNotificationObject = (
   residentEmail,
@@ -113,11 +114,14 @@ exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, notif
       config.TWILIO.ACCOUNT_SID,
       config.TWILIO.AUTH_notificationId);
 
-    const notificationUrl = `${config.FRONTEND.URI}/notification/requests/${notificationId}`
+    const longUrl = `${config.FRONTEND.URI}/notification/requests/${notificationId}`
+
+    const shortUrl = urlShortener(longUrl);
+
 
     residentMessage = residentMessage + `
       Click on the link to see this more details
-      ${notificationUrl}
+      ${shortUrl.shortLink}
       'We got you, Homy!!'
   `
 
