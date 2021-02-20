@@ -42,5 +42,8 @@ module.exports = {
   },
   FRONTEND: {
     URI: process.env.FRONTEND_URI || 'http://localhost:3000'
+  },
+  CUTTLY: {
+    API_KEY: process.env.CUTTLY_API_KEY || ''
   }
 };

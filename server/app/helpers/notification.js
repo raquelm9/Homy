@@ -4,6 +4,7 @@ const config = require("../config");
 const saveLog = require('./saveLog');
 const { encrypt, decrypt } = require('../helpers/cipher');
 const { Token } = require('../models/token.schema');
+const { urlShortener } = require('../helpers/urlShortener');
 
 exports.createNotificationObject = (
   residentEmail,
@@ -107,17 +108,20 @@ exports.sendEmailNotification = async (mailOptions) => {
   return await sendMail(mailOptions);
 };
 
-exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, token) => {
+exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, notificationId) => {
   try {
     const client = require("twilio")(
       config.TWILIO.ACCOUNT_SID,
-      config.TWILIO.AUTH_TOKEN
-    );
+      config.TWILIO.AUTH_notificationId);
+
+    const longUrl = `${config.FRONTEND.URI}/notification/requests/${notificationId}`
+
+    const shortUrl = urlShortener(longUrl);
 
 
     residentMessage = residentMessage + `
       Click on the link to see this more details
-      ${config.FRONTEND.URI}/notification/requests/${token}"
+      ${shortUrl.shortLink}
       'We got you, Homy!!'
   `
 

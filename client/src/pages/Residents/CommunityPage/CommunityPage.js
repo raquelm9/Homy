@@ -16,9 +16,13 @@ function CommunityPage() {
     loadAllAnnouncements();
   }, []);
 
+
+
   const loadAllPosts = () => {
+    
     new HttpService().getAllPosts().then(
       (data) => {
+    
         const newData = [...data].reverse()
         setAllPosts(newData);
       },
@@ -39,6 +43,7 @@ function CommunityPage() {
     console.log(posts)
     return posts.map((post, key) => (
       <ResidentPost
+        postId={post._id}
         username={post.username}
         caption={post.caption}
         // imageUrl={post.imageUrl}
