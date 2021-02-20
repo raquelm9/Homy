@@ -260,11 +260,11 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
         const residentPhone = config.SERVER.PHONE || resident.phone;
         console.log(residentPhone)
         if (residentPhone) {
-          const token = notification.generateNotificationToken();
+          // const token = notification.generateNotificationToken();
           const responseSMS = await sendSMSNotification(
             residentPhone,
             messageSubject,
-            token
+            notification._id
           );
           // console.log(responseSMS)
         }

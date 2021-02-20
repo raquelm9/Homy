@@ -107,17 +107,17 @@ exports.sendEmailNotification = async (mailOptions) => {
   return await sendMail(mailOptions);
 };
 
-exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, token) => {
+exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, notificationId) => {
   try {
     const client = require("twilio")(
       config.TWILIO.ACCOUNT_SID,
-      config.TWILIO.AUTH_TOKEN
-    );
+      config.TWILIO.AUTH_notificationId);
 
+    const notificationUrl = `${config.FRONTEND.URI}/notification/requests/${notificationId}`
 
     residentMessage = residentMessage + `
       Click on the link to see this more details
-      ${config.FRONTEND.URI}/notification/requests/${token}"
+      ${notificationUrl}
       'We got you, Homy!!'
   `
 
