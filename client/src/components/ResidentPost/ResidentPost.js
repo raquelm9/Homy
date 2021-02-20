@@ -132,9 +132,9 @@ const currentUser = useSelector(selectUser);
     const displayComments = (comments) => {
       if (comments.length > 0) {
         if (comments.length >= 3) {
-          return <p>See More</p>
+          return <p className="post__comment__text">See More</p>
         } else {
-          return <p>There are less than 3</p>
+          return <p className="post__comment__text">There are less than 3</p>
         } 
       }
     
