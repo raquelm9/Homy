@@ -9,7 +9,6 @@ import HttpService from "../../services/http-service";
 function DetailModal(props) {
   const currentUser = useSelector((state) => state.userReducer.user);
 
-
   const handleClickChangeStatus = () => {
     switch (props.status) {
       case VIEWED:
@@ -35,18 +34,15 @@ function DetailModal(props) {
     if (props.unit_num) {
       return (
         <>
-          <p className="titles-modal">Unit:</p>
-          <p> {props.unit_num}</p>
+          <p>Unit: {props.unit_num}</p>
 
-          <p className="titles-modal">Requested by:</p>
-          <p> {props.resident_name}</p>
+          <p>Requested by: {props.resident_name}</p>
         </>
       );
     } else {
       return null;
     }
   };
-
 
   const getImagePath = () => {
     if (props.image.includes("http")) {
@@ -78,14 +74,12 @@ function DetailModal(props) {
             ></button>
           </div>
           <div className="modal-body">
-            <p className="titles-modal">Date:</p>
-            <p> {props.date}</p>
-            <p className="titles-modal">Status:</p>
-            <p> {statusTEXT[props.status]}</p>
+            <p>Date: {props.date}</p>
+            <p>Status: {statusTEXT[props.status]}</p>
             {currentUser.isManager &&
               (props.status === VIEWED || props.status === INPROGRESS) && (
                 <>
-                  <p className="titles-modal">Change Status To:</p>
+                  <p>Change Status To:</p>
                   <button
                     type="button"
                     className="btn-dark btn-sm"
@@ -96,14 +90,12 @@ function DetailModal(props) {
                   </button>
                 </>
               )}
-            <p className="titles-modal">Subject:</p>
-            <p> {props.subject}</p>
+            <p>Subject: {props.subject}</p>
             <CheckUnitAndName />{" "}
             {/* Checks if there are unit number and name in props passed */}
             {/* <p className="titles-modal">props.</p>
             <p>{props.props.}</p> */}
-            <p className="titles-modal">Description:</p>
-            <p>{props.description}</p>
+            <p>Description: {props.description}</p>
             {/* <p className="titles-modal">Reference Number:</p>
             <p>{props.id}</p> */}
             <hr></hr>
