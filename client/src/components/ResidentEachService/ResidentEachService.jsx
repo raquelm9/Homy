@@ -33,7 +33,7 @@ function ResidentEachService(props) {
       <tr>
         <td className="font-adjustment">{props.type}</td>
         <td className="font-adjustment">
-          {props.status ? statusTEXT[props.status] : null}
+          {props.status ? statusTEXT[props.status] : "NEW"}
         </td>
         <td>
           <button
