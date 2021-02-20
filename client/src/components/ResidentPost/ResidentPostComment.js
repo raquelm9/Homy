@@ -8,4 +8,4 @@ function ResidentPostComment({username, comment}) {
     )
 }
 
-export default ResidentPostComment
+export default ResidentPostComment;

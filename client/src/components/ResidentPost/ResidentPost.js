@@ -10,9 +10,11 @@ import {selectUser} from "../../selectors/userSelectors";
 
 
 
-function ResidentPost({ username, caption, image, userAvatarUrl, comments }) {
-    const [allPosts, setAllPosts] = useState([])
+function ResidentPost({ postId,username, caption, image, userAvatarUrl, comments }) {
+    const [allPosts, setAllPosts] = useState([]);
     const [newComment, setNewComment] =useState([]);
+
+    const [alfaComments, setAlfaComments] = useState('');
 
     const history = useHistory();
      //const loggedIn = useSelector((state) => state.userReducer.loggedIn);
@@ -32,16 +34,20 @@ const currentUser = useSelector(selectUser);
   const name = currentUser.name;
   
   const postComment = (event) => {
+      console.log(event.target.value)
+      console.log("comment is " + newComment)
       event.preventDefault();
-      const newComment = {
-          name,
-          comment: newComment,
-      };
+      // const newComment = {
+      //     name,
+      //     comment: newComment,
+      // };
 
-    new HttpService().getComments( name, newComment)
+    new HttpService().createComment( postId, username, newComment )
     .then(
       (data) => {
-        setNewComment(data);
+        console.log(data)
+        setNewComment('');
+        setAlfaComments('')
       },
       (err) => {}
     );

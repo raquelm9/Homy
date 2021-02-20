@@ -46,7 +46,7 @@ exports.commentOnPost = async (req, res) => {
   }
 
   post.comments.push({
-    name: req.body.name,
+    username: req.body.username,
     comment: req.body.comment,
   });
 
