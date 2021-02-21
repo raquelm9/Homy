@@ -119,19 +119,19 @@ exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, notif
     const uri = 'https://adoring-leakey-4abb67.netlify.app'
     const longUrl = `${uri}/notification/requests/${notificationId}`
     const shortUrl = await urlShortener(longUrl);
-    console.log(longUrl)
-    console.log(shortUrl)
+    // console.log(longUrl)
+    // console.log(shortUrl)
     residentMessage = residentMessage + `
       Click on the link to see this more details
       ${shortUrl}
       'We got you, Homy!!'
   `
     // console.log('shortUrl.shortLink', shortUrl)
-    // return await client.messages.create({
-    //   to: residentPhoneNumber,
-    //   from: config.TWILIO.PRIMARY_PHONE_NUMBER,
-    //   body: residentMessage,
-    // });
+    return await client.messages.create({
+      to: residentPhoneNumber,
+      from: config.TWILIO.PRIMARY_PHONE_NUMBER,
+      body: residentMessage,
+    });
   } catch (err) {
     console.log(err)
     return res.sendStatus(500)

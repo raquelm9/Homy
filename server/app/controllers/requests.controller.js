@@ -259,7 +259,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
         const messageSubject = "Status of request changed";
         const resident = await Resident.findOne({ user_id: request.user_id })
         const residentPhone = config.SERVER.PHONE || resident.phone;
-        console.log(residentPhone)
+        // console.log(residentPhone)
         if (residentPhone) {
           // const token = notification.generateNotificationToken();
           const responseSMS = await sendSMSNotification(
@@ -267,7 +267,7 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
             messageSubject,
             notification._id
           );
-          // console.log(responseSMS)
+          console.log(responseSMS)
         }
 
       }
