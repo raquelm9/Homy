@@ -127,6 +127,7 @@ exports.deleteRequest = async (req, res) => {
 
 exports.commentOnRequest = async (req, res) => {
   try {
+    console.log('commentOnRequest', req.params.requestId)
     const serviceRequestId = req.params.requestId;
     const request = await Request.findById(serviceRequestId);
 
@@ -200,7 +201,7 @@ exports.commentOnRequestAsManager = async (req, res) => {
 exports.updateStatusOnRequestAsManager = async (req, res) => {
   try {
     const serviceRequestId = req.params.requestId;
-    console.log(req.body);
+    console.log('updateStatusOnRequestAsManager', req.body);
     const request = await Request.findById(serviceRequestId); // request = request document from database to check if it is updated
 
 

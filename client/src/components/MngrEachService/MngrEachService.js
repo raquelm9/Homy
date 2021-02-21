@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import HttpService from "../../services/http-service";
 import { NEW, VIEWED, statusTEXT } from "../../constants/status";
 import { config } from "../../config/config";
+import { DONE } from '../../constants/status';
 
 function MngrEachService(props) {
   const modalId = `request-${props.id}`;
@@ -94,9 +95,9 @@ function MngrEachService(props) {
     // "color" :   "#fe7369"
   };
 
-  const ShowBadgeStatus = () => {
-    return "Hello";
-  };
+  // const ShowBadgeStatus = () => {
+  //   return "Hello";
+  // };
 
   return (
     <>
@@ -133,18 +134,20 @@ function MngrEachService(props) {
           />
         </td>
         <td style={{ verticalAlign: "middle" }}>
-          <i
+          {(status !== DONE) && <i
             className="fas fa-trash-alt fa-lg"
             onClick={handleOnClick}
             id="trashIcon"
           ></i>
+          }
+
           {/* <button style = {styleButtonRemove} className="btn btn-dark btn-outline-danger" onClick={handleOnClick}>
             Remove
           </button> */}
           {/* <td><ImageModal id={modalId} image={props.image} /></td>  */}
         </td>
         <td>
-          <ShowBadgeStatus />
+          {/* <ShowBadgeStatus /> */}
           {/* <span onClick={handleOnClickStatusFlow} className="badge bg-secondary">{statusTEXT[status]}</span> */}
           <span className="badge bg-secondary">{statusTEXT[status]}</span>
           {/* <h1>{statusTEXT[status]}</h1> */}
