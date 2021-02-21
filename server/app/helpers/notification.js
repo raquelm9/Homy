@@ -127,11 +127,11 @@ exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, notif
       'We got you, Homy!!'
   `
     // console.log('shortUrl.shortLink', shortUrl)
-    return await client.messages.create({
-      to: residentPhoneNumber,
-      from: config.TWILIO.PRIMARY_PHONE_NUMBER,
-      body: residentMessage,
-    });
+    // return await client.messages.create({
+    //   to: residentPhoneNumber,
+    //   from: config.TWILIO.PRIMARY_PHONE_NUMBER,
+    //   body: residentMessage,
+    // });
   } catch (err) {
     console.log(err)
     return res.sendStatus(500)
