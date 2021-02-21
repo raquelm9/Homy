@@ -6,6 +6,7 @@ const { encrypt, decrypt } = require('../helpers/cipher');
 const { Token } = require('../models/token.schema');
 const { urlShortener } = require('../helpers/urlShortener');
 
+
 exports.createNotificationObject = (
   residentEmail,
   subject,
@@ -112,14 +113,14 @@ exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, notif
   try {
     const client = require("twilio")(
       config.TWILIO.ACCOUNT_SID,
-      config.TWILIO.AUTH_notificationId);
+      config.TWILIO.AUTH_TOKEN);
 
     // const longUrl = `${config.FRONTEND.URI}/notification/requests/${notificationId}`
-    const uri = 'https://adoring-leakey-4abb67.netlify.app/'
+    const uri = 'https://adoring-leakey-4abb67.netlify.app'
     const longUrl = `${uri}/notification/requests/${notificationId}`
     const shortUrl = await urlShortener(longUrl);
-
-
+    console.log(longUrl)
+    console.log(shortUrl)
     residentMessage = residentMessage + `
       Click on the link to see this more details
       ${shortUrl}
