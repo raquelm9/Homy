@@ -112,7 +112,7 @@ function MngrRequestList() {
   const loadAllData = () => {
     new HttpService().getAllServiceRequests().then(
       (data) => {
-        // sortManagerList(data);
+        sortManagerList(data);
         setAllRequests(data); // save all requests in allRequests state variables
         // console.log("data : ", data)
         filterRequestList(data);
@@ -121,10 +121,10 @@ function MngrRequestList() {
     );
   };
 
-  // const sortManagerList = (data) => {
-  //   data.sort((a, b) => (a.status > b.status ? 1 : -1));
-  //   setAllRequests(data);
-  // };
+  const sortManagerList = (data) => {
+    data.sort((a, b) => (a.status > b.status ? 1 : -1));
+    setAllRequests(data);
+  };
 
   function filterRequestListByType(requestList) {
     // console.log("on entering filterRequestListByType, requestList : ", requestList);
