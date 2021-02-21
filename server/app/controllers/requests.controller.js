@@ -234,14 +234,15 @@ exports.updateStatusOnRequestAsManager = async (req, res) => {
         const emailSubject = "Status of request changed";
         const emailTextBody = emailSubject;
         const emailHtmlBody = emailSubject;
-        const token = notification.generateNotificationToken();
-
+        // const token = notification.generateNotificationToken();
+        const notificationId = notification._id;
+        console.log('notificationId', notificationId)
         const residentNotificationEmailDetails = createNotificationObject(
           residentEmail,
           emailSubject,
           emailTextBody,
           emailHtmlBody,
-          token
+          notificationId
         );
 
         const responseNotification = await sendEmailNotification(
@@ -346,10 +347,13 @@ exports.getNotificationsDone = async (req, res) => {
 }
 
 exports.authNotification = async (req, res) => {
+  console.log('req.params.id', req.params.id)
   try {
-    const decoded = jwt.verify(req.params.token, config.JWT.EMAIL_SECRET_KEY);
+    // const decoded = jwt.verify(req.params.token, config.JWT.EMAIL_SECRET_KEY);
 
-    const notification = await Notification.findById(decoded._id);
+    // const notification = await Notification.findById(decoded._id);
+
+    const notification = await Notification.findById(req.params.id)
 
     // console.log(notification);
     return res
