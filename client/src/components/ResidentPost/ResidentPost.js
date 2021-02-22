@@ -172,7 +172,7 @@ const currentUser = useSelector(selectUser);
             {/* <img className="post__image" src={`/${image}`} alt="username"/> */}
             <h4 className="post__text"><strong>{username}</strong> {caption}</h4>
             <div>{allComments(comments)}</div>
-            <div>{displayComments(comments)}</div>
+            {/* <div>{displayComments(comments)}</div> */}
             <form className="post__commentBox">
                 <input
                     className="post__comment"
