@@ -28,11 +28,12 @@
   z-index: -1;
   position: absolute;
   width: 100%;
-  background: rgb(227, 227, 227)
+  background: rgb(255, 255, 255)
   
   /* linear-gradient(0deg, rgba(249, 249, 249, 0.18), rgba(191, 191, 191, 0.5)), */
     /* url("../../../assets/main1.jpg") */
     ;
+    height: 100%;
   background-size: 100%;
 }
 

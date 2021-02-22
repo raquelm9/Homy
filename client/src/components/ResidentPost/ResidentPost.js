@@ -42,7 +42,7 @@ const currentUser = useSelector(selectUser);
       //     comment: newComment,
       // };
 
-    new HttpService().createComment( postId, username, newComment )
+    new HttpService().createComment( postId, name, newComment )
     .then(
       (data) => {
         console.log(data.comments)
