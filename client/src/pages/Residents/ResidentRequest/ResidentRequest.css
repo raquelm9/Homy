@@ -3,11 +3,16 @@
   src: url(../../../assets/fonts/ComfortaaBold.ttf);
 }
 
+@font-face {
+  font-family: robotoBlack;
+  src: url(../../../assets/fonts/RobotoBlack.ttf);
+}
+
 .resident-request-title {
   text-align: center;
   padding: 40px;
   font-size: 2rem;
-  font-family: comfortaa;
+  font-family: roboto, sans-serif, Arial;
 }
 
 .icon-size {

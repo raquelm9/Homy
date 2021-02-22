@@ -11,7 +11,7 @@
 
 @font-face {
   font-family: roboto;
-  src: url(../../../assets/fonts/RobotoBlack.ttf);
+  src: url(../../../assets/fonts/RobotoRegular.ttf);
 }
 
 .container-adjustment {
@@ -20,6 +20,7 @@
 
 .mainPage {
   text-align: center;
+  /* background: lightgray; */
 }
 
 .overlay {
@@ -27,14 +28,34 @@
   z-index: -1;
   position: absolute;
   width: 100%;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../../../assets/main1.jpg");
-  background-size: cover;
+  background: rgb(227, 227, 227)
+  
+  /* linear-gradient(0deg, rgba(249, 249, 249, 0.18), rgba(191, 191, 191, 0.5)), */
+    /* url("../../../assets/main1.jpg") */
+    ;
+  background-size: 100%;
 }
 
-.mainPageLogo {
-  color: white;
-  padding-top: 30vh;
+
+.mainPage__logo {
+  /* color: white; */
+  padding-top: 20vh;
+}
+
+.homy__logo {
+  font-family: comfortaa;
+  font-size: 120px;
+  /* line-height: 110%; */
+  background: -webkit-radial-gradient( left, #9c27b0, #f1356d);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.homy__intro__text {
+  font-family: roboto, sans-serif, Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  line-height: 60%;
+  color:#090909
 }
 
 .homyText {
@@ -42,45 +63,48 @@
   font-size: 150px;
   line-height: 110%;
 }
-.homyTextIntro {
-  font-family: comfortaa;
-  font-size: 50px;
-  line-height: 60%;
-}
+
 
 .buttonGetStarted {
   /* font-family: roboto; */
-
-  font-family: Arial, roboto;
+  /* background-color: #545454; */
+  border: 0px;
+  border-radius: 40px;
+  font-family: roboto, sans-serif Arial;
   font-size: 20px;
   padding-top: 15px;
   padding-bottom: 15px;
+  background: -webkit-radial-gradient( left, #9c27b0, #f1356d);
+  background-clip: none;
+  -webkit-fill-color: transparent;
 }
 
 .button-adjustment {
+  padding-top: 5vh;
   width: 100%;
 }
 
 .buttonGetStarted {
-  margin-top: 30px;
-  font-family: Arial, roboto;
+  margin-top: 20vh;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
   font-size: 20px;
   padding: 20px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 300px) {
   .button-adjustment {
     width: 100%;
     bottom: 0;
     position: fixed;
   }
 
-  .buttonGetStarted {
+  /* .buttonGetStarted {
     font-family: Arial, roboto;
     font-size: 20px;
     width: 100%;
     padding: 30px;
-  }
+  } */
 
   .homyText {
     font-size: 60px;
