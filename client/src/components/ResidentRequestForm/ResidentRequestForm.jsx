@@ -4,6 +4,7 @@ import { residentRequestValidationSchema } from "./validations/resident_request_
 import HttpService from "../../services/http-service";
 import { useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import SelectFile from '../SelectFile/SelectFile';
 
 import "./ResidentRequestForm.css";
 
@@ -16,6 +17,7 @@ function ResidentRequestForm() {
   const name = useSelector((state) => state.userReducer.user.name);
 
   const [notification, setNotification] = useState('none');
+
 
   const queryString = location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -141,20 +143,17 @@ function ResidentRequestForm() {
                 </div>
 
                 {/* Image */}
-                <div className="form-group row input-margin">
-                  <label htmlFor="image" className="col-sm-2 col-form-label">
-                    Image
-                  </label>
-                  <input
-                    className="col-md-8 col-sm-10"
-                    id="file"
-                    type="file"
-                    name="file"
-                    onChange={(event) => {
-                      setFieldValue("image", event.currentTarget.files[0]);
-                    }}
-                  />
+                <div className="form-group row input-margin mt-5">
+                  <div className="col-sm-2"></div>
+                  <div className="col-md-8 col-sm-10">
+                    <SelectFile
+                      onFileSelect={imgData => setFieldValue("image", imgData)}
+                    />
+                  </div>
+
                 </div>
+
+
                 {/* Notification type */}
                 <div className="form-group row input-margin">
                   <label htmlFor="" className="col-sm-2 col-form-label">
@@ -217,3 +216,4 @@ function ResidentRequestForm() {
 }
 
 export default ResidentRequestForm;
+
