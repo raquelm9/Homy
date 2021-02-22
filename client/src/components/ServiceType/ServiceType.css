@@ -1,6 +1,6 @@
 @font-face {
   font-family: roboto;
-  src: url(../../assets/fonts/RobotoBlack.ttf);
+  src: url(../../assets/fonts/RobotoRegular.ttf);
 }
 
 @font-face {
@@ -25,13 +25,24 @@
   border-radius: 40px;
   max-width: 70%;
   height: 100px;
+  filter: drop-shadow(5px 5px 5px #1f1f1fd4); 
 }
 
 .button__service__inside {
   color: #9c27b0;
   background-color: #fafafa;
-  font-family: comfortaa, roboto;
+  font-family: roboto, sans-serif, Arial;
+  font-size: 15px;
   height: 80px;
   align-items: center;
   
+}
+
+button__service__inside:hover {
+  
+  background-color: #d3d3d3;
+}
+
+.button__service:hover {
+  filter: drop-shadow(1px 1px 1px #1f1f1fd4);
 }
