@@ -6,6 +6,7 @@ import HttpService from "../../../services/http-service";
 import { config } from "../../../config/config";
 import { fetchNotificationDone } from '../../../actions/userActions';
 import { useSelector, useDispatch } from 'react-redux';
+import BackButton from '../../../components/BackButton/BackButton';
 
 const ResidentShopPage = () => {
   const [products, setProducts] = useState([]);
@@ -63,6 +64,7 @@ const ResidentShopPage = () => {
 
   return (
     <div className="container-fluid">
+      <BackButton />
       <div className="row">
         <div className="col-12">
           <h1 className="resident-request-title">SHOP</h1>

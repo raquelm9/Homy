@@ -4,6 +4,7 @@ import { TypesOfServices } from "../../../components/TypesOfServices/TypesOfServ
 import { useHistory } from "react-router-dom";
 import { fetchNotificationDone } from '../../../actions/userActions';
 import { useSelector, useDispatch } from 'react-redux';
+import BackButton from '../../../components/BackButton/BackButton';
 
 import "./ResidentRequest.css";
 
@@ -34,6 +35,7 @@ function ResidentRequestType() {
 
   return (
     <div className="container-fluid">
+      <BackButton />
       <div className="row">
         <div className="col-12">
           <h1 className="resident-request-title">REQUEST A SERVICE</h1>

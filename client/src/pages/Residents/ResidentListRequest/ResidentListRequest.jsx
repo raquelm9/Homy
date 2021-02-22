@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import ResidentRequestList from "../../../components/ResidentRequestList/ResidentRequestList";
 import { fetchNotificationDone } from '../../../actions/userActions';
 import { useSelector, useDispatch } from 'react-redux';
+import { FormHelperText } from "@material-ui/core";
+import BackButton from '../../../components/BackButton/BackButton';
 
 function ResidentListRequest() {
 
@@ -14,6 +16,7 @@ function ResidentListRequest() {
 
   return (
     <div className="container-fluid">
+      <BackButton />
       <div className="row">
         <div className="col-12">
           <h1 className="resident-request-title">SERVICE REQUESTED</h1>
@@ -25,3 +28,4 @@ function ResidentListRequest() {
 }
 
 export default ResidentListRequest;
+

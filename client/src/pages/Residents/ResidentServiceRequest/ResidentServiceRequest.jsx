@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import ResidentRequestForm from "../../../components/ResidentRequestForm/ResidentRequestForm";
 import { fetchNotificationDone } from '../../../actions/userActions';
 import { useSelector, useDispatch } from 'react-redux';

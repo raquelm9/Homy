@@ -6,6 +6,7 @@ import HttpService from "../../../services/http-service";
 import swal from "sweetalert";
 import "./CheckoutForm.css";
 import { config } from "../../../config/config";
+import BackButton from '../../../components/BackButton/BackButton';
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -129,6 +130,7 @@ const CheckoutForm = (props) => {
     <>
       {state ? (
         <div className="container-fluid">
+          <BackButton />
           <div className="row">
             <div className="col"></div>
             <div className="col-12">
