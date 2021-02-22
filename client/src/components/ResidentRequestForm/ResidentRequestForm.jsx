@@ -6,6 +6,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SelectFile from '../SelectFile/SelectFile';
 
+
 import "./ResidentRequestForm.css";
 
 function ResidentRequestForm() {
@@ -144,7 +145,12 @@ function ResidentRequestForm() {
 
                 {/* Image */}
                 <div className="form-group row input-margin mt-5">
-                  <div className="col-sm-2"></div>
+                  <label
+                    htmlFor=""
+                    className="col-sm-2 col-form-label"
+                  >
+                    Image
+                  </label>
                   <div className="col-md-8 col-sm-10">
                     <SelectFile
                       onFileSelect={imgData => setFieldValue("image", imgData)}

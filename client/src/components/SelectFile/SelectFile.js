@@ -19,8 +19,8 @@ function SelectFile({ onFileSelect, className }) {
         <div>
             <InputGroup className="mb-3">
                 <FormControl
-                    placeholder="Choose image"
-                    aria-label="Choose image"
+                    placeholder="Image"
+                    aria-label="Image"
                     aria-describedby="basic-addon2"
                     value={imageName}
                     onChange={() => console.log('')}
@@ -30,7 +30,7 @@ function SelectFile({ onFileSelect, className }) {
                     <Button variant="secondary"
                         onClick={handleClick}
                     >
-                        Button
+                        Upload
                     </Button>
                     <input
                         style={INPUT_STYLE}
