@@ -67,7 +67,7 @@ const ResidentShopPage = () => {
       <BackButton />
       <div className="row">
         <div className="col-12">
-          <h1 className="resident-request-title">SHOP</h1>
+          <h1 style={TITLE_STYLE} className="resident-request-title">SHOP</h1>
         </div>
       </div>
       <div className="shopping-container">
@@ -78,3 +78,8 @@ const ResidentShopPage = () => {
 };
 
 export default ResidentShopPage;
+
+const TITLE_STYLE = {
+  marginTop: "0",
+  paddingTop: "0"
+}
