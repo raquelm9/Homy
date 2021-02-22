@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ResidentRequestList from "../../../components/ResidentRequestList/ResidentRequestList";
+import { fetchNotificationDone } from '../../../actions/userActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 function ResidentListRequest() {
+
+  const isLoggedIn = useSelector(state => state.userReducer.loggedIn);
+  const dispatch = useDispatch();
+
+  useEffect(() => {//look if there's DONE notification
+    if (isLoggedIn) dispatch(fetchNotificationDone());
+  }, []);
+
   return (
     <div className="container-fluid">
       <div className="row">

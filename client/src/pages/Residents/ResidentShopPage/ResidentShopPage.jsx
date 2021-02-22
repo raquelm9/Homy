@@ -4,9 +4,17 @@ import "./ResidentShopPage.css";
 import { Link } from "react-router-dom";
 import HttpService from "../../../services/http-service";
 import { config } from "../../../config/config";
+import { fetchNotificationDone } from '../../../actions/userActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ResidentShopPage = () => {
   const [products, setProducts] = useState([]);
+  const isLoggedIn = useSelector(state => state.userReducer.loggedIn);
+  const dispatch = useDispatch();
+
+  useEffect(() => {//look if there's DONE notification
+    if (isLoggedIn) dispatch(fetchNotificationDone());
+  }, []);
 
   useEffect(() => {
     new HttpService().getProducts().then((data) => setProducts(data));

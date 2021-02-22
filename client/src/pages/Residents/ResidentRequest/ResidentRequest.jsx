@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ServiceType from "../../../components/ServiceType/ServiceType";
 import { TypesOfServices } from "../../../components/TypesOfServices/TypesOfServices";
 import { useHistory } from "react-router-dom";
+import { fetchNotificationDone } from '../../../actions/userActions';
+import { useSelector, useDispatch } from 'react-redux';
+
 import "./ResidentRequest.css";
 
 function ResidentRequestType() {
+  const dispatch = useDispatch();
   const history = useHistory();
+  const isLoggedIn = useSelector(state => state.userReducer.loggedIn);
 
   const typesOfServices = TypesOfServices;
+
+  useEffect(() => {//look if there's DONE notification
+    if (isLoggedIn) dispatch(fetchNotificationDone());
+  }, []);
 
   const goToRequestList = () => {
     history.push("/resident-list-request");
