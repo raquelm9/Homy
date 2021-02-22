@@ -33,7 +33,7 @@ module.exports = (app) => {
     auth,
     request.getAllServiceRequests
   );
-  router.get("/notification/:token", request.authNotification);
+  router.get("/notification/:id", request.authNotification);
   router.get('/notifications/done', auth, request.getNotificationsDone)
   app.use("/api/service-requests", router);
 };

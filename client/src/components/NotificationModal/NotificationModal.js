@@ -24,11 +24,17 @@ function NotificationModal({ open }) {
     }, [isLoggedIn, user])
 
     const onClickHandle = (toBeArchived) => {
-        console.log('temporary')
         if (toBeArchived) {
             new HttpService()
                 .updateStatusOnRequest(user.notification_req_id[0], ARCHIVED)
-                .then((data) => dispatch(removeUserNotification()))
+                .then((data) => {
+                    dispatch(removeUserNotification())
+                    if (comment.length) {
+                        new HttpService()
+                            .commentOnRequest(user.notification_req_id[0], user.name, comment)
+                            .then(data => setComment(''))
+                    }
+                })
         } else {
             if (comment.length) {
                 new HttpService()
@@ -36,7 +42,10 @@ function NotificationModal({ open }) {
                     .then((data) => {
                         new HttpService()
                             .commentOnRequest(user.notification_req_id[0], user.name, comment)
-                            .then(data => dispatch(removeUserNotification()))
+                            .then(data => {
+                                setComment('')
+                                dispatch(removeUserNotification())
+                            })
                     })
             }
 

@@ -14,7 +14,7 @@ function ResidentPost({ postId,username, caption, image, userAvatarUrl, comments
     const [allPosts, setAllPosts] = useState([]);
     const [newComment, setNewComment] =useState([]);
 
-    const [alfaComments, setAlfaComments] = useState('');
+    const [commentsToDisplay, setCommentsToDisplay] = useState(null);
 
     const history = useHistory();
      //const loggedIn = useSelector((state) => state.userReducer.loggedIn);
@@ -37,17 +37,18 @@ const currentUser = useSelector(selectUser);
       console.log(event.target.value)
       console.log("comment is " + newComment)
       event.preventDefault();
-      // const newComment = {
-      //     name,
+      // const commentToPost = {
+      //     username: name,
       //     comment: newComment,
       // };
 
     new HttpService().createComment( postId, username, newComment )
     .then(
       (data) => {
-        console.log(data)
+        console.log(data.comments)
+        setCommentsToDisplay(data.comments)
         setNewComment('');
-        setAlfaComments('')
+        // setAlfaComments('')
       },
       (err) => {}
     );
@@ -90,7 +91,6 @@ const currentUser = useSelector(selectUser);
 
     const handleChange = (event) => {
         event.preventDefault();
-        console.log(event.target.value);
         setNewComment(event.target.value);
     };
     
@@ -104,13 +104,47 @@ const currentUser = useSelector(selectUser);
 
 
     const allComments = (comments) => {
-        return (
-        comments.map((comment, key) => (
-            <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
-        ))
-        )
+      // return (
+      //   comments.map((comment, key) => (
+      //       <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
+      //   ))
+      //   )
+      
+      
+      if (!commentsToDisplay) {
+          console.log("original")
+          return (
+            
+            comments.map((comment, key) => (
+                <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
+            ))
+            )
+        } else {
+          console.log("non-original")
+          return (
+            commentsToDisplay.map((comment, key) => (
+                <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
+            ))
+            )
+        }
     }
+
+    const displayComments = (comments) => {
+      if (comments.length > 0) {
+        if (comments.length >= 3) {
+          return <p className="post__comment__text">See More</p>
+        } else {
+          return <p className="post__comment__text">There are less than 3</p>
+        } 
+      }
     
+    }
+
+
+
+
+    
+
     const getImagePath = () => {
         if (image.includes("http")) {
           return image;
@@ -138,6 +172,7 @@ const currentUser = useSelector(selectUser);
             {/* <img className="post__image" src={`/${image}`} alt="username"/> */}
             <h4 className="post__text"><strong>{username}</strong> {caption}</h4>
             <div>{allComments(comments)}</div>
+            <div>{displayComments(comments)}</div>
             <form className="post__commentBox">
                 <input
                     className="post__comment"

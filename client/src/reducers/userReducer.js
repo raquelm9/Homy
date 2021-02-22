@@ -30,7 +30,7 @@ const userReducer = (state = defaultState, action) => {
         user: {
           ...state.user,
           notification_active: action.payload.length ? true : false,
-          notification_req_id: [action.payload]
+          notification_req_id: action.payload
         }
       };
     case REMOVE_USER_NOTIFICATION:

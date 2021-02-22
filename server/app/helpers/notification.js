@@ -4,6 +4,8 @@ const config = require("../config");
 const saveLog = require('./saveLog');
 const { encrypt, decrypt } = require('../helpers/cipher');
 const { Token } = require('../models/token.schema');
+const { urlShortener } = require('../helpers/urlShortener');
+
 
 exports.createNotificationObject = (
   residentEmail,
@@ -107,20 +109,24 @@ exports.sendEmailNotification = async (mailOptions) => {
   return await sendMail(mailOptions);
 };
 
-exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, token) => {
+exports.sendSMSNotification = async (residentPhoneNumber, residentMessage, notificationId) => {
   try {
     const client = require("twilio")(
       config.TWILIO.ACCOUNT_SID,
-      config.TWILIO.AUTH_TOKEN
-    );
+      config.TWILIO.AUTH_TOKEN);
 
-
+    // const longUrl = `${config.FRONTEND.URI}/notification/requests/${notificationId}`
+    const uri = 'https://adoring-leakey-4abb67.netlify.app'
+    const longUrl = `${uri}/notification/requests/${notificationId}`
+    const shortUrl = await urlShortener(longUrl);
+    // console.log(longUrl)
+    // console.log(shortUrl)
     residentMessage = residentMessage + `
       Click on the link to see this more details
-      ${config.FRONTEND.URI}/notification/requests/${token}"
+      ${shortUrl}
       'We got you, Homy!!'
   `
-
+    // console.log('shortUrl.shortLink', shortUrl)
     return await client.messages.create({
       to: residentPhoneNumber,
       from: config.TWILIO.PRIMARY_PHONE_NUMBER,
