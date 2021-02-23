@@ -3,8 +3,10 @@
     max-width: 500px;
     border: 1px solid lightgrey;
     border-radius: 15px;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    /* margin-top: 20px;
+    margin-bottom: 40px; */
+    margin: 20px auto;
+
     /* margin-left: 20px;
     margin-right: 20px; */
 }
@@ -24,6 +26,7 @@
     object-fit: contain;
     border-bottom: 1px solid lightgrey;
     border-top: 1px solid lightgrey;
+    margin:auto;
 }
 
 .post__text {
