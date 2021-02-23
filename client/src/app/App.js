@@ -30,7 +30,7 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.userReducer.user);
   const loggedIn = useSelector(state => state.userReducer.loggedIn);
-
+  
   useEffect(() => {
     dispatch(autoLogin());
     if (loggedIn) {
@@ -50,7 +50,9 @@ function App() {
         <Route exact path="/" component={MainPage} />
         <Route exact path="/home" component={HomePage} />
         <Route exact path="/community" component={CommunityPage} />
-        <Route exact path="/resident-request" component={ResidentRequest} />
+        <Route
+          onEnter={() => dispatch(fetchNotificationDone())}
+          exact path="/resident-request" component={ResidentRequest} />
         <Route
           exact
           path="/resident-service-request"

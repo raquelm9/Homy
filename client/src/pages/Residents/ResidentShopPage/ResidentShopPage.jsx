@@ -4,9 +4,18 @@ import "./ResidentShopPage.css";
 import { Link } from "react-router-dom";
 import HttpService from "../../../services/http-service";
 import { config } from "../../../config/config";
+import { fetchNotificationDone } from '../../../actions/userActions';
+import { useSelector, useDispatch } from 'react-redux';
+import BackButton from '../../../components/BackButton/BackButton';
 
 const ResidentShopPage = () => {
   const [products, setProducts] = useState([]);
+  const isLoggedIn = useSelector(state => state.userReducer.loggedIn);
+  const dispatch = useDispatch();
+
+  useEffect(() => {//look if there's DONE notification
+    if (isLoggedIn) dispatch(fetchNotificationDone());
+  }, []);
 
   useEffect(() => {
     new HttpService().getProducts().then((data) => setProducts(data));
@@ -55,9 +64,10 @@ const ResidentShopPage = () => {
 
   return (
     <div className="container-fluid">
+      <BackButton />
       <div className="row">
         <div className="col-12">
-          <h1 className="resident-request-title">SHOP</h1>
+          <h1 style={TITLE_STYLE} className="resident-request-title">SHOP</h1>
         </div>
       </div>
       <div className="shopping-container">
@@ -68,3 +78,8 @@ const ResidentShopPage = () => {
 };
 
 export default ResidentShopPage;
+
+const TITLE_STYLE = {
+  marginTop: "0",
+  paddingTop: "0"
+}

@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //import { Container, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import WeartherCard from "../../../components/WeatherCard/WeatherCard";
-import NotificationModal from "../../../components/NotificationModal/NotificationModal";
 import "./HomePage.css";
+import { fetchNotificationDone } from "../../../actions/userActions";
 
 function HomePage() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const userName = useSelector((state) => state.userReducer.user.name);
+  const isLoggedIn = useSelector(state => state.userReducer.loggedIn);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {//look if there's DONE notification
+    if (isLoggedIn) dispatch(fetchNotificationDone());
+  }, []);
 
   const serviceOptions = [
     "GO TO COMMUNITY",
@@ -73,10 +78,6 @@ function HomePage() {
         {serviceOptions.map((serviceOption, index) =>
           cardHistory(serviceOption, index)
         )}
-        <NotificationModal
-          open={modalIsOpen}
-          onClose={() => setModalIsOpen(false)}
-        />
       </div>
     </>
   );

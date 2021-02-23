@@ -6,6 +6,7 @@ import HttpService from "../../../services/http-service";
 import swal from "sweetalert";
 import "./CheckoutForm.css";
 import { config } from "../../../config/config";
+import BackButton from '../../../components/BackButton/BackButton';
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -129,10 +130,12 @@ const CheckoutForm = (props) => {
     <>
       {state ? (
         <div className="container-fluid">
+          <BackButton />
           <div className="row">
             <div className="col"></div>
             <div className="col-12">
               <img
+                style={IMG_STYLE}
                 className="img-fluid image-adjustment"
                 alt="product"
                 src={getImagePath(state.product.imagePath)}
@@ -218,5 +221,10 @@ const CheckoutForm = (props) => {
 
 //4000001240000000 canada card number
 //4000000000009995 insuficient funds
-//4242424242424242
+//4242424242424242 us card number
 export default CheckoutForm;
+
+const IMG_STYLE = {
+  marginTop: "0",
+  paddingTop: "0"
+}

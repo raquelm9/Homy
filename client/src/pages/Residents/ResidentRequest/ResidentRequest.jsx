@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ServiceType from "../../../components/ServiceType/ServiceType";
 import { TypesOfServices } from "../../../components/TypesOfServices/TypesOfServices";
 import { useHistory } from "react-router-dom";
+import { fetchNotificationDone } from '../../../actions/userActions';
+import { useSelector, useDispatch } from 'react-redux';
+import BackButton from '../../../components/BackButton/BackButton';
+
 import "./ResidentRequest.css";
 
 function ResidentRequestType() {
+  const dispatch = useDispatch();
   const history = useHistory();
+  const isLoggedIn = useSelector(state => state.userReducer.loggedIn);
 
   const typesOfServices = TypesOfServices;
+
+  useEffect(() => {//look if there's DONE notification
+    if (isLoggedIn) dispatch(fetchNotificationDone());
+  }, []);
 
   const goToRequestList = () => {
     history.push("/resident-list-request");
@@ -25,9 +35,10 @@ function ResidentRequestType() {
 
   return (
     <div className="container-fluid">
+      <BackButton />
       <div className="row">
         <div className="col-12">
-          <h1 className="resident-request-title">REQUEST A SERVICE</h1>
+          <h1 style={TITLE_STYLE} className="resident-request-title">REQUEST A SERVICE</h1>
         </div>
       </div>
       <div className="list-group">
@@ -52,3 +63,8 @@ function ResidentRequestType() {
 }
 
 export default ResidentRequestType;
+
+const TITLE_STYLE = {
+  marginTop: "0",
+  paddingTop: "0"
+}
