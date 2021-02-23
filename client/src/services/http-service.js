@@ -18,7 +18,13 @@ class HttpService {
    */
   getAllAnnouncements = () => {
     let promise = new Promise((resolve, reject) => {
-      fetch(endPointsAnnouncements).then((response) => {
+      fetch(endPointsAnnouncements, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        }
+      }).then((response) => {
         resolve(response.json());
       });
     });
@@ -27,23 +33,24 @@ class HttpService {
 
   createAnnouncement = (value) => {
     let promise = new Promise((resolve, reject) => {
-    
+
       const data = new FormData();
       data.append("username", value.username);
       data.append("title", value.title);
       data.append("image", value.image);
       data.append("announcement", value.announcement);
-      
+
       fetch(endPointsAnnouncements, {
         method: "post",
         headers: {
           // "Content-Type": "application/json",
           "x-auth-token": `${localStorage.getItem("token")}`,
         },
-        body: data,})
+        body: data,
+      })
         .then((res) => {
           resolve(res.json());
-      });
+        });
     });
     return promise;
   };
@@ -150,9 +157,14 @@ class HttpService {
    */
   getAllPosts = () => {
     let promise = new Promise((resolve, reject) => {
-      fetch(endPointsPosts).then((response) => {
-        resolve(response.json());
-      });
+      fetch(endPointsPosts, {
+        headers: {
+          "x-auth-token": `${localStorage.getItem("token")}`,
+        }
+      })
+        .then((response) => {
+          resolve(response.json());
+        });
     });
     return promise;
   };
@@ -173,8 +185,8 @@ class HttpService {
   //         avatarUrl:
   //           "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg/220px-Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg",
   //         imageUrl: 
-          // file,
-            
+  // file,
+
   //         "https://miro.medium.com/max/700/1*WNr4o3XKVcb556Al3beWAQ.jpeg",
   //         caption: caption,
   //         comments: [],
@@ -197,7 +209,7 @@ class HttpService {
         method: "put",
         headers: {
           "Content-Type": "application/json",
-           "x-auth-token": `${localStorage.getItem("token")}`,
+          "x-auth-token": `${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
           username,
@@ -220,7 +232,7 @@ class HttpService {
   };
 
 
-   
+
   getRequests = () => {
     var promise = new Promise((resolve, reject) => {
       fetch(endPoints, {
@@ -262,22 +274,23 @@ class HttpService {
 
   createPost = (value) => {
     let promise = new Promise((resolve, reject) => {
-    
+
       const data = new FormData();
       data.append("username", value.username);
       data.append("caption", value.caption);
       data.append("image", value.image);
-      
+
       fetch(endPointsPosts, {
         method: "post",
         headers: {
           // "Content-Type": "application/json",
           "x-auth-token": `${localStorage.getItem("token")}`,
         },
-        body: data,})
+        body: data,
+      })
         .then((res) => {
           resolve(res.json());
-      });
+        });
     });
     return promise;
   };

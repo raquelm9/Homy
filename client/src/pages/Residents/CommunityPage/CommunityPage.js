@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Card} from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 import SimpleBottomNavigation from "../../../components/Layouts/SimpleBottomNavigation";
 import ResidentPost from "../../../components/ResidentPost/ResidentPost";
@@ -19,23 +19,25 @@ function CommunityPage() {
 
 
   const loadAllPosts = () => {
-    
+
     new HttpService().getAllPosts().then(
       (data) => {
-    
-        const newData = [...data].reverse()
-        setAllPosts(newData);
+        if (!data.error) {
+          const newData = [...data].reverse()
+          setAllPosts(newData);
+        }
+
       },
-      (err) => {}
+      (err) => { }
     );
   };
 
   const loadAllAnnouncements = () => {
     new HttpService().getAllAnnouncements().then(
       (data) => {
-        setAllAnnouncements(data);
+        if (!data.error) setAllAnnouncements(data);
       },
-      (err) => {}
+      (err) => { }
     );
   };
 
@@ -60,11 +62,11 @@ function CommunityPage() {
     console.log(announcements)
     return announcements.map((announcement, key) => (
       <Announcements
-      username={announcement.username}
-      image={announcement.image}
-      title={announcement.title}
-      announcement={announcement.announcement}
-      key={key}
+        username={announcement.username}
+        image={announcement.image}
+        title={announcement.title}
+        announcement={announcement.announcement}
+        key={key}
       />
     ));
   };
