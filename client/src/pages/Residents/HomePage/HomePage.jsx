@@ -36,10 +36,10 @@ function HomePage() {
         <div className="col"></div>
         <div className="col-md-8 col-sm-10 space-text-center">
           <div
-            className="card card-hoover-option"
+            className="card card-style card-hoover-option"
             onClick={() => ChangeRoute(serviceOption)}
           >
-            <div className="card-body">{serviceOption}</div>
+            <div className="card-body card-body-style">{serviceOption}</div>
           </div>
         </div>
         <div className="col"></div>

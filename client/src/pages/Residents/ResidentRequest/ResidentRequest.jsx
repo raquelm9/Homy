@@ -36,10 +36,10 @@ function ResidentRequestType() {
         </div>
         <div className="row align-items-center">
           <div className="col" />
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-6 col-sm-12 button__service">
             <div
               onClick={goToRequestList}
-              className="list-group-item size-type"
+              className="list-group-item size-type button__service__inside_list"
             >
               REQUESTED SERVICES
             </div>

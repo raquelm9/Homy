@@ -38,7 +38,7 @@ function WeatherCard() {
         <div className="col"></div>
         <div className="col-md-8 col-sm-10">
           <div className="card card-margin">
-            <div className="card-body">
+            <div className="card-body card-body-weather">
               <div className="row">
                 <div className="col-6 space-content">
                   <div className="row">

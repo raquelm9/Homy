@@ -25,7 +25,7 @@
   border-radius: 40px;
   max-width: 70%;
   height: 100px;
-  filter: drop-shadow(5px 5px 5px #1f1f1fd4); 
+  filter: drop-shadow(5px 5px 5px #1f1f1fd4);
 }
 
 .button__service__inside {
@@ -35,11 +35,18 @@
   font-size: 15px;
   height: 80px;
   align-items: center;
-  
+}
+
+.button__service__inside_list {
+  color: #fafafa;
+  background-image: linear-gradient(to left, #9c27b0, #f1356d);
+  font-family: roboto, sans-serif, Arial;
+  font-size: 15px;
+  height: 80px;
+  align-items: center;
 }
 
 button__service__inside:hover {
-  
   background-color: #d3d3d3;
 }
 

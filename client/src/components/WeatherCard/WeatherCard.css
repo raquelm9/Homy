@@ -12,6 +12,14 @@
   font-size: 25px;
 }
 
+.card-margin {
+  border-radius: 40px;
+}
+
+.card-body-weather {
+  color: #9c27b0;
+}
+
 @media only screen and (max-width: 768px) {
   .space-content {
     padding-left: 10px;
