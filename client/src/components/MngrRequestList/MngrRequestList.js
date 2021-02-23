@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import MngrEachService from "../MngrEachService/MngrEachService";
 import HttpService from "../../services/http-service";
 import FilterModal from "../FilterModal/FilterModal";
+import AscendingIcon from "@material-ui/icons/ExpandLess";
+import DescendingIcon from "@material-ui/icons/ExpandMore";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   NEW,
   VIEWED,
@@ -19,6 +23,29 @@ function MngrRequestList() {
   const [requests, setRequests] = useState([]);
   const [allRequests, setAllRequests] = useState([]);
   const [filteredRequests, setFilteredRequests] = useState([]);
+  const Ascending = true;
+  const Descending = false;
+  let [sortArray, setSortArray] = useState([
+    {
+      label: "Status",
+      key: "status",
+      direction: Ascending,
+      value: (a) => a,
+    },
+    {
+      label: "Type",
+      key: "type",
+      direction: Ascending,
+      value: (a) => a,
+    },
+    {
+      label: "Date",
+      key: "date",
+      direction: Ascending,
+      value: (a) => Date.parse(a),
+    },
+  ]);
+
   let [typeQuery, setTypeQuery] = useState([
     {
       label: "ELECTRICAL",
@@ -120,6 +147,34 @@ function MngrRequestList() {
       (err) => {}
     );
   };
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: "flex",
+    },
+    formControl: {
+      margin: theme.spacing(1),
+    },
+    dialogDivider: {
+      margin: "0px 0px",
+      borderWidth: "1px",
+      borderStyle: "solid",
+    },
+    headingButton: {
+      href: "#text-buttons",
+      underline: "none",
+      color: "black",
+      size: "medium",
+      variant: "text",
+      padding: "0",
+      textTransform: "capitalize",
+      "&:hover": { backgroundColor: "rgb(221,226,231)" },
+      "&:focus": { outline: "none" },
+      fontSize: "1rem",
+    },
+  }));
+
+  const classes = useStyles();
 
   const sortManagerList = (data) => {
     data.sort((a, b) => (a.status > b.status ? 1 : -1));
@@ -235,6 +290,87 @@ function MngrRequestList() {
     );
   };
 
+  // this function find the index of the sort key in the sortArray
+  // by knowing the index, we can retrieve the key object in the array which contains the
+  // sort button label, the key to sort in the request list object, the direction of sort and
+  // the callback value function to process the comparison of the sort
+  // the callback function is needed because the date in the requests collection is in string format
+  function findKeyIndex(key, keyArray) {
+    const isSortKey = (element) => element.key === key;
+    const index = keyArray.findIndex(isSortKey);
+    return index;
+  }
+
+  // this function sort the target array (request list) by the sort keyObject
+  // such as date key object, type key object, etc..
+  function sortRequestListBy(keyObject, targetArray) {
+    const index = findKeyIndex(keyObject.key, targetArray);
+    let tempArray = [...targetArray];
+
+    const sortFunction = (a, b) => {
+      const x = keyObject.value(a[keyObject.key]);
+      const y = keyObject.value(b[keyObject.key]);
+      if (x > y) {
+        return 1;
+      } else {
+        return -1;
+      }
+    };
+
+    tempArray.sort(sortFunction);
+    if (keyObject.direction === Descending) {
+      tempArray.reverse();
+    }
+
+    return tempArray;
+  }
+
+  // this function applies the all the sorting based on the entries
+  // of sortArray, the index of the entries determines the hierarchy of the sorting
+  function sortRequestList(keyArray, targetArray) {
+    console.log("keyArray : ", keyArray);
+    console.log("targetArray : ", targetArray);
+
+    let tempArray = [...targetArray];
+    console.log("tempArray : ", tempArray);
+
+    keyArray.forEach((element) => {
+      tempArray = sortRequestListBy(element, tempArray);
+    });
+    return tempArray;
+  }
+
+  // this is the event handler of the Heading Button of the request list
+  // it also reverses the sorting direction with every click on the button
+  function handleHeadingButton(sortKey) {
+    const tempSortArray = [...sortArray];
+    const index = findKeyIndex(sortKey, sortArray);
+    const element = tempSortArray.splice(index, 1)[0];
+    element.direction =
+      element.direction === Ascending ? Descending : Ascending;
+    tempSortArray.push(element);
+    setSortArray((sortArray = [...tempSortArray]));
+
+    const sortedArray = sortRequestList(sortArray, filteredRequests);
+    setFilteredRequests([...sortedArray]);
+  }
+
+  // this is the HeadingButton react component
+  const HeadingButton = (props) => {
+    const index = findKeyIndex(props.sortKey, sortArray);
+    return (
+      <Button
+        className={classes.headingButton}
+        onClick={() => handleHeadingButton(props.sortKey)}
+        endIcon={
+          sortArray[index].direction ? <AscendingIcon /> : <DescendingIcon />
+        }
+      >
+        {props.sortKey}
+      </Button>
+    );
+  };
+
   return (
     <div>
       <h2>Service Requests</h2>
@@ -255,12 +391,18 @@ function MngrRequestList() {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Date</th>
-              <th scope="col">Type</th>
+              <th scope="col">
+                <HeadingButton sortKey="date" />
+              </th>
+              <th scope="col">
+                <HeadingButton sortKey="type" />
+              </th>
               <th scope="col">Subject</th>
               <th scope="col"></th>
               <th scope="col"></th>
-              <th scope="col">Status</th>
+              <th scope="col">
+                <HeadingButton sortKey="status" />
+              </th>
             </tr>
           </thead>
           <tbody>{filteredRequests.map(listOfServices)}</tbody>
