@@ -73,7 +73,7 @@ export const autoLogin = () => (dispatch) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        "Accept": "application/json",
         "x-auth-token": `${localStorage.getItem("token")}`,
       },
     })
@@ -97,7 +97,7 @@ export const fetchNotificationDone = () => (dispatch) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json",
+      "Accept": "application/json",
       "x-auth-token": `${localStorage.getItem("token")}`
     }
   })

@@ -6,17 +6,23 @@ import ResidentPost from "../../../components/ResidentPost/ResidentPost";
 import Announcements from '../CommunityPage/Announcements';
 import "./CommunityPage.css";
 import HttpService from "../../../services/http-service";
+import { fetchNotificationDone } from "../../../actions/userActions";
+import { useSelector, useDispatch } from "react-redux";
 
 function CommunityPage() {
   const [allPosts, setAllPosts] = useState([]);
   const [allAnnouncements, setAllAnnouncements] = useState([]);
+  const isLoggedIn = useSelector(state => state.userReducer.loggedIn);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     loadAllPosts();
     loadAllAnnouncements();
   }, []);
 
-
+  useEffect(() => {//look if there's DONE notification
+    if (isLoggedIn) dispatch(fetchNotificationDone());
+  }, []);
 
   const loadAllPosts = () => {
 
