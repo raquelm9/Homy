@@ -38,7 +38,7 @@ function ResidentRequestType() {
       <BackButton />
       <div className="row">
         <div className="col-12">
-          <h1 className="resident-request-title">REQUEST A SERVICE</h1>
+          <h1 style={TITLE_STYLE} className="resident-request-title">REQUEST A SERVICE</h1>
         </div>
       </div>
       <div className="list-group">
@@ -63,3 +63,8 @@ function ResidentRequestType() {
 }
 
 export default ResidentRequestType;
+
+const TITLE_STYLE = {
+  marginTop: "0",
+  paddingTop: "0"
+}
