@@ -93,12 +93,12 @@ function MngrRequestList() {
   useEffect(() => {
     // loadData();
     loadAllData();
-    console.log("useEffect with loadAllData fires");
+    // console.log("useEffect with loadAllData fires");
   }, []);
 
-  useEffect(() => {
-    console.warn("REQUEST LIST HAS CHANGED");
-  }, [allRequests]);
+  // useEffect(() => {
+  //   console.warn("REQUEST LIST HAS CHANGED");
+  // }, [allRequests]);
 
   // const loadData = () => {
   // new HttpService().getRequests().then(
