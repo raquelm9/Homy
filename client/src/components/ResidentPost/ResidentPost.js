@@ -11,24 +11,15 @@ import {selectUser} from "../../selectors/userSelectors";
 
 
 function ResidentPost({ postId,username, caption, image, userAvatarUrl, comments }) {
-    const [allPosts, setAllPosts] = useState([]);
+  
     const [newComment, setNewComment] =useState([]);
 
     const [commentsToDisplay, setCommentsToDisplay] = useState(null);
 
-    const history = useHistory();
-     //const loggedIn = useSelector((state) => state.userReducer.loggedIn);
+     
 
-
-//   useEffect(() => {
-//     if (loggedIn) {
-//       postComment();
-//     }
-//   }, [loggedIn]);
-
-// useEffect(() => {
-//     postComment();
-//   }, []);
+    
+    
 
 const currentUser = useSelector(selectUser);
   const name = currentUser.name;
@@ -45,70 +36,30 @@ const currentUser = useSelector(selectUser);
     new HttpService().createComment( postId, name, newComment )
     .then(
       (data) => {
-        console.log(data.comments)
-        setCommentsToDisplay(data.comments)
-        setNewComment('');
-        // setAlfaComments('')
+        console.log(data)
+        setCommentsToDisplay(data)
+        setNewComment('')
+        
       },
+     
       (err) => {}
     );
 
   };
 
+  
 
 
 
-    // const postComment = async (event) => {
-    //    event.preventDefault();
-    //     await fetch(`${config.SERVER_URL}/api/post/${comment}`, {
-    //       method: "PUT",
-    //       headers: {
-    //         "x-auth-token": `${localStorage.getItem("token")}`,
-    //       },
-    //     });
-    //     history.go(0);
-
-    //     const newHttpRequest = new HttpService();
-
-    //     return newHttpRequest.postComment({comment})
-
-    
-        
-    //   };
-       
-      
-
-    
-
-    // const newHttpRequest = new HttpService();
-
-    // return newHttpRequest.postComment({comment})
-    //     .finally(() => {
-    //     history.push("/post");
-
-
-    // })
 
     const handleChange = (event) => {
         event.preventDefault();
         setNewComment(event.target.value);
     };
     
-    // const postComments = (event) => {
-    //     event.preventDefault();
-    //     // const recentComment = event.target.value
-    //     console.log(comment);
-        
-
-    //     }
-
+    
 
     const allComments = (comments) => {
-      // return (
-      //   comments.map((comment, key) => (
-      //       <ResidentPostComment username={comment.username} comment={comment.comment} key={key}/>
-      //   ))
-      //   )
       
       
       if (!commentsToDisplay) {
