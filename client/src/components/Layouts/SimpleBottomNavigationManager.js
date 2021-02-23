@@ -5,15 +5,16 @@ import { Modal, Button} from "react-bootstrap";
 // import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
-import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
+// import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
+import RecordVoiceOverRoundedIcon  from '@material-ui/icons/RecordVoiceOverRounded';
 import "./SimpleBottomNavigation.css";
 // import HttpService from "../../services/http-service";
 // import PostModal from "../PostModal/PostModal";
-import ResidentPostForm from "../ResidentPostForm/ResidentPostForm";
+import MngrPostForm from "../MngrPostForm/MngrPostForm";
+import Announcements from "../../pages/Residents/CommunityPage/Announcements";
 
-export default function SimpleBottomNavigation() {
+export default function SimpleBottomNavigationManager() {
   // const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [show, setShow] = useState(false);
@@ -36,7 +37,7 @@ export default function SimpleBottomNavigation() {
         <Modal.Body>
 
 
-          <ResidentPostForm/>
+          <MngrPostForm/>
 
         </Modal.Body>
         <Modal.Footer>
@@ -64,8 +65,8 @@ export default function SimpleBottomNavigation() {
       {/* <PostModal show={show} handleShow/> */}
       <BottomNavigationAction
         // label="Home"
-        value="home"
-        icon={<HomeRoundedIcon />}
+        value="announcement"
+        icon={<RecordVoiceOverRoundedIcon/>}
       />
       <BottomNavigationAction
         // label="Post"
@@ -73,11 +74,11 @@ export default function SimpleBottomNavigation() {
         icon={<AddRoundedIcon />}
         onClick={handleShow}
       />
-      <BottomNavigationAction
+      {/* <BottomNavigationAction
         // label="Profile"
         value="profile"
         icon={<PersonRoundedIcon />}
-      />
+      /> */}
     </BottomNavigation>
   );
 }
