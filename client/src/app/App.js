@@ -30,7 +30,7 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.userReducer.user);
   const loggedIn = useSelector(state => state.userReducer.loggedIn);
-  
+
   useEffect(() => {
     dispatch(autoLogin());
     if (loggedIn) {

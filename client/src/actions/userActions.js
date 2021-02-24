@@ -103,7 +103,10 @@ export const fetchNotificationDone = () => (dispatch) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data) dispatch(setUserNotification(data))
+      if (data && data.length) {
+        console.log('setUserNotification')
+        dispatch(setUserNotification(data))
+      }
     })
     .catch((err) => console.log('error', err));
 
