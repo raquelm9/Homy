@@ -1,41 +1,49 @@
 import React, { useState, useEffect } from "react";
-import {Card} from 'react-bootstrap';
+// import {Card} from 'react-bootstrap';
 
 import SimpleBottomNavigation from "../../../components/Layouts/SimpleBottomNavigation";
 import ResidentPost from "../../../components/ResidentPost/ResidentPost";
 import Announcements from '../CommunityPage/Announcements';
 import "./CommunityPage.css";
 import HttpService from "../../../services/http-service";
+import { fetchNotificationDone } from "../../../actions/userActions";
+import { useSelector, useDispatch } from "react-redux";
 
 function CommunityPage() {
   const [allPosts, setAllPosts] = useState([]);
   const [allAnnouncements, setAllAnnouncements] = useState([]);
+  const isLoggedIn = useSelector(state => state.userReducer.loggedIn);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     loadAllPosts();
     loadAllAnnouncements();
   }, []);
 
-
+  useEffect(() => {//look if there's DONE notification
+    if (isLoggedIn) dispatch(fetchNotificationDone());
+  }, []);
 
   const loadAllPosts = () => {
-    
+
     new HttpService().getAllPosts().then(
       (data) => {
-    
-        const newData = [...data].reverse()
-        setAllPosts(newData);
+        if (!data.error) {
+          const newData = [...data].reverse()
+          setAllPosts(newData);
+        }
+
       },
-      (err) => {}
+      (err) => { }
     );
   };
 
   const loadAllAnnouncements = () => {
     new HttpService().getAllAnnouncements().then(
       (data) => {
-        setAllAnnouncements(data);
+        if (!data.error) setAllAnnouncements(data);
       },
-      (err) => {}
+      (err) => { }
     );
   };
 
@@ -60,11 +68,11 @@ function CommunityPage() {
     console.log(announcements)
     return announcements.map((announcement, key) => (
       <Announcements
-      username={announcement.username}
-      image={announcement.image}
-      title={announcement.title}
-      announcement={announcement.announcement}
-      key={key}
+        username={announcement.username}
+        image={announcement.image}
+        title={announcement.title}
+        announcement={announcement.announcement}
+        key={key}
       />
     ));
   };

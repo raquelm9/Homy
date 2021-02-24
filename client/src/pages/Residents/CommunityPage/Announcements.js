@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, Image } from "react-bootstrap";
+import { Card, Image } from "react-bootstrap";
 import "./Annoucements.css";
 
 const Announcements = ({ username, image, title, announcement }) => {

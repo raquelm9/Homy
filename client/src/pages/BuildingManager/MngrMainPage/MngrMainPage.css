@@ -71,3 +71,8 @@
   color: #9c27b0;
   background-color: #cbcbcb00;
 }
+
+.badge__new {
+  margin-left: 5px;
+  padding: 5px;
+}

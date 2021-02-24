@@ -51,7 +51,6 @@ function App() {
         <Route exact path="/home" component={HomePage} />
         <Route exact path="/community" component={CommunityPage} />
         <Route
-          onEnter={() => dispatch(fetchNotificationDone())}
           exact path="/resident-request" component={ResidentRequest} />
         <Route
           exact

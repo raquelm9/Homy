@@ -1,39 +1,70 @@
 import React from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logUserOut } from "../../actions/userActions";
-import './MngrNavbar.css'
+import "./MngrNavbar.css";
 
 const NavbarCommon = () => {
-    const dispatch = useDispatch();
-    const loggedIn = useSelector((state) => state.userReducer.loggedIn);
-    // const location = useLocation();
-    return (
-        <>
-            <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-                <div className="container-fluid">
-                    <Link className="navbar-brand" to='/manager'><span className='homyTextNavbar'>homy</span></Link>
-                <button className="navbar-toggler btn-outline-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li className="nav-item">
-                        <Link className="nav-link" to='/manager/request-list-of-services'>Requests</Link>   
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to='/manager/orders'>Orders</Link>   
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link disabled" to='/manager/orders'>Units</Link>   
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link disabled" to='/manager/orders'>Residents</Link>   
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link  disabled" to='/manager/orders'>Reports</Link>   
-                    </li>
-                    {/* <li class="nav-item dropdown">
+  const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.userReducer.loggedIn);
+  // const location = useLocation();
+  return (
+    <>
+      <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/manager">
+            <span className="homyTextNavbar">homy</span>
+          </Link>
+          <button
+            className="navbar-toggler btn-outline-warning"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/manager/commune"
+                >
+                  Commune
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/manager/request-list-of-services"
+                >
+                  Requests
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/manager/orders">
+                  Orders
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link disabled" to="/manager/orders">
+                  Units
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link disabled" to="/manager/orders">
+                  Residents
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link  disabled" to="/manager/orders">
+                  Reports
+                </Link>
+              </li>
+              {/* <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Dropdown
                         </a>
@@ -44,12 +75,12 @@ const NavbarCommon = () => {
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li> */}
-                    {/* <li class="nav-item">
+              {/* <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li> */}
-                </ul>
+            </ul>
             <span className="d-flex">
-            <span>
+              <span>
                 {loggedIn ? (
                   <ul className="navbar-nav">
                     <li className="nav-item">
@@ -73,11 +104,11 @@ const NavbarCommon = () => {
                 )}
               </span>
             </span>
-            </div>
+          </div>
         </div>
-        </nav>
-            </>
-    )
-}
+      </nav>
+    </>
+  );
+};
 
 export default NavbarCommon;

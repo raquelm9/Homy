@@ -74,14 +74,14 @@ function NotificationModal({ open }) {
                     <div style={GREETING_STYLE}>
                         <h3>Hello, {user.name}!</h3>
                     </div>
-                    <hr />
+                    {/* <hr /> */}
                     <div style={TEXT_STYLE}>
-                        <p>
+                        {/* <p>
                             One of your request as been given a status of DONE by your building manager.
                             If you don't agree with him, you can click the button "Unsatified". Please add a comment to
                             explain how you're not satisfied.
                             And the request will remain active.
-                        </p>
+                        </p> */}
                     </div>
                     <hr />
                     <div style={REQUEST_STYLE}>
@@ -157,11 +157,13 @@ const MODAL_STYLES = {
     transform: 'translate(-50%, -50%)',
     backgroundColor: '$FFF',
     padding: '5%',
+    marginTop: "5%",
     zIndex: 1000,
     color: "white",
 
     width: "80%",
     heigth: "80%",
+    maxHeight: "80%",
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column'

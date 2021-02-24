@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {Card} from 'react-bootstrap';
+// import {Card} from 'react-bootstrap';
 
 // import SimpleBottomNavigation from "../../../components/Layouts/SimpleBottomNavigation";
 import ResidentPost from "../ResidentPost/ResidentPost";
 import Announcements from '../../pages/Residents/CommunityPage/Announcements';
 import "../../pages/Residents/CommunityPage/CommunityPage.css";
 import HttpService from "../../services/http-service";
+import SimpleBottomNavigationManager from "../Layouts/SimpleBottomNavigationManager";
 
 
 function MngrCommuneView() {
@@ -37,7 +38,7 @@ function MngrCommuneView() {
   };
 
   const mappingPosts = (posts) => {
-    console.log(posts)
+    // console.log(posts)
     return posts.map((post, key) => (
       <ResidentPost
         username={post.username}
@@ -52,18 +53,18 @@ function MngrCommuneView() {
   };
 
 
-//   const mappingAnnouncements = (announcements) => {
-//     console.log(announcements)
-//     return announcements.map((announcement, key) => (
-//       <Announcements
-//       username={announcement.username}
-//       image={announcement.image}
-//       title={announcement.title}
-//       announcement={announcement.announcement}
-//       key={key}
-//       />
-//     ));
-//   };
+  const mappingAnnouncements = (announcements) => {
+    // console.log(announcements)
+    return announcements.map((announcement, key) => (
+      <Announcements
+      username={announcement.username}
+      image={announcement.image}
+      title={announcement.title}
+      announcement={announcement.announcement}
+      key={key}
+      />
+    ));
+  };
 
 
 
@@ -71,14 +72,14 @@ function MngrCommuneView() {
   return (
     <div className="community--page">
       {/* {allAnnouncements && wrapAnnoucements} */}
-      {/* {mappingAnnouncements(allAnnouncements)} */}
+      {mappingAnnouncements(allAnnouncements)}
       <div className="community--page__posts">
         {mappingPosts(allPosts)}
         {/* comment section  */}
         {/* Footer navbar */}
       </div>
       <div className="community--page__bottom">
-        {/* <SimpleBottomNavigation /> */}
+        <SimpleBottomNavigationManager/>
       </div>
     </div>
   );

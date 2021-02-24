@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 // import {useState, useEffect} from 'react';
 import './MngrMainPage.css';
@@ -10,9 +10,58 @@ import MngrRequestListOfResidents from '../../../components/MngrRequestListOfRes
 import MngrHomeView from '../../../components/MngrHomeView/MngrHomeView';
 import MngrShowOrders from '../../../components/MngrShowOrders/MngrShowOrders';
 import MngrCommuneView from '../../../components/MngrCommuneView/MngrCommuneView';
+import HttpService from "../../../services/http-service";
+import {
+    NEW,
+    // VIEWED,
+    // INPROGRESS,
+    // DONE,
+    // VERIFIED,
+    // ARCHIVED,
+    // statusTEXT,
+  } from "../../../constants/status";
 
 
 const MngrMainPage = () => {
+    // const [allRequests, setAllRequests] = useState([]);
+    const [showNewRequestTag, setShowNewRequestTag] = useState(false);
+    // const [numberOfNewRequests, setNumberOfNewRequests] = useState(0);
+
+    useEffect(() => {
+        // loadData();
+        loadAllData();
+        // console.log("useEffect with loadAllData fires");
+      }, []);
+
+    const loadAllData = () => {
+        setShowNewRequestTag(false)
+        new HttpService().getAllServiceRequests().then(
+          (data) => {
+            // sortManagerList(data);
+            // setAllRequests(data);
+            return data;
+            // save all requests in allRequests state variables
+            // console.log("data : ", data)
+            // filterRequestList(data);
+          },
+          (err) => {}
+        ).then((requests) => {
+            if (requests) {
+                // console.log(requests)
+                requests.map((request, key) => {
+                    // console.log(request.status)
+                    if (request.status === NEW) {
+                        // console.log('there are new')
+                        setShowNewRequestTag(true)
+                    }
+                    
+                })
+            }
+            
+        },
+        (err) => {})
+      };
+
     return (
 
                 <div>
@@ -28,7 +77,10 @@ const MngrMainPage = () => {
                                     <h2>Commune</h2>
                                 </Link>
                                 <Link className="menu-link" to='/manager/request-list-of-services' >
-                                    <h2>Requests  <span className="badge bg-secondary">New</span></h2>
+                                    <h2>Requests   
+                                        {showNewRequestTag && <span className="badge bg-secondary badge__new">new</span>}
+                                    
+                                    </h2>
                                 </Link>
                                 <Link className="menu-link" to='/manager/orders' >
                                     <h2>Orders</h2>
