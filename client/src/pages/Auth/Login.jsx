@@ -59,7 +59,7 @@ function Login(props) {
           }}
           validate={(values) => {
             const errors = {};
-            const emailRegex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/, 'i')
+            const emailRegex = new RegExp('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$', 'i')
             if (!values.email) {
               errors.email = "Required";
             } else if (
