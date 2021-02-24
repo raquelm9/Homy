@@ -106,7 +106,7 @@ const CheckoutForm = (props) => {
         icon: "success",
         button: "Dismiss",
       }).then(() => {
-        history.push("/resident-request");
+        history.push("/home");
       });
     } else {
       swal({

@@ -113,6 +113,8 @@ exports.getOrders = (req, res) => {
       return res.sendStatus(500)
     })
 };
+
+
 exports.deleteOrder = (req, res) => {
   const orderId = req.params.id;
 

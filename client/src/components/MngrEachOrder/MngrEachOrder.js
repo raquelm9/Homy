@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import DetailModal from "../DetailModal/DetailModal";
 import { useHistory } from "react-router-dom";
 import { config } from "../../config/config";
@@ -6,15 +6,17 @@ import { config } from "../../config/config";
 function ResidentEachService(props) {
   // const modalId = `request-${props.id}`;
   const history = useHistory();
-  const handleOnClick = () => {
-    fetch(`${config.SERVER_URL}/api/shop/orders/${props.id}`, {
+  const handleOnClick = async () => {
+
+    await fetch(`${config.SERVER_URL}/api/shop/orders/${props.id}`, {
       method: "DELETE",
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,
       },
-    });
+    })
     history.go(0);
   };
+
 
   const handleDate = () => {
     let dateObject = new Date(props.date).toLocaleDateString("en-CA", {
