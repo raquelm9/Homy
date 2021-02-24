@@ -1,23 +1,20 @@
-import React from 'react';
-import {Card, Image} from 'react-bootstrap';
-import './Annoucements.css'
+import React from "react";
+import { Card, Image } from "react-bootstrap";
+import "./Annoucements.css";
 
+const Announcements = ({ username, image, title, announcement }) => {
+  return (
+    <Card>
+      <Card.Header as="h2">Announcements</Card.Header>
 
-const Announcements = ({username, image, title, announcement}) => {
-    return ( 
- <Card>
-    <Card.Header as="h2">Announcements</Card.Header>
+      <Card.Body>
+        <Image className="announcement__image" src={image} fluid />
+        <Card.Title>{title}</Card.Title>
+        <Card.Text>{announcement}</Card.Text>
+      </Card.Body>
+      {/* <Button variant="dark">Got it</Button> */}
+    </Card>
+  );
+};
 
-    <Card.Body>
-    <Image className="announcement__image" src={image} fluid />
-    <Card.Title>{title}</Card.Title>
-    <Card.Text>
-        {announcement} 
-    </Card.Text>
-    </Card.Body>
-    {/* <Button variant="dark">Got it</Button> */}
-</Card>
-     );
-}
- 
-export default Announcements ;
+export default Announcements;
