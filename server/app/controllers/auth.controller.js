@@ -51,14 +51,12 @@ exports.login = async (req, res) => {
 
     user.unit_num = resident.unit_num;
     user.name = resident.name;
-    user.notification_active = resident.notification_active;
-    user.notification_req_id = resident.notification_req_id;
 
     const token = user.generateAuthToken();
 
     res
       .header("x-auth-token", token)
-      .send(_.pick(user, ["_id", "email", "name", "unit_num", "notification_active", , "notification_req_id"]));
+      .send(_.pick(user, ["_id", "email", "name", "unit_num"]));
   } catch (err) {
     console.log(err)
     return res.sendStatus(500)
@@ -81,11 +79,9 @@ exports.verifyUser = async (req, res) => {
 
       user.unit_num = resident.unit_num;
       user.name = resident.name;
-      user.notification_active = resident.notification_active;
-      user.notification_req_id = resident.notification_req_id;
       res
         .header("x-auth-token", token)
-        .send(_.pick(user, ["_id", "email", "unit_num", "name", "notification_active", , "notification_req_id"]));
+        .send(_.pick(user, ["_id", "email", "unit_num", "name"]));
     } else {//login as manager
       let manager = await Manager.findOne({ user_id: user._id });
 
